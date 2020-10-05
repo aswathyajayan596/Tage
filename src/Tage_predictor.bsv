@@ -16,14 +16,14 @@ package Tage_predictor;
     function GlobalHistory update_GHR(GlobalHistory t_ghr, Bit#(1) pred_or_outcome);
         t_ghr = (t_ghr << 1);
         if(pred_or_outcome == 1'b1)
-            t_ghr = t_ghr + 131'b1;
+            t_ghr = t_ghr + 1;
         return t_ghr;
     endfunction
 
     function PathHistory update_PHR(PathHistory t_phr, ProgramCounter t_pc);
         t_phr = (t_phr << 1);    //to append 0 to LSB
         if(t_pc[2] == 1'b1)
-            t_phr = t_phr + 32'b1;   //to append 1 to LSB
+            t_phr = t_phr + 1;   //to append 1 to LSB
         return t_phr;
     endfunction
 
