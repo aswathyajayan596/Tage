@@ -152,17 +152,17 @@ package Testbench;
 
         rule end_simulation(ctr == `traceSize+1);
 
-            // $display("Result:%d,%d", correct, incorrect);
-            $display("Result: Correct = %d, Incorrect = %d", correct, incorrect);
+            $display("Result:%d,%d", correct, incorrect);       //to use with script
+            // $display("Result: Correct = %d, Incorrect = %d", correct, incorrect);
 
-            // `ifdef DISPLAY
+            `ifdef DISPLAY
                 // $display("Incorrect = %d      Correct = %d",incorrect,correct);
                 $display("\nBimodal Table \n", fshow(table_ctr[0]));
                 $display("\nTable 1\n", fshow(table_ctr[1]));
                 $display("\nTable 2 \n", fshow(table_ctr[2]));
                 $display("\nTable 3 \n", fshow(table_ctr[3]));
                 $display("\nTable 4 \n", fshow(table_ctr[4]));
-            // `endif
+            `endif
 
             $finish(0);
 

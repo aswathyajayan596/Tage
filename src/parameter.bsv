@@ -3,8 +3,8 @@
 
 
 //uncomment below line if you want to see simulation display
-`define  DISPLAY             1
-`define  DEBUG               1
+// `define  DISPLAY             1
+// `define  DEBUG               1
 
 //change the below parameters for analysis only
 `define     NUMTAGTABLES        4   
