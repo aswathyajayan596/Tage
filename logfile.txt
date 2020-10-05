@@ -1,0 +1,618 @@
+rm -r -f  build_bsim  build_v  verilog_dir  *~
+rm -f  *mkTestbench*  *.vcd
+mkdir  ./build_bsim
+mkdir  ./build_bsim/exec
+mkdir  ./build_bsim/sim
+mkdir  ./build_bsim/bin
+mkdir  ./build_bsim/info
+mkdir  ./build_bsim/dump
+Compiling for Bluesim ...
+bsc -u -sim -show-schedule -simdir ./build_bsim/sim -bdir ./build_bsim/bin -info-dir ./build_bsim/info -elab -keep-fires -aggressive-conditions -no-warn-action-shadowing +RTS -M8G -A128m -RTS -show-range-conflict -p ./src:%/Libraries -g mkTestbench  ./src/Testbench.bsv
+checking package dependencies
+compiling ./src/Type_TAGE.bsv
+compiling ./src/Utils.bsv
+compiling ./src/Tage_predictor.bsv
+code generation for mkTage_predictor starts
+Warning: "src/Tage_predictor.bsv", line 50, column 12: (G0020)
+  System functions (e.g., $display) called by interface methods execute in an
+  unpredictable order during Verilog simulations.
+      Top-level interface method `updateTablePred' calls a system function
+      (e.g., $display) at "src/Tage_predictor.bsv", line 304, column 17
+Warning: "src/Tage_predictor.bsv", line 50, column 12: (G0010)
+  Rule "computePrediction" was treated as more urgent than
+  "rl_reconstruct_GHR_PHR". Conflicts:
+    "computePrediction" cannot fire before "rl_reconstruct_GHR_PHR":
+      calls to w_pred_over.wset vs. w_pred_over.wset
+    "rl_reconstruct_GHR_PHR" cannot fire before "computePrediction":
+      calls to w_pred_over.wset vs. w_pred_over.wset
+Schedule dump file created: ./build_bsim/info/mkTage_predictor.sched
+Elaborated module file created: ./build_bsim/bin/mkTage_predictor.ba
+compiling ./src/Testbench.bsv
+code generation for mkTestbench starts
+Schedule dump file created: ./build_bsim/info/mkTestbench.sched
+Elaborated module file created: ./build_bsim/bin/mkTestbench.ba
+All packages are up to date.
+Compiling for Bluesim finished
+Linking for Bluesim ...
+bsc -e mkTestbench -sim -o ./build_bsim/exec/mkTestbench_bsim.o -simdir ./build_bsim/sim -bdir ./build_bsim/bin -info-dir ./build_bsim/info -keep-fires -p ./src:%/Libraries # \
+	# /Common/C_imports.c
+Bluesim object created: build_bsim/sim/mkTestbench.{h,o}
+Bluesim object created: build_bsim/sim/mkTage_predictor.{h,o}
+Bluesim object created: build_bsim/sim/model_mkTestbench.{h,o}
+Simulation shared library created: ./build_bsim/exec/mkTestbench_bsim.o.so
+Simulation executable created: ./build_bsim/exec/mkTestbench_bsim.o
+Linking for Bluesim finished
+Bluesim simulation ...
+././build_bsim/exec/mkTestbench_bsim.o -V ./build_bsim/dump/dump.vcd
+Warning: file 'trace_files/traces_outcome.hex' for memory 'actualOutcome' has a gap at addresses 1792835 to 4194303.
+Warning: file 'trace_files/traces_br.hex' for memory 'branches' has a gap at addresses 1792835 to 4194303.
+
+=====================================================================================================================
+
+Cycle          1   Ctr       0
+
+Current Branch Address, PC =  00000000004180cf         1
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+Internal PHR(reflected only at next cycle): 00000000000000000000000000000001
+
+=====================================================================================================================
+
+Cycle          2   Ctr       1
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h0cf, tagTable_index: <V 'h0ae 'h00e 'h14e 'h3cf  >, tableTag: <V tagged Tag1 'hcf tagged Tag1 'hcf tagged Tag2 'h0cf tagged Tag2 'h0cf  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000001, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h00000001 }         2
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  00000000004180cf
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 1         2
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h0cf, tagTable_index: <V 'h0ae 'h00e 'h14e 'h3cf  >, tableTag: <V tagged Tag1 'hcf tagged Tag1 'hcf tagged Tag2 'h0cf tagged Tag2 'h0cf  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000001, tableNo: 'h0, altpred: 'h1, mispred: 'h0, actualOutcome: 'h1, phr: 'h00000001 }         2
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417ddc         2
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011
+Internal PHR(reflected only at next cycle): 00000000000000000000000000000011
+
+=====================================================================================================================
+
+Cycle          3   Ctr       2
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5dc, tagTable_index: <V 'h181 'h160 'h0a3 'h325  >, tableTag: <V tagged Tag1 'hdf tagged Tag1 'hdf tagged Tag2 'h1df tagged Tag2 'h1df  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000003, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h00000003 }         3
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417ddc
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 0         3
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5dc, tagTable_index: <V 'h181 'h160 'h0a3 'h325  >, tableTag: <V tagged Tag1 'hdf tagged Tag1 'hdf tagged Tag2 'h1df tagged Tag2 'h1df  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000003, tableNo: 'h0, altpred: 'h1, mispred: 'h1, actualOutcome: 'h0, phr: 'h00000003 }         3
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010
+Internal PHR(reflected only at next cycle): 00000000000000000000000000000011
+
+=====================================================================================================================
+
+Cycle          4   Ctr       2
+
+Misprediction happened in last iteration. Starting from current PC
+
+Current Branch Address, PC =  0000000000417de9         4
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101
+Internal PHR(reflected only at next cycle): 00000000000000000000000000000110
+
+=====================================================================================================================
+
+Cycle          5   Ctr       3
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h1b0 'h151 'h092 'h314  >, tableTag: <V tagged Tag1 'he9 tagged Tag1 'he9 tagged Tag2 'h1e9 tagged Tag2 'h1e9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000005, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h00000006 }         5
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417de9
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 0         5
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h1b0 'h151 'h092 'h314  >, tableTag: <V tagged Tag1 'he9 tagged Tag1 'he9 tagged Tag2 'h1e9 tagged Tag2 'h1e9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000005, tableNo: 'h0, altpred: 'h1, mispred: 'h1, actualOutcome: 'h0, phr: 'h00000006 }         5
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100
+Internal PHR(reflected only at next cycle): 00000000000000000000000000000110
+
+=====================================================================================================================
+
+Cycle          6   Ctr       3
+
+Misprediction happened in last iteration. Starting from current PC
+
+Current Branch Address, PC =  0000000000417df4         6
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001
+Internal PHR(reflected only at next cycle): 00000000000000000000000000001101
+
+=====================================================================================================================
+
+Cycle          7   Ctr       4
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h1a6 'h147 'h084 'h302  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000009, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h0000000d }         7
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417df4
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 1         7
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h1a6 'h147 'h084 'h302  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000009, tableNo: 'h0, altpred: 'h1, mispred: 'h0, actualOutcome: 'h1, phr: 'h0000000d }         7
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417de9         7
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010
+Internal PHR(reflected only at next cycle): 00000000000000000000000000011010
+
+=====================================================================================================================
+
+Cycle          8   Ctr       5
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h1ad 'h14c 'h08f 'h309  >, tableTag: <V tagged Tag1 'hea tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000012, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0000001a }         8
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417de9
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0         8
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h1ad 'h14c 'h08f 'h309  >, tableTag: <V tagged Tag1 'hea tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000012, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000001a }         8
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417df4         8
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100101
+Internal PHR(reflected only at next cycle): 00000000000000000000000000110101
+
+=====================================================================================================================
+
+Cycle          9   Ctr       6
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h19e 'h17f 'h0bc 'h33a  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000025, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h00000035 }         9
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417df4
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 1         9
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h19e 'h17f 'h0bc 'h33a  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000025, tableNo: 'h0, altpred: 'h1, mispred: 'h0, actualOutcome: 'h1, phr: 'h00000035 }         9
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417de9         9
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001010
+Internal PHR(reflected only at next cycle): 00000000000000000000000001101010
+
+=====================================================================================================================
+
+Cycle         10   Ctr       7
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h1fd 'h13c 'h0ff 'h379  >, tableTag: <V tagged Tag1 'h8a tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h00000000000000000000000000000004a, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0000006a }        10
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417de9
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0        10
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h1fd 'h13c 'h0ff 'h379  >, tableTag: <V tagged Tag1 'h8a tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h00000000000000000000000000000004a, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000006a }        10
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417df4        10
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010101
+Internal PHR(reflected only at next cycle): 00000000000000000000000011010101
+
+=====================================================================================================================
+
+Cycle         11   Ctr       8
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h17e 'h19f 'h05c 'h3da  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000095, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h000000d5 }        11
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417df4
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 0        11
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h17e 'h19f 'h05c 'h3da  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000095, tableNo: 'h0, altpred: 'h1, mispred: 'h1, actualOutcome: 'h0, phr: 'h000000d5 }        11
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010100
+Internal PHR(reflected only at next cycle): 00000000000000000000000011010101
+
+=====================================================================================================================
+
+Cycle         12   Ctr       8
+
+Misprediction happened in last iteration. Starting from current PC
+
+Current Branch Address, PC =  0000000000417e0d        12
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100101001
+Internal PHR(reflected only at next cycle): 00000000000000000000000110101011
+
+=====================================================================================================================
+
+Cycle         13   Ctr       9
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h60d, tagTable_index: <V 'h3f9 'h319 'h2d8 'h15a  >, tableTag: <V tagged Tag1 'h0d tagged Tag1 'h0d tagged Tag2 'h00d tagged Tag2 'h00d  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000129, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h000001ab }        13
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417e0d
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 0        13
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h60d, tagTable_index: <V 'h3f9 'h319 'h2d8 'h15a  >, tableTag: <V tagged Tag1 'h0d tagged Tag1 'h0d tagged Tag2 'h00d tagged Tag2 'h00d  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000129, tableNo: 'h0, altpred: 'h1, mispred: 'h1, actualOutcome: 'h0, phr: 'h000001ab }        13
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100101000
+Internal PHR(reflected only at next cycle): 00000000000000000000000110101011
+
+=====================================================================================================================
+
+Cycle         14   Ctr       9
+
+Misprediction happened in last iteration. Starting from current PC
+
+Current Branch Address, PC =  00000000004180cf        14
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001010001
+Internal PHR(reflected only at next cycle): 00000000000000000000001101010111
+
+=====================================================================================================================
+
+Cycle         15   Ctr      10
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h0cf, tagTable_index: <V 'h3d8 'h358 'h218 'h099  >, tableTag: <V tagged Tag1 'haf tagged Tag1 'hcf tagged Tag2 'h0cf tagged Tag2 'h0cf  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000251, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h00000357 }        15
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  00000000004180cf
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 1        15
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h0cf, tagTable_index: <V 'h3d8 'h358 'h218 'h099  >, tableTag: <V tagged Tag1 'haf tagged Tag1 'hcf tagged Tag2 'h0cf tagged Tag2 'h0cf  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000000251, tableNo: 'h0, altpred: 'h1, mispred: 'h0, actualOutcome: 'h1, phr: 'h00000357 }        15
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417ddc        15
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010100010
+Internal PHR(reflected only at next cycle): 00000000000000000000011010101111
+
+=====================================================================================================================
+
+Cycle         16   Ctr      11
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5dc, tagTable_index: <V 'h32c 'h3cd 'h20e 'h188  >, tableTag: <V tagged Tag1 'hdf tagged Tag1 'hdf tagged Tag2 'h1df tagged Tag2 'h1df  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h0000000000000000000000000000004a2, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h000006af }        16
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417ddc
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0        16
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5dc, tagTable_index: <V 'h32c 'h3cd 'h20e 'h188  >, tableTag: <V tagged Tag1 'hdf tagged Tag1 'hdf tagged Tag2 'h1df tagged Tag2 'h1df  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h0000000000000000000000000000004a2, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h000006af }        16
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417de9        16
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100101000100
+Internal PHR(reflected only at next cycle): 00000000000000000000110101011110
+
+=====================================================================================================================
+
+Cycle         17   Ctr      12
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h0cb 'h00a 'h1c9 'h24f  >, tableTag: <V tagged Tag1 'h89 tagged Tag1 'he9 tagged Tag2 'h1e9 tagged Tag2 'h1e9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000944, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h00000d5e }        17
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417de9
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0        17
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h0cb 'h00a 'h1c9 'h24f  >, tableTag: <V tagged Tag1 'h89 tagged Tag1 'he9 tagged Tag2 'h1e9 tagged Tag2 'h1e9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000944, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h00000d5e }        17
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417df4        17
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001010001001
+Internal PHR(reflected only at next cycle): 00000000000000000001101010111101
+
+=====================================================================================================================
+
+Cycle         18   Ctr      13
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h310 'h3f1 'h232 'h1b4  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000001289, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h00001abd }        18
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417df4
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 1        18
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h310 'h3f1 'h232 'h1b4  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h2 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000001289, tableNo: 'h0, altpred: 'h1, mispred: 'h0, actualOutcome: 'h1, phr: 'h00001abd }        18
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417de9        18
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010100010010
+Internal PHR(reflected only at next cycle): 00000000000000000011010101111010
+
+=====================================================================================================================
+
+Cycle         19   Ctr      14
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h0c0 'h021 'h1e2 'h264  >, tableTag: <V tagged Tag1 'hea tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000002512, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0000357a }        19
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417de9
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0        19
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h0c0 'h021 'h1e2 'h264  >, tableTag: <V tagged Tag1 'hea tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000002512, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000357a }        19
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417df4        19
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100101000100101
+Internal PHR(reflected only at next cycle): 00000000000000000110101011110101
+
+=====================================================================================================================
+
+Cycle         20   Ctr      15
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h344 'h3a5 'h266 'h1e0  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000004a25, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h00006af5 }        20
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417df4
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 1        20
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h344 'h3a5 'h266 'h1e0  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hf4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000004a25, tableNo: 'h0, altpred: 'h1, mispred: 'h0, actualOutcome: 'h1, phr: 'h00006af5 }        20
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417de9        20
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001010001001010
+Internal PHR(reflected only at next cycle): 00000000000000001101010111101010
+
+=====================================================================================================================
+
+Cycle         21   Ctr      16
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h048 'h089 'h14a 'h2cc  >, tableTag: <V tagged Tag1 'h8a tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h00000000000000000000000000000944a, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0000d5ea }        21
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417de9
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0        21
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5e9, tagTable_index: <V 'h048 'h089 'h14a 'h2cc  >, tableTag: <V tagged Tag1 'h8a tagged Tag1 'hea tagged Tag2 'h1ea tagged Tag2 'h1ea  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h00000000000000000000000000000944a, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000d5ea }        21
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417df4        21
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010100010010101
+Internal PHR(reflected only at next cycle): 00000000000000011010101111010101
+
+=====================================================================================================================
+
+Cycle         22   Ctr      17
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h214 'h2d5 'h336 'h0b0  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hb4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000012895, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h0001abd5 }        22
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417df4
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 0        22
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5f4, tagTable_index: <V 'h214 'h2d5 'h336 'h0b0  >, tableTag: <V tagged Tag1 'hf4 tagged Tag1 'hb4 tagged Tag2 'h1f4 tagged Tag2 'h1f4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h000000000000000000000000000012895, tableNo: 'h0, altpred: 'h1, mispred: 'h1, actualOutcome: 'h0, phr: 'h0001abd5 }        22
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010100010010100
+Internal PHR(reflected only at next cycle): 00000000000000011010101111010101
+
+=====================================================================================================================
+
+Cycle         23   Ctr      17
+
+Misprediction happened in last iteration. Starting from current PC
+
+Current Branch Address, PC =  0000000000417e0d        23
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100101000100101000
+Internal PHR(reflected only at next cycle): 00000000000000110101011110101011
+
+=====================================================================================================================
+
+Cycle         24   Ctr      18
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h60d, tagTable_index: <V 'h12c 'h1cc 'h00d 'h38f  >, tableTag: <V tagged Tag1 'h0d tagged Tag1 'h0d tagged Tag2 'h00d tagged Tag2 'h00d  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000025128, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h000357ab }        24
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417e0d
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0        24
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h60d, tagTable_index: <V 'h12c 'h1cc 'h00d 'h38f  >, tableTag: <V tagged Tag1 'h0d tagged Tag1 'h0d tagged Tag2 'h00d tagged Tag2 'h00d  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000025128, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h000357ab }        24
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  00000000004180cf        24
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001010001001010001
+Internal PHR(reflected only at next cycle): 00000000000001101010111101010111
+
+=====================================================================================================================
+
+Cycle         25   Ctr      19
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h0cf, tagTable_index: <V 'h273 'h2f3 'h3b3 'h132  >, tableTag: <V tagged Tag1 'haf tagged Tag1 'hcf tagged Tag2 'h0cf tagged Tag2 'h0cf  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, ghr: 'h00000000000000000000000000004a251, pred: 'h1, tableNo: 'h0, altpred: 'h1, phr: 'h0006af57 }        25
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  00000000004180cf
+Prediction of Last Branch = 1
+Outcome of Last branch assigned to Updation_Packet = 1        25
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h0cf, tagTable_index: <V 'h273 'h2f3 'h3b3 'h132  >, tableTag: <V tagged Tag1 'haf tagged Tag1 'hcf tagged Tag2 'h0cf tagged Tag2 'h0cf  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h3 'h0 'h0 'h0 'h0  >, pred: 'h1, ghr: 'h00000000000000000000000000004a251, tableNo: 'h0, altpred: 'h1, mispred: 'h0, actualOutcome: 'h1, phr: 'h0006af57 }        25
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417ddc        25
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010010100010010100010
+Internal PHR(reflected only at next cycle): 00000000000011010101111010101111
+
+=====================================================================================================================
+
+Cycle         26   Ctr      20
+
+--------------------------------------------  Prediction Packet -------------------------------------- 
+PredictionPacket { bimodal_index: 'h5dc, tagTable_index: <V 'h07a 'h0bb 'h158 'h2de  >, tableTag: <V tagged Tag1 'hdf tagged Tag1 'h9f tagged Tag2 'h1df tagged Tag2 'h1df  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h0000000000000000000000000000944a2, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h000d5eaf }        26
+--------------------------------------------------------------------------------------------------------
+
+Program Counter of Last Branch =  0000000000417ddc
+Prediction of Last Branch = 0
+Outcome of Last branch assigned to Updation_Packet = 0        26
+
+
+
+------------------------------------------  Updation Packet --------------------------------------------- 
+UpdationPacket { bimodal_index: 'h5dc, tagTable_index: <V 'h07a 'h0bb 'h158 'h2de  >, tableTag: <V tagged Tag1 'hdf tagged Tag1 'h9f tagged Tag2 'h1df tagged Tag2 'h1df  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h0000000000000000000000000000944a2, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h000d5eaf }        26
+-------------------------------------------------------------------------------------------------------------
+Updation over
+
+
+Current Branch Address, PC =  0000000000417de9        26
+Prediction started, Prediction for current branch address will be obtained in the next cycle
+Internal GHR(reflected only at next cycle): 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100101000100101000100
+Internal PHR(reflected only at next cycle): 00000000000110101011110101011110
+
+=====================================================================================================================
+
+Cycle         27   Ctr      21
+Result: Correct =          15, Incorrect =           5
+
+Bimodal Table 
+TableCounters { predictionCtr:          15, mispredictionCtr:           5 }
+
+Table 1
+TableCounters { predictionCtr:           0, mispredictionCtr:           0 }
+
+Table 2 
+TableCounters { predictionCtr:           0, mispredictionCtr:           0 }
+
+Table 3 
+TableCounters { predictionCtr:           0, mispredictionCtr:           0 }
+
+Table 4 
+TableCounters { predictionCtr:           0, mispredictionCtr:           0 }
+Bluesim simulation finished
