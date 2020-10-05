@@ -8,16 +8,16 @@
 
 //change the below parameters for analysis only
 `define     NUMTAGTABLES        4   
-`define     TABLESIZE           64
-`define     BIMODALSIZE         64
+`define     TABLESIZE           65536
+`define     BIMODALSIZE         65536
 `define     TAG1_SIZE           8
 `define     TAG2_SIZE           9
 `define     GHR1                5
 `define     GHR2                20
 `define     GHR3                80
 `define     GHR4                200
-`define     BIMODAL_LEN         6
-`define     TABLE_LEN           6
+`define     BIMODAL_LEN         16
+`define     TABLE_LEN           16
 `define     PHR_LEN             64
 
 //change the below parameters only if needed, dependent on architecture of TAGE and the design
