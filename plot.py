@@ -4,17 +4,14 @@ import csv
 import os
 import sys
 import shutil
+from tqdm import tqdm
+import time
 
-TOTAL_INSTRUCTIONS = 29499869.0
-
-traceSize = 10
-
-# 1792835
 
 rePattern = r"Result:[\s]+[\d]+,[\s]+[\d]+"
 RESULT_FILE = 'results.csv'
 
-BI_LEN_MAX = 7
+BI_LEN_MAX = 18
 
 PHR_LENGTHS = [16, 32, 64]
 GHR_SETS = [
@@ -25,9 +22,12 @@ GHR_SETS = [
 TRACE_SRC = './trace_sources/'
 TRACE_DST = './trace_files/'
 TRACES = [
-            ('DIST-INT-1', 10),
-            ('DIST-INT-3', 5),
+            # ('DIST-INT-1', 4184792, 29499987),
+            # ('DIST-INT-3', 3771697, 29499978),
+            ('DIST-FP-2', 1792835, 29499869),
+            # ('DIST-FP-4', 895842, 29499976),
          ]
+
 
 HEADERS = ['Trace', 'PHR', 'GHR 1', 'GHR 2', 'GHR 3', 'GHR 4', 'Individual Table Size', 'Accuracy',
            'MPKI', 'Correct', 'Incorrect']
@@ -71,9 +71,9 @@ if __name__ == '__main__':
             shutil.copy(TRACE_SRC + trace[0] + "/traces_br.hex", TRACE_DST + "/traces_br.hex")
             shutil.copy(TRACE_SRC + trace[0] + "/traces_outcome.hex", TRACE_DST + "/traces_outcome.hex")
             
-            for phr in PHR_LENGTHS:
-                for ghrs in GHR_SETS:
-                    for biLen in range(5, BI_LEN_MAX):
+            for phr in tqdm(PHR_LENGTHS, desc = 'PHRs'):
+                for ghrs in tqdm(GHR_SETS, desc = 'GHRs'):
+                    for biLen in tqdm(range(5, BI_LEN_MAX), desc = 'bimodalLen'):
                         with open('parameterTemp.txt', 'r') as tempFile:
                             tableSize = pow(2, biLen)
                             template = tempFile.read().strip()
@@ -87,7 +87,7 @@ if __name__ == '__main__':
                             with open(outFile, 'w') as f:
                                 f.write(params)
 
-                            res = subprocess.check_output(['make', 'all_bsim'])
+                            res = subprocess.check_output(['make', 'all_bsim'], stderr=subprocess.PIPE)
                             res = res.decode('utf8')
 
                             matches = re.search(rePattern, res)
@@ -95,13 +95,14 @@ if __name__ == '__main__':
                             resultsStr = resultsStr.replace('Result:', '')
                             correct, incorrect = [int(x.strip())
                                                 for x in resultsStr.split(",")]
-                            print('correct', correct, 'incorrect', incorrect)
+                            # print('correct', correct, 'incorrect', incorrect)
 
                             acc = correct * 100.0 / (correct + incorrect)
-                            mpki = incorrect * 1000.0 / TOTAL_INSTRUCTIONS
-                            row = [trace, phr] + ghrs + [tableSize, acc, mpki,
+                            mpki = incorrect * 1000.0 / trace[2]
+                            row = [trace[0], phr] + ghrs + [tableSize, acc, mpki,
                                                 correct, incorrect]
                             writer.writerow(row)
+                        time.sleep(7)
 
     subprocess.Popen(['xdg-open', 'results.csv'])
 
