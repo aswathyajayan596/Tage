@@ -3,12 +3,13 @@ import re
 import csv
 import os
 import sys
-from tqdm import tqdm
-import time
+import shutil
 
-TOTAL_INSTRUCTIONS = 29499869.0 
+TOTAL_INSTRUCTIONS = 29499869.0
 
-traceSize = 1792835
+traceSize = 10
+
+# 1792835
 
 rePattern = r"Result:[\s]+[\d]+,[\s]+[\d]+"
 RESULT_FILE = 'results.csv'
@@ -21,7 +22,14 @@ GHR_SETS = [
     [5, 20, 80, 200]
 ]
 
-HEADERS = ['PHR', 'GHR 1', 'GHR 2', 'GHR 3', 'GHR 4', 'Individual Table Size', 'Accuracy',
+TRACE_SRC = './trace_sources/'
+TRACE_DST = './trace_files/'
+TRACES = [
+            ('DIST-INT-1', 10),
+            ('DIST-INT-3', 5),
+         ]
+
+HEADERS = ['Trace', 'PHR', 'GHR 1', 'GHR 2', 'GHR 3', 'GHR 4', 'Individual Table Size', 'Accuracy',
            'MPKI', 'Correct', 'Incorrect']
 
 
@@ -58,39 +66,42 @@ if __name__ == '__main__':
     with open(RESULT_FILE, 'a') as csvFile:
         writer = csv.writer(csvFile, delimiter=',')
         writer.writerow(HEADERS)
-        
-        for phr in tqdm(PHR_LENGTHS, desc='PHRs'):
-            for ghrs in tqdm(GHR_SETS, desc='GHRs'):
-                for biLen in range(5, BI_LEN_MAX):
-                    with open('parameterTemp.txt', 'r') as tempFile:
-                        tableSize = pow(2, biLen)
-                        template = tempFile.read().strip()
-                        ghr1, ghr2, ghr3, ghr4 = ghrs
-                        params = template.format(tableSize=tableSize, bimodalSize=tableSize,
-                                                 bimodalLen=biLen, tableLen=biLen, ghr1=ghr1,
-                                                 ghr2=ghr2, ghr3=ghr3, ghr4=ghr4, phrLen=phr,
-                                                 traceSize=traceSize)
-                        outFile = f'src/parameter.bsv'
-                        # with open(outFile, 'w') as f:
-                        #     f.write(params)
+        for trace in TRACES:
 
-                        # res = subprocess.check_output(['make', 'all_bsim'], stderr=subprocess.PIPE)
-                        # res = res.decode('utf8')
+            shutil.copy(TRACE_SRC + trace[0] + "/traces_br.hex", TRACE_DST + "/traces_br.hex")
+            shutil.copy(TRACE_SRC + trace[0] + "/traces_outcome.hex", TRACE_DST + "/traces_outcome.hex")
+            
+            for phr in PHR_LENGTHS:
+                for ghrs in GHR_SETS:
+                    for biLen in range(5, BI_LEN_MAX):
+                        with open('parameterTemp.txt', 'r') as tempFile:
+                            tableSize = pow(2, biLen)
+                            template = tempFile.read().strip()
+                            ghr1, ghr2, ghr3, ghr4 = ghrs
+                            params = template.format(tableSize=tableSize, bimodalSize=tableSize,
+                                                    bimodalLen=biLen, tableLen=biLen, ghr1=ghr1,
+                                                    ghr2=ghr2, ghr3=ghr3, ghr4=ghr4, phrLen=phr,
+                                                    traceSize=trace[1])
 
-                        # matches = re.search(rePattern, res)
-                        # resultsStr = matches.group(0)
-                        # resultsStr = resultsStr.replace('Result:', '')
-                        # correct, incorrect = [int(x.strip())
-                        #                       for x in resultsStr.split(",")]
-                        # tqdm.write('correct', correct, 'incorrect', incorrect)
+                            outFile = f'src/parameter.bsv'
+                            with open(outFile, 'w') as f:
+                                f.write(params)
 
-                        # acc = correct * 100.0 / (correct + incorrect)
-                        # mpki = incorrect * 1000.0 / TOTAL_INSTRUCTIONS
-                        # row = [phr] + ghrs + [tableSize,
-                        #                       acc, mpki, correct, incorrect]
-                        # writer.writerow(row)
-                        time.sleep(3)
+                            res = subprocess.check_output(['make', 'all_bsim'])
+                            res = res.decode('utf8')
 
+                            matches = re.search(rePattern, res)
+                            resultsStr = matches.group(0)
+                            resultsStr = resultsStr.replace('Result:', '')
+                            correct, incorrect = [int(x.strip())
+                                                for x in resultsStr.split(",")]
+                            print('correct', correct, 'incorrect', incorrect)
+
+                            acc = correct * 100.0 / (correct + incorrect)
+                            mpki = incorrect * 1000.0 / TOTAL_INSTRUCTIONS
+                            row = [trace, phr] + ghrs + [tableSize, acc, mpki,
+                                                correct, incorrect]
+                            writer.writerow(row)
 
     subprocess.Popen(['xdg-open', 'results.csv'])
 
