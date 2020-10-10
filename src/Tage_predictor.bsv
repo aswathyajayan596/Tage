@@ -78,8 +78,8 @@ package Tage_predictor;
 
         //rule to update the GHR and PHR when actualoutcome is obtained.
         rule rl_reconstruct_GHR_PHR(w_update_over == True);
-            PathHistory t_phr = 0;
-            GlobalHistory t_ghr = 0;
+            PathHistory t_phr = phr;
+            GlobalHistory t_ghr = ghr;
             let t_upd_pkt = w_upd_pkt;
             // Misprediction if occured, reconstruct GHR and PHR 
             if (t_upd_pkt.mispred == 1'b1) begin
