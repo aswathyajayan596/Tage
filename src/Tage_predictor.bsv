@@ -16,14 +16,14 @@ package Tage_predictor;
     function GlobalHistory update_GHR(GlobalHistory t_ghr, Bit#(1) pred_or_outcome);
         t_ghr = (t_ghr << 1);
         if(pred_or_outcome == 1'b1)
-            t_ghr = t_ghr + 131'b1;
+            t_ghr = t_ghr + 1;
         return t_ghr;
     endfunction
 
     function PathHistory update_PHR(PathHistory t_phr, ProgramCounter t_pc);
         t_phr = (t_phr << 1);    //to append 0 to LSB
         if(t_pc[2] == 1'b1)
-            t_phr = t_phr + 32'b1;   //to append 1 to LSB
+            t_phr = t_phr + 1;   //to append 1 to LSB
         return t_phr;
     endfunction
 
@@ -78,8 +78,8 @@ package Tage_predictor;
 
         //rule to update the GHR and PHR when actualoutcome is obtained.
         rule rl_reconstruct_GHR_PHR(w_update_over == True);
-            PathHistory t_phr = 0;
-            GlobalHistory t_ghr = 0;
+            PathHistory t_phr = phr;
+            GlobalHistory t_ghr = ghr;
             let t_upd_pkt = w_upd_pkt;
             // Misprediction if occured, reconstruct GHR and PHR 
             if (t_upd_pkt.mispred == 1'b1) begin
