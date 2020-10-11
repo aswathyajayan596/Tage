@@ -22,7 +22,7 @@ The file contains all the user defined types for the TAGE hardware structure. Al
 | `TargetLength` | Type of the target lengths to which the index or tag needs to be converted to | Bit Type |
 | `PathHistory` | Type of Path History Register | Bit Type |
 
-### Defined  Structure Types
+## Defined  Structure Types
 
 | Name | Type | Fields |Remarks |
 |-------| ------ |------| ------ |
@@ -30,7 +30,7 @@ The file contains all the user defined types for the TAGE hardware structure. Al
 | `TagEntry`  | Struct | prediction counter (`ctr`), usefulness counter (`uctr`), `tag` | Type of Each entry of Tagged Predictor Tables |
 | `BimodalEntry` | Struct |prediction counter (`ctr`) | Type of Each entry in Bimodal Predictor Table |
 
-#### Output Structure Type - `PredictionPacket`
+### Output Structure Type - `PredictionPacket`
 
 | Field Names | Type | Function |
 | ------ | ------| ---------|
@@ -45,7 +45,7 @@ The file contains all the user defined types for the TAGE hardware structure. Al
 | `altpred` |  AltPrediction | stored the alternate prediction, that is prediction from table having second longest history and which has tag match |
 | `phr` | PathHistory | stored the PHR used for computing prediction of that branch |
 
-#### Input Updating Structure Type - `UpdationPacket`
+### Input Updating Structure Type - `UpdationPacket`
 
 The fields in the Updation Packet is same as Prediction Packet used for updating the Table Predictors after obtaining the actual outcome of that branch for which the updation has to be made.
 
