@@ -87,12 +87,13 @@ function Bit#(64) compHistFn(GlobalHistory ghr, TargetLength targetlength, GeomL
     compHist = compHist ^ mask1;
     compHist = compHist & mask;
     return zeroExtend(compHist);
-  endfunction
+    
+endfunction
 
 
 
-//verilog code history function definition
-function Bit#(64) compFoldIndex(ProgramCounter pc, GlobalHistory ghr, PathHistory phr, TableNo ti);
+
+function Bit#(64) computeIndex(ProgramCounter pc, GlobalHistory ghr, PathHistory phr, TableNo ti);
 
         Bit#(64) index = 0;
         if (ti == 3'b000) begin
@@ -122,7 +123,7 @@ function Bit#(64) compFoldIndex(ProgramCounter pc, GlobalHistory ghr, PathHistor
 
 endfunction
 
-function Bit#(64) compFoldTag(ProgramCounter pc, GlobalHistory ghr, TableNo ti);
+function Bit#(64) computeTag(ProgramCounter pc, GlobalHistory ghr, TableNo ti);
   Bit#(64) comp_tag_table = 0;
   if (ti == 3'b001) begin
     let comp_hist0 = compHistFn(ghr,`TAG2_SIZE, `GHR1);

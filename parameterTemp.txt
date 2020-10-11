@@ -1,3 +1,4 @@
+//SIMULATIONS
 //change this when the trace file is changed 1792835
 `define traceSize {traceSize}
 
@@ -6,6 +7,7 @@
 // `define  DISPLAY             1
 // `define  DEBUG               1
 
+//ANALYSIS
 //change the below parameters for analysis only
 `define     NUMTAGTABLES        4   
 `define     TABLESIZE           {tableSize}
@@ -20,6 +22,7 @@
 `define     TABLE_LEN           {tableLen}
 `define     PHR_LEN             {phrLen}
 
+//HARDWARE SPECIFIC
 //change the below parameters only if needed, dependent on architecture of TAGE and the design
 `define     PC_LEN              64
 `define     BIMODAL_CTR_LEN     2

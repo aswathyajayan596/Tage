@@ -27,7 +27,17 @@ package Tage_predictor;
         return t_phr;
     endfunction
 
-    function Vector#(4,TagEntry) allocate_entry(Vector#(4,TagEntry) entries, Integer tno, Vector#(4,Tag) tags, ActualOutcome outcome);
+    
+    /* Allocate new entry, if there is any u = 0 (not useful entry) for tables with longer history 
+            Three cases arise: all u>0 , one u = 0, more than one u = 0
+            For all u > 0, decrement all the u counters, No need to allocate new entry
+            For one u = 0, allocate new entry to that index
+            For more than one u = 0, allocate new entry to that which has longer history
+            For the newly allocated entry, prediction counter is set to Weakly TAKEN or Weakly NOT TAKEN.
+            For the newly allocated entry, usefuleness counter is set to 0.
+            For the newly allocated entry, tag is computed tag stored in the updation packet for that entry
+    */
+    function Vector#(`NUMTAGTABLES,TagEntry) allocate_entry(Vector#(`NUMTAGTABLES,TagEntry) entries, Integer tno, Vector#(`NUMTAGTABLES,Tag) tags, ActualOutcome outcome);
         Bool allocate = False;
         for (Integer i = 3; i >= tno; i = i - 1) begin    
             if(entries[i].uCtr == 2'b0 && allocate == False) begin
@@ -157,24 +167,25 @@ package Tage_predictor;
                 $display("Calculating Index..... ");
             `endif
 
+            //Indexing and Tagging
             //calling index computation function for each table and calling tag computation function for each table
-            bimodal_index = truncate(compFoldIndex(pc,ghr,t_pred_pkt.phr,3'b000));
+            bimodal_index = truncate(computeIndex(pc,ghr,t_pred_pkt.phr,3'b000));
             t_pred_pkt.bimodal_index = bimodal_index;
             for (Integer i = 0; i < 4; i=i+1) begin
                 TableNo tNo = fromInteger(i+1);
-                tagTable_index[i] = truncate(compFoldIndex(pc,ghr,t_pred_pkt.phr,tNo));
+                tagTable_index[i] = truncate(computeIndex(pc,ghr,t_pred_pkt.phr,tNo));
                 t_pred_pkt.tagTable_index[i] = tagTable_index[i];
                 if(i<2) begin
-                    computedTag[i] = tagged Tag1 truncate(compFoldTag(pc,ghr,tNo));
+                    computedTag[i] = tagged Tag1 truncate(computeTag(pc,ghr,tNo));
                     t_pred_pkt.tableTag[i] = computedTag[i];
                 end
                 else begin
-                    computedTag[i] = tagged Tag2 truncate(compFoldTag(pc,ghr,tNo));
+                    computedTag[i] = tagged Tag2 truncate(computeTag(pc,ghr,tNo));
                     t_pred_pkt.tableTag[i] = computedTag[i];
                 end
             end
 
-
+            //Check for Tag Match
             //comparison of tag with the longest history table, getting prediction from it and alternate prediction from second longest tag matching table 
             t_pred_pkt.tableNo = 3'b000;
             t_pred_pkt.altpred = bimodal.sub(bimodal_index).ctr[1];
@@ -196,14 +207,15 @@ package Tage_predictor;
                 end
             end
 
-            
-            w_pred <= t_pred_pkt.pred;              //setting RWire for corresponding GHR updation in the rule
+            //setting Wires for corresponding internal GHR and internal PHR updation in the rule
+            w_pred <= t_pred_pkt.pred;              
             w_pc<=pc;
 
             //speculative update of GHR storing in temporary prediction packet
             t_pred_pkt.ghr = update_GHR(ghr, t_pred_pkt.pred);
             
-            pred_pkt <= t_pred_pkt;                     //assigning temporary prediction packet to prediction packet vector register
+            //assigning temporary prediction packet to prediction packet vector register
+            pred_pkt <= t_pred_pkt;                     
             `ifdef  DEBUG
                 $display("Current PC = %b", pc);
                 $display("\nphr = %b",t_pred_pkt.phr);
@@ -218,22 +230,25 @@ package Tage_predictor;
 
         method Action updateTablePred(UpdationPacket upd_pkt);  
             
-            w_upd_pkt <= upd_pkt;
+            /* Wires which indicate the onset of Updation of Tagged Table Predictors, passes the values
+            rl_reconstruct_GHR_PHR rule */
+            w_upd_pkt <= upd_pkt;                         //passes updation_packet       
+            w_update_over <= True;                        //enables the rl_reconstruct_GHR_PHR rule
 
-            w_update_over <= True;
+
             //store the indexes of each entry of predictor tables from the updation packet
             //Store the corresponding indexed entry whose index is obtained from the updation packet
-            TagTableIndex ind[4];
-            Vector#(4,TagEntry) t_table;
-            Vector#(4,Tag) table_tags;
+            TagTableIndex index[4];
+            Vector#(`NUMTAGTABLES ,TagEntry) tagTableEntry;
+            Vector#(`NUMTAGTABLES ,Tag) table_tags;
 
             TableNo tagtableNo = upd_pkt.tableNo-1;
 
-            BimodalIndex bindex = upd_pkt.bimodal_index;
-            BimodalEntry t_bimodal = bimodal.sub(bindex);
-            for(Integer i=0; i < 4; i=i+1) begin
-                ind[i] = upd_pkt.tagTable_index[i];
-                t_table[i] = tagTables[i].sub(ind[i]);
+            BimodalIndex bimodal_index = upd_pkt.bimodal_index;
+            BimodalEntry bimodalEntry = bimodal.sub(bimodal_index);
+            for(Integer i=0; i < `NUMTAGTABLES ; i=i+1) begin
+                index[i] = upd_pkt.tagTable_index[i];
+                tagTableEntry[i] = tagTables[i].sub(index[i]);
                 table_tags[i] = upd_pkt.tableTag[i];
             end
 
@@ -253,9 +268,9 @@ package Tage_predictor;
 
             if(upd_pkt.pred != upd_pkt.altpred) begin
                 if (upd_pkt.mispred == 1'b0 && upd_pkt.tableNo != 3'b000)
-                    t_table[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] + 2'b1;
+                    tagTableEntry[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] + 2'b1;
                 else
-                    t_table[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] - 2'b1;
+                    tagTableEntry[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] - 2'b1;
             end
 
             // updation of provider component's prediction counter
@@ -263,15 +278,15 @@ package Tage_predictor;
 
             if(upd_pkt.actualOutcome == 1'b1) begin
                 if(upd_pkt.tableNo == 3'b000)
-                    t_bimodal.ctr = (t_bimodal.ctr < 2'b11) ? (t_bimodal.ctr + 2'b1) : 2'b11 ;
+                    bimodalEntry.ctr = (bimodalEntry.ctr < 2'b11) ? (bimodalEntry.ctr + 2'b1) : 2'b11 ;
                 else
-                    t_table[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1]< 3'b111 )?(upd_pkt.ctr[tagtableNo+1] + 3'b1): 3'b111;
+                    tagTableEntry[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1]< 3'b111 )?(upd_pkt.ctr[tagtableNo+1] + 3'b1): 3'b111;
             end
             else begin
                 if(upd_pkt.tableNo == 3'b000)
-                    t_bimodal.ctr = (t_bimodal.ctr > 2'b00) ? (t_bimodal.ctr - 2'b1) : 2'b00;
+                    bimodalEntry.ctr = (bimodalEntry.ctr > 2'b00) ? (bimodalEntry.ctr - 2'b1) : 2'b00;
                 else
-                    t_table[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1] > 3'b000)?(upd_pkt.ctr[tagtableNo+1] - 3'b1): 3'b000;
+                    tagTableEntry[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1] > 3'b000)?(upd_pkt.ctr[tagtableNo+1] - 3'b1): 3'b000;
             end
 
             //Allocation of new entries if there is a misprediction
@@ -288,17 +303,17 @@ package Tage_predictor;
 
             if (upd_pkt.mispred == 1'b1) begin
                 case (upd_pkt.tableNo)
-                    3'b000 :    t_table = allocate_entry(t_table, 0, table_tags, upd_pkt.actualOutcome);
-                    3'b001 :    t_table = allocate_entry(t_table, 1, table_tags, upd_pkt.actualOutcome);
-                    3'b010 :    t_table = allocate_entry(t_table, 2, table_tags, upd_pkt.actualOutcome);
-                    3'b011 :    t_table = allocate_entry(t_table, 3, table_tags, upd_pkt.actualOutcome);
+                    3'b000 :    tagTableEntry = allocate_entry(tagTableEntry, 0, table_tags, upd_pkt.actualOutcome);
+                    3'b001 :    tagTableEntry = allocate_entry(tagTableEntry, 1, table_tags, upd_pkt.actualOutcome);
+                    3'b010 :    tagTableEntry = allocate_entry(tagTableEntry, 2, table_tags, upd_pkt.actualOutcome);
+                    3'b011 :    tagTableEntry = allocate_entry(tagTableEntry, 3, table_tags, upd_pkt.actualOutcome);
                 endcase
             end                    
             
             //Assigning back the corresponding entries to the prediction tables.
-            bimodal.upd(bindex,t_bimodal);
-            for(Integer i = 0 ; i < 4; i = i+1)
-                tagTables[i].upd(ind[i], t_table[i]);
+            bimodal.upd(bimodal_index,bimodalEntry);
+            for(Integer i = 0 ; i < `NUMTAGTABLES ; i = i+1)
+                tagTables[i].upd(index[i], tagTableEntry[i]);
 
             `ifdef DISPLAY
                 $display("Updation over\n");
