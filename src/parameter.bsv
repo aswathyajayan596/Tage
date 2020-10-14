@@ -1,5 +1,6 @@
 //SIMULATIONS
-//change this when the trace file is changed 1792835
+//change this when the trace file is changed 
+//max no of traces that can be used in simulation : 4294967295 (32b)
 `define traceSize 5
 
 //uncomment below line if you want to see simulation display
