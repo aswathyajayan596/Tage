@@ -111,7 +111,7 @@ package Tage_predictor;
             $display("Entered rl_update");
             `endif
         endrule
-
+        //rule to speculatively update GHR and PHR, once prediction is over.
         rule rl_spec_update_GHR_PHR (w_pred_over == True);
             w_ghr <= update_GHR(ghr, w_pred);
             w_phr <= update_PHR(phr, w_pc);
@@ -129,7 +129,7 @@ package Tage_predictor;
             `endif
         endrule
 
-
+        //rule to write to internal GHR and PHR registers
         rule rl_GHR_PHR_write;
             ghr <= w_ghr;
             phr <= w_phr;
