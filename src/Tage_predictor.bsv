@@ -111,6 +111,7 @@ package Tage_predictor;
             $display("Entered rl_update");
             `endif
         endrule
+        
         //rule to speculatively update GHR and PHR, once prediction is over.
         rule rl_spec_update_GHR_PHR (w_pred_over == True);
             w_ghr <= update_GHR(ghr, w_pred);
@@ -264,8 +265,6 @@ package Tage_predictor;
             //Updation of usefulness counter
             /* Usefulness counter is updated if the final prediction is different from alternate prediction, u is incremented if the prediction is correct
             u is decremented otherwise */
-
-
             if(upd_pkt.pred != upd_pkt.altpred) begin
                 if (upd_pkt.mispred == 1'b0 && upd_pkt.tableNo != 3'b000)
                     tagTableEntry[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] + 2'b1;
@@ -321,7 +320,8 @@ package Tage_predictor;
 
         endmethod
 
-        method PredictionPacket output_packet(); //method that outputs the prediction packet
+        //method that outputs the prediction packet
+        method PredictionPacket output_packet(); 
             return pred_pkt;
         endmethod
 

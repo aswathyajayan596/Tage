@@ -1,12 +1,12 @@
 package Type_TAGE;
 
-
 import Vector :: *;
 import FShow :: *;
 
 export Type_TAGE :: *;
 `include "parameter.bsv"
 
+//defined types for TAGE predictor
 typedef Bit#(`PC_LEN)                               ProgramCounter;      //64bits
 typedef Bit#(TAdd#(`GHR4,1))                        GlobalHistory;       //131bits
 typedef Bit#(TLog#(TAdd#(`NUMTAGTABLES,1)))         TableNo;             //000, 001, 010, 011, 100
@@ -25,24 +25,26 @@ typedef Bit#(`GEOM_LEN)                             GeomLength;          //geoml
 typedef Bit#(`TARGET_LEN)                           TargetLength;        //targetlength
 typedef Bit#(`PHR_LEN)                              PathHistory;         //PathHistory
 
+//type for tags
 typedef union tagged {
     TableTag1 Tag1;
     TableTag2 Tag2;
 } Tag deriving(Bits, Eq, FShow);
 
+//type for Tagged Table Predictor Entry
 typedef struct {
     TagTableCtr ctr;
     UsefulCtr uCtr;
     Tag tag; 
 } TagEntry deriving(Bits, Eq, FShow);
 
-
+//type for Bimodal Table Predcitor Entry
 typedef struct {
     BimodalCtr ctr;
 } BimodalEntry deriving(Bits, Eq, FShow);
 
 
-
+//type for Prediction Packet
 typedef struct {
     BimodalIndex                                  bimodal_index;
     Vector#(`NUMTAGTABLES, TagTableIndex)         tagTable_index;
@@ -56,6 +58,7 @@ typedef struct {
     PathHistory                                   phr;
 } PredictionPacket deriving(Bits, Eq, FShow);
 
+//Type for Updation Packet
 typedef struct {
     BimodalIndex                                  bimodal_index;
     Vector#(`NUMTAGTABLES, TagTableIndex)         tagTable_index;
@@ -71,11 +74,13 @@ typedef struct {
     PathHistory                                   phr;
 } UpdationPacket deriving(Bits,Eq, FShow);
 
+//Type for Performance Monitoring Counters
 typedef struct {
     Int#(32)                                      predictionCtr;
     Int#(32)                                      mispredictionCtr;
 } TableCounters deriving(Bits, Eq, FShow);
 
+//Function for computing Compressed History
 function Bit#(64) compHistFn(GlobalHistory ghr, TargetLength targetlength, GeomLength geomlength);
 
     Bit#(32) mask = (1 << targetlength) - 32'b1;
@@ -92,17 +97,17 @@ endfunction
 
 
 
-
+//Compute Index Function
 function Bit#(64) computeIndex(ProgramCounter pc, GlobalHistory ghr, PathHistory phr, TableNo ti);
 
         Bit#(64) index = 0;
         if (ti == 3'b000) begin
-                index = pc[`BIMODAL_LEN - 1:0];        //13bit pc
+                index = pc[`BIMODAL_LEN - 1:0];     
             return index;
         end
         else if (ti == 3'b001) begin
       let comp_hist = compHistFn(ghr, `TABLE_LEN, `GHR1);
-            index = pc ^ (pc >> `TABLE_LEN) ^ comp_hist ^ zeroExtend(phr) ^ (zeroExtend(phr) >> `TABLE_LEN); // indexTagPred[0] = PC ^ (PC >> TAGPREDLOG) ^ indexComp[0].compHist ^ PHR ^ (PHR >> TAGPREDLOG);
+            index = pc ^ (pc >> `TABLE_LEN) ^ comp_hist ^ zeroExtend(phr) ^ (zeroExtend(phr) >> `TABLE_LEN); 
         return index;
         end
       else if (ti == 3'b010) begin
@@ -123,6 +128,7 @@ function Bit#(64) computeIndex(ProgramCounter pc, GlobalHistory ghr, PathHistory
 
 endfunction
 
+//Compute Tag Function
 function Bit#(64) computeTag(ProgramCounter pc, GlobalHistory ghr, TableNo ti);
   Bit#(64) comp_tag_table = 0;
   if (ti == 3'b001) begin
@@ -130,7 +136,6 @@ function Bit#(64) computeTag(ProgramCounter pc, GlobalHistory ghr, TableNo ti);
     let comp_hist1 = compHistFn(ghr,`TAG1_SIZE, `GHR1);
     comp_tag_table = pc ^ comp_hist0 ^ (comp_hist1 << 1) ;
     return comp_tag_table;
-    // tag[i] = PC ^ tagComp[0][i].compHist ^ (tagComp[1][i].compHist << 1);
   end
   else if (ti == 3'b010) begin
     let comp_hist0 = compHistFn(ghr,`TAG2_SIZE, `GHR2);

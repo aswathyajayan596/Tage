@@ -65,7 +65,7 @@ package Testbench;
 
 
        
-        rule rl_display(ctr >= 0);      //display rule for displaying the current cycle
+        rule rl_display(ctr >= 0);  //display rule for displaying the current cycle
             `ifdef DISPLAY
                 $display("\n=====================================================================================================================");
                 $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
