@@ -7,23 +7,23 @@ import FShow :: *;
 export Type_TAGE :: *;
 `include "parameter.bsv"
 
-typedef Bit#(`PC_LEN)                               ProgramCounter;                           //64bits
-typedef Bit#(TAdd#(`GHR4,1))                        GlobalHistory;                          //131bits
-typedef Bit#(TLog#(TAdd#(`NUMTAGTABLES,1)))         TableNo;                      // 000, 001, 010, 011, 100
-typedef Bit#(TLog#(`BIMODALSIZE))                   BimodalIndex;                 //8bits
-typedef Bit#(TLog#(`TABLESIZE))                     TagTableIndex;                        //7bits
-typedef Bit#(`BIMODAL_CTR_LEN)                      BimodalCtr;                  //2bits counter
-typedef Bit#(`TAGTABLE_CTR_LEN)                     TagTableCtr;                          //3bits counter
-typedef Bit#(`TAG1_SIZE)                            TableTag1;                         //8bits
-typedef Bit#(`TAG2_SIZE)                            TableTag2;                         //9bits
-typedef Bit#(`U_LEN)                                UsefulCtr;                   //2bits
-typedef Bit#(`OUTCOME)                              ActualOutcome;               //1bit
-typedef Bit#(`PRED)                                 Prediction;                         //1bit
-typedef Bit#(`PRED)                                 AltPrediction;                      //1bit
-typedef Bit#(`PRED)                                 Misprediction;                      //misprediction bit
-typedef Bit#(`GEOM_LEN)                             GeomLength;                    //geomlength of each table
-typedef Bit#(`TARGET_LEN)                           TargetLength;                 //targetlength
-typedef Bit#(`PHR_LEN)                              PathHistory;
+typedef Bit#(`PC_LEN)                               ProgramCounter;      //64bits
+typedef Bit#(TAdd#(`GHR4,1))                        GlobalHistory;       //131bits
+typedef Bit#(TLog#(TAdd#(`NUMTAGTABLES,1)))         TableNo;             //000, 001, 010, 011, 100
+typedef Bit#(TLog#(`BIMODALSIZE))                   BimodalIndex;        //8bits
+typedef Bit#(TLog#(`TABLESIZE))                     TagTableIndex;       //7bits
+typedef Bit#(`BIMODAL_CTR_LEN)                      BimodalCtr;          //2bits counter
+typedef Bit#(`TAGTABLE_CTR_LEN)                     TagTableCtr;         //3bits counter
+typedef Bit#(`TAG1_SIZE)                            TableTag1;           //8bits
+typedef Bit#(`TAG2_SIZE)                            TableTag2;           //9bits
+typedef Bit#(`U_LEN)                                UsefulCtr;           //2bits
+typedef Bit#(`OUTCOME)                              ActualOutcome;       //1bit
+typedef Bit#(`PRED)                                 Prediction;          //1bit
+typedef Bit#(`PRED)                                 AltPrediction;       //1bit
+typedef Bit#(`PRED)                                 Misprediction;       //misprediction bit
+typedef Bit#(`GEOM_LEN)                             GeomLength;          //geomlength of each table
+typedef Bit#(`TARGET_LEN)                           TargetLength;        //targetlength
+typedef Bit#(`PHR_LEN)                              PathHistory;         //PathHistory
 
 typedef union tagged {
     TableTag1 Tag1;

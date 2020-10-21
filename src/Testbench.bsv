@@ -128,6 +128,7 @@ package Testbench;
             `endif
             //updating the performance monitoring counters based on the misprediction result obtained in the current cycle
             table_counters(t_u_pkt.tableNo, t_u_pkt.mispred);
+
             if(t_u_pkt.mispred == 1'b1) begin
                 ctr <= ctr;  /* update ctr to the current ctr so that the prediction
                 can be done from the current cycle which mispredicted the previous branch */
@@ -150,7 +151,7 @@ package Testbench;
 
         endrule
 
-        rule end_simulation(ctr == `traceSize+1);
+        rule rl_end_simulation(ctr == `traceSize+1);
 
             $display("Result:%d,%d", correct, incorrect);       //to use with script
             // $display("Result: Correct = %d, Incorrect = %d", correct, incorrect);
