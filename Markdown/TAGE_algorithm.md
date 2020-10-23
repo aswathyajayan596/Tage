@@ -23,7 +23,7 @@ TAGE consists of two types of predictors - bimodal table predictor and tagged ta
 
 The below figure shows the architecture of TAGE as described above. 
 
-<img src="/home/aswathy/Documents/Drawio/Images/Architecture.png" style="zoom: 67%;" />
+<img src="images/Architecture.png" style="zoom: 67%;" />
 
 ### Bimodal Table Predictor
 
@@ -57,7 +57,7 @@ Index and Tag are obtained by the hashing of PC and Global History Register(GHR)
 
 For prediction computation, it is important to get a tag match. Using PC ( also PHR ) and GHR, the index of each table predictor entry as well as the tag for each tagged table predictors are calculated. The entry mapped to index, also the one which has a tag match is considered for final prediction. Those entries which has a tag match are considered. This is explained in the below figure:
 
-<img src="/home/aswathy/Documents/Drawio/Images/AccessingTaggedComponentDetailed.png" alt="AccessingTaggedComponentDetailed" style="zoom: 50%;" />
+<img src="images/AccessingTaggedComponentDetailed.png" alt="AccessingTaggedComponentDetailed" style="zoom: 50%;" />
 
 
 
@@ -65,7 +65,7 @@ There may be more than predictors having the same tag, so the predictor having t
 
 
 
-<img src="/home/aswathy/Documents/Drawio/Images/ObtainingPrediction.png" alt="ObtainingPrediction" style="zoom: 67%;" />
+<img src="images/ObtainingPrediction.png" alt="ObtainingPrediction" style="zoom: 67%;" />
 
 ## 1.3 Updation of Table Predictors
 
@@ -73,13 +73,13 @@ At update time( for instance at instruction retirement), we know that the predic
 
 **Update 3-bit counter ctr**: The 3 bit counter on bank X, the one provided the final prediction and only that counter is updated. This is how it is done: the counter is incremented if the branch is taken, decremented otherwise, and it saturates at values 7 and 0. In general, people prefer to use 2-bit counter instead of 3 bit counters. However, 3 bit counters generate less misprediction.
 
-<img src="/home/aswathy/Documents/Drawio/Images/UpdateCTR.png" alt="UpdateCTR" style="zoom: 50%;" />
+<img src="images/UpdateCTR.png" alt="UpdateCTR" style="zoom: 50%;" />
 
 
 
 
 
-<img src="/home/aswathy/Documents/Drawio/Images/BasePredictorFlowChart.png" alt="BasePredictorFlowChart" style="zoom: 50%;" />
+<img src="images/BasePredictorFlowChart.png" alt="BasePredictorFlowChart" style="zoom: 50%;" />
 
 
 
@@ -89,7 +89,7 @@ At update time( for instance at instruction retirement), we know that the predic
 
 
 
-<img src="/home/aswathy/Documents/Drawio/Images/UpdateU.png" alt="UpdateU" style="zoom: 50%;" />
+<img src="images/UpdateU.png" alt="UpdateU" style="zoom: 50%;" />
 
 
 
@@ -111,7 +111,7 @@ The traces is approximately 30 million instructions long and includes both user 
 
 The GShare predictor used for comparison, whose hardware description has been done in C language, which was used to analyse the accuracy values for different predictor sizes. As for the Championship Branch Predictor Competition, GShare predictor with 16 bits Branch History Register(BHR) and table size of 64Kb is used to compare with the competitors’ predictors. And the indexing of GShare Branch History table is done by simple XOR operation between global branch history and branch address. Since the table size is very large, there will be more entries for different branches to map to. Each entry contains a prediction counter of 2 bits.
 
-<img src="/home/aswathy/Pictures/Screenshot from 2020-10-23 09-31-08.png" alt="Screenshot from 2020-10-23 09-31-08" style="zoom: 50%;" />
+<img src="images/Gshare.png" alt="Gshare" style="zoom: 50%;" />
 
 ## 2.2 Simulation Setup
 
@@ -120,13 +120,13 @@ through testbench to the predictor, the predictor will give the prediction in th
 
 
 
-<img src="/home/aswathy/Documents/Drawio/Images/Testbenchflow.png" alt="Testbenchflow" style="zoom: 50%;" />
+<img src="images/Testbenchflow.png" alt="Testbenchflow" style="zoom: 50%;" />
 
 
 
 ## 2.3 Performance Monitoring Counters
 
-<img src="/home/aswathy/Documents/Drawio/Images/PerformanceCounter.png" alt="PerformanceCounter" style="zoom: 67%;" />
+<img src="images/PerformanceCounter.png" alt="PerformanceCounter" style="zoom: 67%;" />
 
 
 
@@ -158,19 +158,17 @@ is repeated for different TAGE sizes and plotted on graph for analysis.
 
 The TAGE predictor uses a geometric series of history lengths which allows to use very long history lengths for indexing some predictor tables, while still dedicating most of the storage space to predictor tables using shorter global history lengths. And hence to index, geometric length of 130 bits and 200 bits were analysed for two different traces with different PHRs. And found out that there is only marginal difference in the accuracy for the two. Hence, chosen 130 bits of GHR for optimum design considering small storage budget.
 
-
-
-![DiffPHRDIST-INT-1-32bits](/home/aswathy/Downloads/graphs-20201023T113521Z-001/graphs/DiffPHRDIST-INT-1-32bits.png)
+![DiffPHRDIST-INT-1-32bits](images/DiffPHRDIST-INT-1-32bits.png)
 
 
 
-![32-FP-2](/home/aswathy/Downloads/graphs-20201023T113521Z-001/graphs/32-FP-2.png)
+![32-FP-2](images/32-FP-2.png)
 
 
 
 
 
-![200_130-FP-2](/home/aswathy/Downloads/graphs-20201023T113521Z-001/graphs/200_130-FP-2.png)
+![200_130-FP-2](images/200_130-FP-2.png)
 
 
 
