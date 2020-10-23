@@ -124,7 +124,21 @@ through testbench to the predictor, the predictor will give the prediction in th
 
 
 
-## 2.3 Performance Monitoring Counters
+## 2.3 Testbench flow
+
+The trace file here depicts two files, namely file containing branch address and another file containing its corresponding branch outcome. The branch address is given as program counter, which is one of the inputs of TAGE, through testbench.
+
+The output from the TAGE predictor, which is the prediction packet, is stored in the updation packet after certain modifications. The misprediction is checked by comparing the actual outcome from trace file and prediction in the prediction packet. This information is added to the updation packet and given as input to the TAGE predictor for updating the table predictors fields.
+
+
+
+![experimentalsetup](images\experimentalsetup.png)
+
+
+
+## 2.4 Performance Monitoring Counters
+
+The performance monitoring counters inside the Testbench make record of the total number of correct predictions and mispredictions from each table predictors.
 
 <img src="images/PerformanceCounter.png" alt="PerformanceCounter" style="zoom: 67%;" />
 
@@ -171,6 +185,26 @@ The TAGE predictor uses a geometric series of history lengths which allows to us
 ![200_130-FP-2](images/200_130-FP-2.png)
 
 
+
+## 3.2 Analysis based on different tag lengths
+
+Different tag lengths of 8,9 and 9,10 were analysed with two of the traces and found there is
+not much difference in the accuracy. And hence, tag bits of 8,9 lengths are used in the optimum
+design.
+
+![Tag1](images\Tag1.png)
+
+![tag3](images\tag3.png)
+
+## 3.3 Analysis based on different PHR lengths
+
+There is variation in the accuracy of TAGE for DIST-INT-1 trace when PHR lengths are varied from 8 bits, 16 bits and 32 bits. Beyond 32 bits, it saturates and the accuracy does not increase.
+
+![PHR](C:\Users\ASWATHY A\Documents\projects\Tage\Markdown\images\PHR.png)
+
+Whereas for DIST-FP-2 trace, there is no much variations in the accuracies for different PHRs.
+
+![FP-2](C:\Users\ASWATHY A\Desktop\Results\Diff_PHRs\FP-2.png)
 
 # Chapter 4 
 
