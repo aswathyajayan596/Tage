@@ -14,13 +14,13 @@ package Testbench;
 
         UpdationPacket t_upd_pkt = unpack(0);
         let mispred = ( t_actual_outcome == t_pred_pkt1.pred ) ? 1'b0 : 1'b1;  //misprediction check
-        t_upd_pkt = UpdationPacket {    
-                                        mispred : mispred, 
+        t_upd_pkt = UpdationPacket {
+                                        mispred : mispred,
                                         actualOutcome:  t_actual_outcome,
                                         bimodal_index:   t_pred_pkt1.bimodal_index,
                                         tagTable_index:  t_pred_pkt1.tagTable_index,
                                         tableTag:       t_pred_pkt1.tableTag,
-                                        uCtr:           t_pred_pkt1.uCtr, 
+                                        uCtr:           t_pred_pkt1.uCtr,
                                         ctr:            t_pred_pkt1.ctr,
                                         ghr:            t_pred_pkt1.ghr,
                                         phr:            t_pred_pkt1.phr,
@@ -64,8 +64,8 @@ package Testbench;
         endfunction
 
 
-       
-        rule rl_display(ctr >= 0);  //display rule for displaying the current cycle
+        //display rule for displaying the current cycle
+        rule rl_display(ctr >= 0);
             `ifdef DISPLAY
                 $display("\n=====================================================================================================================");
                 $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
@@ -81,19 +81,19 @@ package Testbench;
                     $display("\nMisprediction happened in last iteration. Starting from current PC");
             `endif
 
-            let pc = branches.sub(ctr);
+            let pc = branches.sub(ctr);     //store pc value indexed at ctr (line number) of trace file
 
             `ifdef DISPLAY
-                $display("\nCurrent Branch Address, PC =  %h", pc, cur_cycle); 
+                $display("\nCurrent Branch Address, PC =  %h", pc, cur_cycle);
             `endif
 
-            predictor.computePrediction(pc);
+            predictor.computePrediction(pc);    // to predict, output will be obtained at next cycle
 
             `ifdef DISPLAY
                 $display("Prediction started, Prediction for current branch address will be obtained in the next cycle");
             `endif
 
-            ctr <= ctr + 1;
+            ctr <= ctr + 1;     //update simulation ctr
             upd_pkt <= unpack(0);
 
         endrule
@@ -115,14 +115,14 @@ package Testbench;
 
             t_u_pkt = get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-1)));
 
-            `ifdef DISPLAY  
+            `ifdef DISPLAY
                 $display("Outcome of Last branch assigned to Updation_Packet = %b", t_u_pkt.actualOutcome, cur_cycle);
             `endif
 
             upd_pkt <= get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-1)));
             predictor.updateTablePred(t_u_pkt);
 
-             `ifdef DISPLAY 
+             `ifdef DISPLAY
                 $display("\n\n\n------------------------------------------  Updation Packet --------------------------------------------- \n",fshow(t_u_pkt), cur_cycle);
                 $display("-------------------------------------------------------------------------------------------------------------");
             `endif
@@ -139,7 +139,7 @@ package Testbench;
                 predictor.computePrediction(pc); //compute prediction for the current PC if there is no misprediction
 
                 `ifdef DISPLAY
-                    $display("\nCurrent Branch Address, PC =  %h", pc, cur_cycle);  
+                    $display("\nCurrent Branch Address, PC =  %h", pc, cur_cycle);
                     $display("Prediction started, Prediction for current branch address will be obtained in the next cycle");
                 `endif
 

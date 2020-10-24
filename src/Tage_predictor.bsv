@@ -13,13 +13,15 @@ package Tage_predictor;
         method PredictionPacket output_packet();    // Method to Output the prediction packet.
     endinterface
 
+    //function to update GHR, based on speculation or during updation
     function GlobalHistory update_GHR(GlobalHistory t_ghr, Bit#(1) pred_or_outcome);
-        t_ghr = (t_ghr << 1);
+        t_ghr = (t_ghr << 1);       //to append 0 to LSB
         if(pred_or_outcome == 1'b1)
-            t_ghr = t_ghr + 1;
+            t_ghr = t_ghr + 1;      //to append 1 to LSB
         return t_ghr;
     endfunction
 
+    //function to update PHR, based on speculation or during updation
     function PathHistory update_PHR(PathHistory t_phr, ProgramCounter t_pc);
         t_phr = (t_phr << 1);    //to append 0 to LSB
         if(t_pc[2] == 1'b1)
@@ -223,8 +225,8 @@ package Tage_predictor;
                 $display("\nPrediction Packet of current Prediction \n", fshow(t_pred_pkt), cur_cycle);
                 $display("Prediction over....");
             `endif
-           
-           w_pred_over <= True;           
+            //to enable rl_spec_update_GHR_PHR
+            w_pred_over <= True;           
 
         endmethod
 
@@ -274,7 +276,6 @@ package Tage_predictor;
 
             // updation of provider component's prediction counter
             /* Provider component's prediction counter is incremented if actual outcome is TAKEN and decremented if actual outcome is NOT TAKEN */
-
             if(upd_pkt.actualOutcome == 1'b1) begin
                 if(upd_pkt.tableNo == 3'b000)
                     bimodalEntry.ctr = (bimodalEntry.ctr < 2'b11) ? (bimodalEntry.ctr + 2'b1) : 2'b11 ;
@@ -298,8 +299,6 @@ package Tage_predictor;
             For the newly allocated entry, usefuleness counter is set to 0.
             For the newly allocated entry, tag is computed tag stored in the updation packet for that entry
             */
-            
-
             if (upd_pkt.mispred == 1'b1) begin
                 case (upd_pkt.tableNo)
                     3'b000 :    tagTableEntry = allocate_entry(tagTableEntry, 0, table_tags, upd_pkt.actualOutcome);
