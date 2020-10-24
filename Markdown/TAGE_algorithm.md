@@ -218,15 +218,15 @@ Line graph in red shows the previous TAGE design for 59,392 bits storage.
 
 Line graph in green shows the GShare from Championship Branch Predictor Tournament for 65,536 bits storage.
 
-![oldTAGE-FP-2](C:\Users\ASWATHY A\Desktop\Results\GShareTAGE\oldTAGE-FP-2.png)
+![oldTAGE-FP-2](images\oldTAGE-FP-2.png)
 
 
 
-![oldTAGE-INT-1](C:\Users\ASWATHY A\Desktop\Results\GShareTAGE\oldTAGE-INT-1.png)
+![oldTAGE-INT-1](images\oldTAGE-INT-1.png)
 
 
 
-![oldTAGE-INT-3](C:\Users\ASWATHY A\Desktop\Results\GShareTAGE\oldTAGE-INT-3.png)
+![oldTAGE-INT-3](images\oldTAGE-INT-3.png)
 
 
 
@@ -242,7 +242,7 @@ The below bar graph shows the various accuracies obtained for different TAGE des
 
 
 
-![Accuracies](C:\Users\ASWATHY A\Desktop\Results\Accuracies.png)
+![Accuracies](images\Accuracies.png)
 
 # Chapter 4
 
