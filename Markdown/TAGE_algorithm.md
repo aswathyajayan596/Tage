@@ -172,7 +172,7 @@ is repeated for different TAGE sizes and plotted on graph for analysis.
 
 ### Analysis based on different lengths of GHR
 
-The TAGE predictor uses a geometric series of history lengths which allows to use very long history lengths for indexing some predictor tables, while still dedicating most of the storage space to predictor tables using shorter global history lengths. And hence to index, geometric length of 130 bits and 200 bits were analysed for two different traces with different PHRs. And found out that there is only marginal difference in the accuracy for the two. Hence, chosen 130 bits of GHR for optimum design considering small storage budget.
+The TAGE predictor uses a geometric series of history lengths which allows to use very long history lengths for indexing some predictor tables, while still dedicating most of the storage space to predictor tables using shorter global history lengths. And hence to index, geometric length of 130 bits and 200 bits were analysed for two different traces and also with different PHRs. And found out that there is only marginal difference in the accuracy for the two. Hence, chosen 130 bits of GHR for optimum design considering small storage budget.
 
 ![DiffPHRDIST-INT-1-32bits](images/DiffPHRDIST-INT-1-32bits.png)
 
@@ -212,7 +212,7 @@ Whereas for DIST-FP-2 trace, there is no much variations in the accuracies for d
 
 ## 3.2 Comparison of TAGE with GShare predictor
 
-Line graph in blue shows the present TAGE design for 55,459 bits storage.
+Line graph in blue shows the present TAGE design for 57,344 bits storage.
 
 Line graph in red shows the previous TAGE design for 59,392 bits storage.
 
@@ -230,7 +230,29 @@ Line graph in green shows the GShare from Championship Branch Predictor Tourname
 
 
 
-# Chapter 4 
+The below bar graph shows the various accuracies obtained for different TAGE designs compared with GShare.
+
+| Predictors | Description | Total Size (in bits) |
+|----- | ---- |------|
+| 65kb GShare | One Table of Size 65kb with 15bits BHR | 65541b |
+| bimodal-1024, tagtable-1024 | Bimodal Table of 1024b and four Tagged Table Predictors of 1024b with 130b GHR and 32b PHR | 57506b |
+| bimodal-1024, tagtable- 512 | Bimodal Table of 1024b and four Tagged Table Predictors of 512b  with 130b GHR and 32b PHR | 29588b |
+| bimodal- 2048, tagtable-1024 | Bimodal Table of 2048b and four Tagged Table Predictors of 1024b with 130b GHR and 32b PHR | 59554b |
+| bimodal- 2048, tagtable- 512 | Bimodal Table of 2048b and four Tagged Table Predictors of 512b with 130b GHR and 32b PHR | 31906b |
+
+
+
+![Accuracies](C:\Users\ASWATHY A\Desktop\Results\Accuracies.png)
+
+# Chapter 4
+
+# Storage Budget
+
+The below figure shows the storage budget of present TAGE design.
+
+<img src="images\storage.png" alt="storage" style="zoom:50%;" />
+
+# Chapter 5 
 
 # Code Documentation
 
@@ -460,7 +482,7 @@ The following table shows the rules for updating the GHR and PHR, speculatively 
 | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `rl_reconstruct_GHR_PHR` | `w_update_over.whas && w_upd_pkt.whas && w_update_over.wget` | Reconstruct PHR and GHR at the time of updation of Table predictors once the actual outcome of branch has obtained |
 | `rl_spec_update_GHR_PHR` | `w_pred_over.whas && w_pred.whas && w_pc.whas && w_pred_over.wget` | Rule to speculatively update GHR and PHR once prediction is made. |
-| `rl_GHR_PHR_write`       |                                                              | Rule to write to internal GHR and PHR at both speculation as well as reconstruction |
+| `rl_GHR_PHR_write`       | `w_ghr.whas && w_phr.whas`                                   | Rule to write to internal GHR and PHR at both speculation as well as reconstruction |
 
 ### Methods
 The three methods based on the TAGE algorithm is described as follows:
