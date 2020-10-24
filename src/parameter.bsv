@@ -1,7 +1,14 @@
 //SIMULATIONS
 //change this when the trace file is changed 
 //max no of traces that can be used in simulation : 4294967295 (32b)
-`define traceSize 5
+// for DIST-INT-1 trace - traceSize = 4184792
+// for DIST-INT-3 trace - traceSize = 3771697
+// for DIST-FP-2 trace - traceSize = 1792835
+// for DIST-FP-4 trace - traceSize = 895942
+// for DIST-FP-5 trace - traceSize = 2422049
+// for DIST-MM-4 trace - traceSize = 4874888
+
+`define traceSize 4184792
 
 //uncomment below line if you want to see simulation display
 // `define  DISPLAY             1
