@@ -67,30 +67,37 @@ package Tage_predictor;
         Reg#(PredictionPacket) pred_pkt <- mkReg(unpack(0));  //output register to store prediction packet
         
         //Wires to take in values between methods and rules.
-        Wire#(GlobalHistory) w_ghr <- mkWire();        //Wire for global history register
-        Wire#(PathHistory) w_phr <- mkWire();          //Wire for path history register
-        Wire#(ProgramCounter) w_pc <- mkWire();        //Wire for program counter
-        Wire#(Prediction)  w_pred <- mkWire();         //wire for prediction
-        Wire#(UpdationPacket) w_upd_pkt <- mkWire();   //wire for updation packet
+        Wire#(GlobalHistory) dw_ghr <- mkDWire(0);        //Wire for global history register
+        Wire#(PathHistory) dw_phr <- mkDWire(0);          //Wire for path history register
+        Wire#(ProgramCounter) dw_pc <- mkDWire(0);        //Wire for program counter
+        Wire#(Prediction)  dw_pred <- mkDWire(0);         //wire for prediction
+        Wire#(Misprediction) dw_mispred <- mkDWire(0); 
+        Wire#(ActualOutcome) dw_outcome <- mkDWire(0);
 
-        Wire#(Bool) w_pred_over <- mkWire();           //Wire to indicate prediction is over
-        Wire#(Bool) w_update_over <- mkWire();         //Wire to indicate updation is over
+        Wire#(Bool) dw_pred_over <- mkDWire(False);           //Wire to indicate prediction is over
+        Wire#(Bool) dw_update_over <- mkDWire(False);         //Wire to indicate updation is over
 
         //rule to update the GHR and PHR when actualoutcome is obtained.
-        rule rl_reconstruct_GHR_PHR(w_update_over == True);
-            PathHistory t_phr = phr;
-            GlobalHistory t_ghr = ghr;
-            let t_upd_pkt = w_upd_pkt;
+        rule rl_update_GHR_PHR;
+            PathHistory t_phr = 0;
+            GlobalHistory t_ghr = 0;
             // Misprediction if occured, reconstruct GHR and PHR 
-            if (t_upd_pkt.mispred == 1'b1) begin
-                t_upd_pkt.ghr = (t_upd_pkt.ghr >> 1);
-                t_ghr = update_GHR(t_upd_pkt.ghr, t_upd_pkt.actualOutcome);
-                t_phr = t_upd_pkt.phr;
+            if (dw_update_over && dw_mispred == 1'b1) begin
+                let outcome = dw_outcome;
+                t_ghr = (dw_ghr >> 1);
+                t_ghr = update_GHR(t_ghr, outcome);
+                t_phr = dw_phr;
             end
-
-            w_pred_over <= True;
-            w_ghr <= t_ghr;
-            w_phr <= t_phr;
+            else if(dw_update_over && dw_mispred == 1'b0) begin
+                t_ghr = update_GHR(dw_ghr, dw_pred);
+                t_phr = update_PHR(dw_phr, dw_pc);
+            end
+            else if(dw_pred_over) begin
+                t_ghr = update_GHR(ghr, dw_pred);
+                t_phr = update_PHR(phr, dw_pc);
+            end
+            ghr <= t_ghr;
+            phr <= t_phr;
 
              `ifdef DEBUG
                 $display("Value Assigned to Internal GHR(Updated) : %b", t_ghr);
@@ -101,39 +108,6 @@ package Tage_predictor;
             $display("Entered rl_update");
             `endif
         endrule
-
-        rule rl_spec_update_GHR_PHR (w_pred_over == True);
-            w_ghr <= update_GHR(ghr, w_pred);
-            w_phr <= update_PHR(phr, w_pc);
-
-            let v_ghr = update_GHR(ghr, w_pred);
-            let v_phr = update_PHR(phr, w_pc);
-
-            `ifdef DEBUG
-                $display("Value Assigned to Internal GHR(Speculative) : %b", v_ghr);
-                $display("Value Assigned to Internal PHR(Speculative) : %b", v_phr);
-            `endif
-
-            `ifdef DEBUG
-                $display("Entered rl_spec_update");
-            `endif
-        endrule
-
-
-        rule rl_GHR_PHR_write;
-            ghr <= w_ghr;
-            phr <= w_phr;
-            
-             `ifdef DISPLAY
-                $display("Internal GHR(reflected only at next cycle): %b", w_ghr);
-                $display("Internal PHR(reflected only at next cycle): %b", w_phr);
-            `endif
- 
-            `ifdef DEBUG
-                $display("Entered rl_GHR_PHR_write  ghr = %b, phr = %b", w_ghr, w_phr);    
-            `endif
-        endrule
-       
 
         
         method Action computePrediction(ProgramCounter pc);
@@ -197,8 +171,8 @@ package Tage_predictor;
             end
 
             
-            w_pred <= t_pred_pkt.pred;              //setting RWire for corresponding GHR updation in the rule
-            w_pc<=pc;
+            dw_pred <= t_pred_pkt.pred;              //setting RWire for corresponding GHR updation in the rule
+            dw_pc<=pc;
 
             //speculative update of GHR storing in temporary prediction packet
             t_pred_pkt.ghr = update_GHR(ghr, t_pred_pkt.pred);
@@ -211,16 +185,19 @@ package Tage_predictor;
                 $display("Prediction over....");
             `endif
            
-           w_pred_over <= True;           
+           dw_pred_over <= True;           
 
         endmethod
 
 
         method Action updateTablePred(UpdationPacket upd_pkt);  
             
-            w_upd_pkt <= upd_pkt;
+            dw_ghr <= upd_pkt.ghr;
+            dw_phr <= upd_pkt.phr;
+            dw_outcome <= upd_pkt.actualOutcome;
+            dw_mispred <= upd_pkt.mispred;
 
-            w_update_over <= True;
+            dw_update_over <= True;
             //store the indexes of each entry of predictor tables from the updation packet
             //Store the corresponding indexed entry whose index is obtained from the updation packet
             TagTableIndex ind[4];
