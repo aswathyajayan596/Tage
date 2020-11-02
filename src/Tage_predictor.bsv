@@ -85,10 +85,6 @@ package Tage_predictor;
                 t_ghr = update_GHR(t_ghr, dw_outcome);
                 t_phr = dw_phr;
             end
-            else if(dw_update_over && dw_mispred == 1'b0) begin
-                t_ghr = update_GHR(dw_ghr, dw_pred);
-                t_phr = update_PHR(dw_phr, dw_pc);
-            end
             else if(dw_pred_over) begin
                 t_ghr = update_GHR(ghr, dw_pred);
                 t_phr = update_PHR(phr, dw_pc);
