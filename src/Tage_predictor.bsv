@@ -13,6 +13,23 @@ package Tage_predictor;
         method PredictionPacket output_packet();    // Method to Output the prediction packet.
     endinterface
 
+    function Action check_u_counters(Vector#(4,TagEntry) entries);
+        action
+            Integer found = 0;
+            $display("Found value = %d", found);
+            for (Integer i=0; i<4; i=i+1) begin
+                if (entries[i].uCtr > 0) begin
+                    found = found + 1;
+                end
+            end
+            if(found == 4) begin
+                $display("Found value = %d", found);
+                $display("Found all u>0", fshow(entries));
+                $display("\n");
+            end
+        endaction
+    endfunction
+
     function GlobalHistory update_GHR(GlobalHistory t_ghr, Bit#(1) pred_or_outcome);
         t_ghr = (t_ghr << 1);
         t_ghr[0] = pred_or_outcome;
@@ -194,7 +211,7 @@ package Tage_predictor;
             //store the indexes of each entry of predictor tables from the updation packet
             //Store the corresponding indexed entry whose index is obtained from the updation packet
             TagTableIndex ind[4];
-            Vector#(4,TagEntry) t_table;
+            Vector#(4,TagEntry) tag_table_entries;
             Vector#(4,Tag) table_tags;
 
             TableNo tagtableNo = upd_pkt.tableNo-1;
@@ -203,7 +220,7 @@ package Tage_predictor;
             BimodalEntry t_bimodal = bimodal.sub(bindex);
             for(Integer i=0; i < 4; i=i+1) begin
                 ind[i] = upd_pkt.tagTable_index[i];
-                t_table[i] = tagTables[i].sub(ind[i]);
+                tag_table_entries[i] = tagTables[i].sub(ind[i]);
                 table_tags[i] = upd_pkt.tableTag[i];
             end
 
@@ -221,11 +238,11 @@ package Tage_predictor;
             u is decremented otherwise */
 
 
-            if(upd_pkt.pred != upd_pkt.altpred) begin
+            if (upd_pkt.pred != upd_pkt.altpred) begin
                 if (upd_pkt.mispred == 1'b0 && upd_pkt.tableNo != 3'b000)
-                    t_table[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] + 2'b1;
+                    tag_table_entries[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] + 2'b1;
                 else
-                    t_table[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] - 2'b1;
+                    tag_table_entries[tagtableNo].uCtr = upd_pkt.uCtr[tagtableNo] - 2'b1;
             end
 
             // updation of provider component's prediction counter
@@ -235,13 +252,13 @@ package Tage_predictor;
                 if(upd_pkt.tableNo == 3'b000)
                     t_bimodal.ctr = (t_bimodal.ctr < 2'b11) ? (t_bimodal.ctr + 2'b1) : 2'b11 ;
                 else
-                    t_table[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1]< 3'b111 )?(upd_pkt.ctr[tagtableNo+1] + 3'b1): 3'b111;
+                    tag_table_entries[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1]< 3'b111 )?(upd_pkt.ctr[tagtableNo+1] + 3'b1): 3'b111;
             end
             else begin
                 if(upd_pkt.tableNo == 3'b000)
                     t_bimodal.ctr = (t_bimodal.ctr > 2'b00) ? (t_bimodal.ctr - 2'b1) : 2'b00;
                 else
-                    t_table[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1] > 3'b000)?(upd_pkt.ctr[tagtableNo+1] - 3'b1): 3'b000;
+                    tag_table_entries[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1] > 3'b000)?(upd_pkt.ctr[tagtableNo+1] - 3'b1): 3'b000;
             end
 
             //Allocation of new entries if there is a misprediction
@@ -255,13 +272,14 @@ package Tage_predictor;
             For the newly allocated entry, tag is computed tag stored in the updation packet for that entry
             */
             
+            check_u_counters(tag_table_entries);
 
             if (upd_pkt.mispred == 1'b1) begin
                 case (upd_pkt.tableNo)
-                    3'b000 :    t_table = allocate_entry(t_table, 0, table_tags, upd_pkt.actualOutcome);
-                    3'b001 :    t_table = allocate_entry(t_table, 1, table_tags, upd_pkt.actualOutcome);
-                    3'b010 :    t_table = allocate_entry(t_table, 2, table_tags, upd_pkt.actualOutcome);
-                    3'b011 :    t_table = allocate_entry(t_table, 3, table_tags, upd_pkt.actualOutcome);
+                    3'b000 :    tag_table_entries = allocate_entry(tag_table_entries, 0, table_tags, upd_pkt.actualOutcome);
+                    3'b001 :    tag_table_entries = allocate_entry(tag_table_entries, 1, table_tags, upd_pkt.actualOutcome);
+                    3'b010 :    tag_table_entries = allocate_entry(tag_table_entries, 2, table_tags, upd_pkt.actualOutcome);
+                    3'b011 :    tag_table_entries = allocate_entry(tag_table_entries, 3, table_tags, upd_pkt.actualOutcome);
                 endcase
             end                    
             
