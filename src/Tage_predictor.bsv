@@ -15,15 +15,13 @@ package Tage_predictor;
 
     function GlobalHistory update_GHR(GlobalHistory t_ghr, Bit#(1) pred_or_outcome);
         t_ghr = (t_ghr << 1);
-        if(pred_or_outcome == 1'b1)
-            t_ghr = t_ghr + 1;
+        t_ghr[0] = pred_or_outcome;
         return t_ghr;
     endfunction
 
     function PathHistory update_PHR(PathHistory t_phr, ProgramCounter t_pc);
-        t_phr = (t_phr << 1);    //to append 0 to LSB
-        if(t_pc[2] == 1'b1)
-            t_phr = t_phr + 1;   //to append 1 to LSB
+        t_phr = (t_phr << 1);   
+        t_phr[0] = t_pc[2];   
         return t_phr;
     endfunction
 
@@ -82,10 +80,9 @@ package Tage_predictor;
             PathHistory t_phr = 0;
             GlobalHistory t_ghr = 0;
             // Misprediction if occured, reconstruct GHR and PHR 
-            if (dw_update_over && dw_mispred == 1'b1) begin
-                let outcome = dw_outcome;
-                t_ghr = (dw_ghr >> 1);
-                t_ghr = update_GHR(t_ghr, outcome);
+            if (dw_mispred == 1'b1) begin
+                t_ghr = dw_ghr;
+                t_ghr = update_GHR(t_ghr, dw_outcome);
                 t_phr = dw_phr;
             end
             else if(dw_update_over && dw_mispred == 1'b0) begin
@@ -175,7 +172,7 @@ package Tage_predictor;
             dw_pc<=pc;
 
             //speculative update of GHR storing in temporary prediction packet
-            t_pred_pkt.ghr = update_GHR(ghr, t_pred_pkt.pred);
+            t_pred_pkt.ghr = ghr;
             
             pred_pkt <= t_pred_pkt;                     //assigning temporary prediction packet to prediction packet vector register
             `ifdef  DEBUG
