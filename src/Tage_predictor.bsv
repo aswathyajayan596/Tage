@@ -60,7 +60,7 @@ package Tage_predictor;
     endfunction
 
 
-
+   
     (*synthesize*)
     module mkTage_predictor(Tage_predictor_IFC);
 
@@ -92,8 +92,41 @@ package Tage_predictor;
         Wire#(Bool) dw_pred_over <- mkDWire(False);           //Wire to indicate prediction is over
         Wire#(Bool) dw_update_over <- mkDWire(False);         //Wire to indicate updation is over
 
+        Reg #(Bool)     rg_resetting <- mkReg (True);
+        Reg#(BimodalIndex)   rst_ctr_b <- mkReg(0);
+        Reg#(TagTableIndex)   rst_ctr_tagtable <- mkReg(0);
+        Reg#(Bool) bimodal_rst_complete <- mkReg(False);
+        Reg#(Bool) tagtable_rst_complete <- mkReg(False);
+
+        rule rl_reset(rg_resetting);
+
+            $display("rl_reset");
+            $display("rl_reset rst_ctr_b = %d", rst_ctr_b);
+            $display("rl_reset rst_ctr_tagtable = %d", rst_ctr_tagtable);
+
+            if (rst_ctr_b <= bimodal_max) begin
+                bimodal.upd(rst_ctr_b,unpack(0));
+                rst_ctr_b <= rst_ctr_b + 1;
+            end
+            if (rst_ctr_tagtable <= table_max) begin
+                table_0.upd(rst_ctr_tagtable, unpack(0));
+                table_1.upd(rst_ctr_tagtable, unpack(0));
+                table_2.upd(rst_ctr_tagtable, unpack(0));
+                table_3.upd(rst_ctr_tagtable, unpack(0));
+                rst_ctr_tagtable <= rst_ctr_tagtable + 1;
+                
+            end
+            if (rst_ctr_b == bimodal_max-1) bimodal_rst_complete <= True;
+            if (rst_ctr_tagtable == table_max-1) tagtable_rst_complete <= True;
+            
+            if (bimodal_rst_complete && tagtable_rst_complete) begin
+                rg_resetting <= False;
+                
+            end
+        endrule
+
         //rule to update the GHR and PHR when actualoutcome is obtained.
-        rule rl_update_GHR_PHR;
+        rule rl_update_GHR_PHR (!rg_resetting);
             PathHistory t_phr = 0;
             GlobalHistory t_ghr = 0;
             // Misprediction if occured, reconstruct GHR and PHR 
@@ -120,8 +153,13 @@ package Tage_predictor;
         endrule
 
         
-        method Action computePrediction(ProgramCounter pc);
+        method Action computePrediction(ProgramCounter pc) if (!rg_resetting);
 
+        `ifdef VALUES
+            $display(fshow(table_3.sub(fromInteger(1023))));
+            $display(fshow(bimodal.sub(fromInteger(1023))));
+            $display(fshow(bimodal.sub(fromInteger(2047))));
+        `endif
             //tags
             Tag computedTag[4];
             
@@ -131,6 +169,7 @@ package Tage_predictor;
 
             //variable to store temporary prediction packet
             PredictionPacket t_pred_pkt = unpack(0);
+            
 
             //updating PHR in temporary prediction packet
             t_pred_pkt.phr = update_PHR(phr, pc);
@@ -143,6 +182,9 @@ package Tage_predictor;
 
             //calling index computation function for each table and calling tag computation function for each table
             bimodal_index = truncate(compFoldIndex(pc,ghr,t_pred_pkt.phr,3'b000));
+
+            $display("counter value = %b",bimodal.sub(bimodal_index).ctr);
+
             t_pred_pkt.bimodal_index = bimodal_index;
             for (Integer i = 0; i < 4; i=i+1) begin
                 TableNo tNo = fromInteger(i+1);
@@ -158,10 +200,13 @@ package Tage_predictor;
                 end
             end
 
-
+            $display(fshow(t_pred_pkt.ctr));
             //comparison of tag with the longest history table, getting prediction from it and alternate prediction from second longest tag matching table 
             t_pred_pkt.tableNo = 3'b000;
             t_pred_pkt.altpred = bimodal.sub(bimodal_index).ctr[1];
+
+            $display("counter value = %b",bimodal.sub(bimodal_index).ctr[1]);
+
             t_pred_pkt.pred = bimodal.sub(bimodal_index).ctr[1];
             t_pred_pkt.ctr[0] = zeroExtend(bimodal.sub(bimodal_index).ctr);
             Bool matched = False;
@@ -179,7 +224,7 @@ package Tage_predictor;
                     altMatched = True;
                 end
             end
-
+            $display(fshow(t_pred_pkt.ctr));
             
             dw_pred <= t_pred_pkt.pred;              //setting RWire for corresponding GHR updation in the rule
             dw_pc<=pc;
@@ -200,7 +245,7 @@ package Tage_predictor;
         endmethod
 
 
-        method Action updateTablePred(UpdationPacket upd_pkt);  
+        method Action updateTablePred(UpdationPacket upd_pkt) if (!rg_resetting);  
             
             dw_ghr <= upd_pkt.ghr;
             dw_phr <= upd_pkt.phr;
@@ -286,7 +331,7 @@ package Tage_predictor;
             //Assigning back the corresponding entries to the prediction tables.
             bimodal.upd(bindex,t_bimodal);
             for(Integer i = 0 ; i < 4; i = i+1)
-                tagTables[i].upd(ind[i], t_table[i]);
+                tagTables[i].upd(ind[i], tag_table_entries[i]);
 
             `ifdef DISPLAY
                 $display("Updation over\n");
