@@ -65,16 +65,28 @@ package Testbench;
 
 
        
-        rule rl_display(ctr >= 0);      //display rule for displaying the current cycle
-            `ifdef DISPLAY
-                $display("\n=====================================================================================================================");
-                $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
-            `endif
-        endrule
+        // rule rl_display(ctr >= 0 && !predictor.rg_resetting);      //display rule for displaying the current cycle
+        //     $display("\n=====================================================================================================================");
+        //     $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
+
+        //     `ifdef DISPLAY
+        //         $display("\n=====================================================================================================================");
+        //         $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
+        //     `endif
+        // endrule
 
 
         //execute this at the start as well as there is misprediction (inorder to start over)
         rule rl_initial(ctr == 0 || upd_pkt.mispred == 1'b1 );
+
+            // $display("\n=====================================================================================================================");
+            // $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
+
+
+            `ifdef DISPLAY
+                $display("\n=====================================================================================================================");
+                $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
+            `endif
 
             `ifdef DISPLAY
                 if (upd_pkt.mispred == 1'b1)
@@ -100,6 +112,10 @@ package Testbench;
 
         rule rl_comp_pred_upd (ctr < `traceSize+1 && ctr > 0 && upd_pkt.mispred == 1'b0);
 
+            // $display("\n=====================================================================================================================");
+            // $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
+
+
             PredictionPacket t_pred_pkt = unpack(0);
             UpdationPacket t_u_pkt = unpack(0);
             let pc = branches.sub(ctr);
@@ -112,6 +128,10 @@ package Testbench;
                 $display("\nProgram Counter of Last Branch =  %h", branches.sub(ctr-1));
                 $display("Prediction of Last Branch = %b", t_pred_pkt.pred);
             `endif
+
+            // $display("Prediction of Last Branch = %b", t_pred_pkt.pred);
+            // $display("Alternate Prediction of Last Branch = %b", t_pred_pkt.altpred);
+            // $display("Prediction from Table: %d", t_pred_pkt.tableNo);
 
             t_u_pkt = get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-1)));
 
@@ -154,6 +174,11 @@ package Testbench;
 
             $display("Result:%d,%d", correct, incorrect);       //to use with script
             // $display("Result: Correct = %d, Incorrect = %d", correct, incorrect);
+            $display("\nBimodal Table \n", fshow(table_ctr[0]));
+            $display("\nTable 1\n", fshow(table_ctr[1]));
+            $display("\nTable 2 \n", fshow(table_ctr[2]));
+            $display("\nTable 3 \n", fshow(table_ctr[3]));
+            $display("\nTable 4 \n", fshow(table_ctr[4]));
 
             `ifdef DISPLAY
                 // $display("Incorrect = %d      Correct = %d",incorrect,correct);

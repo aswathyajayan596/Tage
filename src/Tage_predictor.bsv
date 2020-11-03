@@ -183,7 +183,7 @@ package Tage_predictor;
             //calling index computation function for each table and calling tag computation function for each table
             bimodal_index = truncate(compFoldIndex(pc,ghr,t_pred_pkt.phr,3'b000));
 
-            $display("counter value = %b",bimodal.sub(bimodal_index).ctr);
+            // $display("counter value = %b",bimodal.sub(bimodal_index).ctr);
 
             t_pred_pkt.bimodal_index = bimodal_index;
             for (Integer i = 0; i < 4; i=i+1) begin
@@ -200,12 +200,12 @@ package Tage_predictor;
                 end
             end
 
-            $display(fshow(t_pred_pkt.ctr));
+            // $display(fshow(t_pred_pkt.ctr));
             //comparison of tag with the longest history table, getting prediction from it and alternate prediction from second longest tag matching table 
             t_pred_pkt.tableNo = 3'b000;
             t_pred_pkt.altpred = bimodal.sub(bimodal_index).ctr[1];
 
-            $display("counter value = %b",bimodal.sub(bimodal_index).ctr[1]);
+            // $display("counter value = %b",bimodal.sub(bimodal_index).ctr[1]);
 
             t_pred_pkt.pred = bimodal.sub(bimodal_index).ctr[1];
             t_pred_pkt.ctr[0] = zeroExtend(bimodal.sub(bimodal_index).ctr);
@@ -224,7 +224,7 @@ package Tage_predictor;
                     altMatched = True;
                 end
             end
-            $display(fshow(t_pred_pkt.ctr));
+            // $display(fshow(t_pred_pkt.ctr));
             
             dw_pred <= t_pred_pkt.pred;              //setting RWire for corresponding GHR updation in the rule
             dw_pc<=pc;

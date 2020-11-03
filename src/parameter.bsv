@@ -1,16 +1,18 @@
 //SIMULATIONS
-//change this when the trace file is changed 1792835
-`define traceSize 5
+//change this when the trace file is changed 1792835 895842
+`define traceSize 3
 
 //uncomment below line if you want to see simulation display
 // `define  DISPLAY             1
 // `define  DEBUG               1
+// `define VALUES              1
+// `define UPDATION_CHECK 1    
 
 //ANALYSIS
 //change the below parameters for analysis only
 `define     NUMTAGTABLES        4   
 `define     TABLESIZE           1024
-`define     BIMODALSIZE         1024
+`define     BIMODALSIZE         2048
 `define     TAG1_SIZE           8
 `define     TAG2_SIZE           9
 `define     GHR1                5
