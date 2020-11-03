@@ -3,6 +3,7 @@ package Type_TAGE;
 
 import Vector :: *;
 import FShow :: *;
+// import DefaultValue :: *;
 
 export Type_TAGE :: *;
 `include "parameter.bsv"
@@ -75,6 +76,15 @@ typedef struct {
     Int#(32)                                      predictionCtr;
     Int#(32)                                      mispredictionCtr;
 } TableCounters deriving(Bits, Eq, FShow);
+
+// instance DefaultValue #( TagEntry );
+//     defaultValue = TagEntry { ctr : 0,
+//     uCtr : 0};
+// endinstance
+
+// instance DefaultValue #( BimodalEntry );
+//     defaultValue = BimodalEntry { ctr : 0 };
+// endinstance
 
 function Bit#(64) compHistFn(GlobalHistory ghr, TargetLength targetlength, GeomLength geomlength);
 
