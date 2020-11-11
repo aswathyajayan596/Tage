@@ -36,8 +36,8 @@ package Testbench;
     module mkTestbench(Empty);
 
         //trace files containing branch addresses and outcomes
-        RegFile#(Bit#(22), Bit#(64)) branches                      <-  mkRegFileFullLoad("trace_files/traces_br.hex");
-        RegFile#(Bit#(22), Bit#(1)) actualOutcome                  <-  mkRegFileFullLoad("trace_files/traces_outcome.hex");
+        RegFile#(Bit#(32), Bit#(64)) branches                      <-  mkRegFileFullLoad("trace_files/traces_br.hex");
+        RegFile#(Bit#(32), Bit#(1)) actualOutcome                  <-  mkRegFileFullLoad("trace_files/traces_outcome.hex");
 
         //Based on TAGE predictor design
         Tage_predictor_IFC predictor                               <-  mkTage_predictor;
@@ -45,14 +45,16 @@ package Testbench;
         Reg#(UpdationPacket) upd_pkt                               <-  mkReg(unpack(0));
 
         //program flow control register
-        Reg#(Bit#(22)) ctr                                         <-  mkReg(0);
+        Reg#(Bit#(32)) ctr                                         <-  mkReg(0);
 
         //Performance monitoring counters
         Reg#(Int#(32)) correct                                     <-  mkReg(0);
         Reg#(Int#(32)) incorrect                                   <-  mkReg(0);
         Vector#(5, Reg#(TableCounters)) table_ctr                  <-  replicateM(mkReg(unpack(0)));
 
-         //performance monitoring counter updation
+        let fh <- mkReg(InvalidFile) ;
+
+        //performance monitoring counter updation
         function Action table_counters(TableNo tableno, Misprediction mispred);
             action
                 let tno = pack(tableno);
@@ -62,45 +64,30 @@ package Testbench;
                     table_ctr[tno].mispredictionCtr <= table_ctr[tno].mispredictionCtr + 1;
             endaction
         endfunction
-
-       
-        // rule rl_display(ctr >= 0 && !predictor.rg_resetting);      //display rule for displaying the current cycle
-        //     $display("\n=====================================================================================================================");
-        //     $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
-
-        //     `ifdef DISPLAY
-        //         $display("\n=====================================================================================================================");
-        //         $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
-        //     `endif
-        // endrule
-
-      
-
-    
+        
 
         //execute this at the start as well as there is misprediction (inorder to start over)
         rule rl_initial(ctr == 0 || upd_pkt.mispred == 1'b1 );
-        
             `ifdef DISPLAY1
-                $display("\n=====================================================================================================================");
-                $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
+                $fdisplay(fh, "\n=====================================================================================================================");
+                $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
             `endif
 
-            `ifdef DISPLAY
+            `ifdef DISPLAY1
                 if (upd_pkt.mispred == 1'b1)
-                    $display("\nMisprediction happened in last iteration. Starting from current PC");
+                    $fdisplay(fh, "\nMisprediction happened in last iteration. Starting from current PC");
             `endif
 
             let pc = branches.sub(ctr);
 
-            `ifdef DISPLAY
-                $display("\nCurrent Branch Address, PC =  %h", pc, cur_cycle); 
+            `ifdef DISPLAY1
+                $fdisplay(fh, "\nCurrent Branch Address, PC =  %h", pc, cur_cycle); 
             `endif
 
             predictor.computePrediction(pc);
 
-            `ifdef DISPLAY
-                $display("Prediction started, Prediction for current branch address will be obtained in the next cycle");
+            `ifdef DISPLAY1
+                $fdisplay(fh, "Prediction started, Prediction for current branch address will be obtained in the next cycle");
             `endif
 
             ctr <= ctr + 1;
@@ -109,10 +96,10 @@ package Testbench;
         endrule
 
         rule rl_comp_pred_upd (ctr < `traceSize+1 && ctr > 0 && upd_pkt.mispred == 1'b0);
-
+                        
             `ifdef DISPLAY1
-                $display("\n=====================================================================================================================");
-                $display("\nCycle %d   Ctr %d",cur_cycle, ctr);
+                $fdisplay(fh, "\n=====================================================================================================================");
+                $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
             `endif
 
             PredictionPacket t_pred_pkt = unpack(0);
@@ -120,36 +107,38 @@ package Testbench;
             let pc = branches.sub(ctr);
             t_pred_pkt = predictor.output_packet();
 
-            `ifdef DISPLAY
-                $display("\n--------------------------------------------  Prediction Packet -------------------------------------- \n",fshow(t_pred_pkt), cur_cycle);
-                $display("--------------------------------------------------------------------------------------------------------");
+            `ifdef DISPLAY1
+                $fdisplay(fh, "\n--------------------------------------------  Prediction Packet -------------------------------------- \n",fshow(t_pred_pkt), cur_cycle);
+                $fdisplay(fh, "--------------------------------------------------------------------------------------------------------");
             `endif
 
             `ifdef DISPLAY1
-                $display("\nProgram Counter of Last Branch =  %h", branches.sub(ctr-1));
-                $display("Prediction of Last Branch = %b", t_pred_pkt.pred);
+                $fdisplay(fh, "\nProgram Counter of Last Branch =  %h", branches.sub(ctr-1));
+                $fdisplay(fh, "Prediction of Last Branch = %b", t_pred_pkt.pred);
             `endif
 
-            // $display("Prediction of Last Branch = %b", t_pred_pkt.pred);
-            // $display("Alternate Prediction of Last Branch = %b", t_pred_pkt.altpred);
-            // $display("Prediction from Table: %d", t_pred_pkt.tableNo);
+            // $fdisplay(fh, "Prediction of Last Branch = %b", t_pred_pkt.pred);
+            // $fdisplay(fh, "Alternate Prediction of Last Branch = %b", t_pred_pkt.altpred);
+            // $fdisplay(fh, "Prediction from Table: %d", t_pred_pkt.tableNo);
 
             t_u_pkt = get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-1)));
 
+
             `ifdef DISPLAY1  
-                $display("Outcome of Last branch assigned to Updation_Packet = %b", t_u_pkt.actualOutcome, cur_cycle);
+                $fdisplay(fh, "Outcome of Last branch assigned to Updation_Packet = %b", t_u_pkt.actualOutcome, cur_cycle);
             `endif
 
             upd_pkt <= get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-1)));
             predictor.updateTablePred(t_u_pkt);
 
-             `ifdef DISPLAY 
-                $display("\n\n\n------------------------------------------  Updation Packet --------------------------------------------- \n",fshow(t_u_pkt), cur_cycle);
-                $display("-------------------------------------------------------------------------------------------------------------");
+             `ifdef DISPLAY1 
+                $fdisplay(fh, "\n\n\n------------------------------------------  Updation Packet --------------------------------------------- \n",fshow(t_u_pkt), cur_cycle);
+                $fdisplay(fh, "-------------------------------------------------------------------------------------------------------------");
             `endif
             //updating the performance monitoring counters based on the misprediction result obtained in the current cycle
             table_counters(t_u_pkt.tableNo, t_u_pkt.mispred);
             if(t_u_pkt.mispred == 1'b1) begin
+                
                 ctr <= ctr;  /* update ctr to the current ctr so that the prediction
                 can be done from the current cycle which mispredicted the previous branch */
                 incorrect <= incorrect + 1; //increment performance counter based on this
@@ -158,11 +147,11 @@ package Testbench;
 
                 predictor.computePrediction(pc); //compute prediction for the current PC if there is no misprediction
                 
-                `ifdef DISPLAY
-                    $display("\nCurrent Branch Address, PC =  %h", pc, cur_cycle);  
-                    $display("Prediction started, Prediction for current branch address will be obtained in the next cycle");
+                `ifdef DISPLAY1
+                    $fdisplay(fh, "\nCurrent Branch Address, PC =  %h", pc, cur_cycle);  
+                    $fdisplay(fh, "Prediction started, Prediction for current branch address will be obtained in the next cycle");
                 `endif
-
+                
                 ctr <= ctr + 1; /* update ctr to the next ctr so that the prediction
                 can be done from the next cycle since there is no misprediction */
 
@@ -170,25 +159,38 @@ package Testbench;
             end
         endrule
 
+        rule rl_display(ctr == cur_cycle);      //fdisplay fh, rule for displaying the current cycle
+            predictor.displayInternal(True);
+            // $fdisplay(fh, "\n=====================================================================================================================");
+            // $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
+
+            // `ifdef DISPLAY1
+            //     $fdisplay(fh, "\n=====================================================================================================================");
+            //     $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
+            // `endif
+        endrule
     
         
 
         rule end_simulation(ctr == `traceSize+1);
-
-            $display("Result:%d,%d", correct, incorrect);       //to use with script
-            // $display("Result: Correct = %d, Incorrect = %d", correct, incorrect);
+            $display("Result:%d,%d", correct, incorrect);
+            $fdisplay(fh, "Result:%d,%d", correct, incorrect);
+            `ifdef
+                $fdisplay(fh,"Result:%d,%d", correct, incorrect);      
+            // $fdisplay(fh, "Result: Correct = %d, Incorrect = %d", correct, incorrect);
+            `endif
            
 
-            `ifdef DISPLAY
-                // $display("Incorrect = %d      Correct = %d",incorrect,correct);
-                $display("\nBimodal Table \n", fshow(table_ctr[0]));
-                $display("\nTable 1\n", fshow(table_ctr[1]));
-                $display("\nTable 2 \n", fshow(table_ctr[2]));
-                $display("\nTable 3 \n", fshow(table_ctr[3]));
-                $display("\nTable 4 \n", fshow(table_ctr[4]));
-            `endif
+        `ifdef DISPLAY1
+            // $fdisplay(fh, "Incorrect = %d      Correct = %d",incorrect,correct);
+            $fdisplay(fh, "\nBimodal Table \n", fshow(table_ctr[0]));
+            $fdisplay(fh, "\nTable 1\n", fshow(table_ctr[1]));
+            $fdisplay(fh, "\nTable 2 \n", fshow(table_ctr[2]));
+            $fdisplay(fh, "\nTable 3 \n", fshow(table_ctr[3]));
+            $fdisplay(fh, "\nTable 4 \n", fshow(table_ctr[4]));
+        `endif
 
-            $finish(0);
+        $finish(0);
 
         endrule
 
