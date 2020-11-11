@@ -1,6 +1,6 @@
 //SIMULATIONS
 //change this when the trace file is changed 1792835 895842 4184792
-`define traceSize 1000
+`define traceSize 895842
 
 //uncomment below line if you want to see simulation display
 `define DISPLAY 1

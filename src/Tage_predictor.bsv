@@ -133,14 +133,14 @@ package Tage_predictor;
         rule rl_reset(rg_resetting);
 
             if (rst_ctr_b <= bimodal_max) begin
-                bimodal.upd(rst_ctr_b,unpack(2'b10));
+                bimodal.upd(rst_ctr_b,unpack(2'b01));
                 rst_ctr_b <= rst_ctr_b + 1;
             end
             if (rst_ctr_tagtable < table_max) begin
-                table_0.upd(rst_ctr_tagtable, unpack(15'b100000000000000));
-                table_1.upd(rst_ctr_tagtable, unpack(15'b100000000000000));
-                table_2.upd(rst_ctr_tagtable, unpack(15'b100000000000000));
-                table_3.upd(rst_ctr_tagtable, unpack(15'b100000000000000));
+                table_0.upd(rst_ctr_tagtable, unpack(15'b011000000000000));
+                table_1.upd(rst_ctr_tagtable, unpack(15'b011000000000000));
+                table_2.upd(rst_ctr_tagtable, unpack(15'b011000000000000));
+                table_3.upd(rst_ctr_tagtable, unpack(15'b011000000000000));
                 rst_ctr_tagtable <= rst_ctr_tagtable + 1;
             end
             if (rst_ctr_b == bimodal_max-1) bimodal_rst_complete <= True;

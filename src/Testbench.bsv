@@ -46,6 +46,7 @@ package Testbench;
 
         //program flow control register
         Reg#(Bit#(32)) ctr                                         <-  mkReg(0);
+        Reg#(Bool)     display_enabled                             <-  mkReg(True);
 
         //Performance monitoring counters
         Reg#(Int#(32)) correct                                     <-  mkReg(0);
@@ -67,7 +68,7 @@ package Testbench;
         
 
         //execute this at the start as well as there is misprediction (inorder to start over)
-        rule rl_initial(ctr == 0 || upd_pkt.mispred == 1'b1 );
+        rule rl_initial( ctr == 1   || upd_pkt.mispred == 1'b1  && !display_enabled);
             `ifdef DISPLAY1
                 $fdisplay(fh, "\n=====================================================================================================================");
                 $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
@@ -78,7 +79,7 @@ package Testbench;
                     $fdisplay(fh, "\nMisprediction happened in last iteration. Starting from current PC");
             `endif
 
-            let pc = branches.sub(ctr);
+            let pc = branches.sub(ctr-1);
 
             `ifdef DISPLAY1
                 $fdisplay(fh, "\nCurrent Branch Address, PC =  %h", pc, cur_cycle); 
@@ -95,7 +96,7 @@ package Testbench;
 
         endrule
 
-        rule rl_comp_pred_upd (ctr < `traceSize+1 && ctr > 0 && upd_pkt.mispred == 1'b0);
+        rule rl_comp_pred_upd (ctr < `traceSize+1 && ctr > 1 && upd_pkt.mispred == 1'b0);
                         
             `ifdef DISPLAY1
                 $fdisplay(fh, "\n=====================================================================================================================");
@@ -104,7 +105,7 @@ package Testbench;
 
             PredictionPacket t_pred_pkt = unpack(0);
             UpdationPacket t_u_pkt = unpack(0);
-            let pc = branches.sub(ctr);
+            let pc = branches.sub(ctr-1);
             t_pred_pkt = predictor.output_packet();
 
             `ifdef DISPLAY1
@@ -113,7 +114,7 @@ package Testbench;
             `endif
 
             `ifdef DISPLAY1
-                $fdisplay(fh, "\nProgram Counter of Last Branch =  %h", branches.sub(ctr-1));
+                $fdisplay(fh, "\nProgram Counter of Last Branch =  %h", branches.sub(ctr-2));
                 $fdisplay(fh, "Prediction of Last Branch = %b", t_pred_pkt.pred);
             `endif
 
@@ -121,14 +122,14 @@ package Testbench;
             // $fdisplay(fh, "Alternate Prediction of Last Branch = %b", t_pred_pkt.altpred);
             // $fdisplay(fh, "Prediction from Table: %d", t_pred_pkt.tableNo);
 
-            t_u_pkt = get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-1)));
+            t_u_pkt = get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-2)));
 
 
             `ifdef DISPLAY1  
                 $fdisplay(fh, "Outcome of Last branch assigned to Updation_Packet = %b", t_u_pkt.actualOutcome, cur_cycle);
             `endif
 
-            upd_pkt <= get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-1)));
+            upd_pkt <= get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-2)));
             predictor.updateTablePred(t_u_pkt);
 
              `ifdef DISPLAY1 
@@ -159,8 +160,11 @@ package Testbench;
             end
         endrule
 
-        rule rl_display(ctr == cur_cycle);      //fdisplay fh, rule for displaying the current cycle
+        rule rl_display(ctr == 0 && display_enabled);      //fdisplay fh, rule for displaying the current cycle
             predictor.displayInternal(True);
+            ctr <= ctr+1;
+            display_enabled <= False;
+
             // $fdisplay(fh, "\n=====================================================================================================================");
             // $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
 
