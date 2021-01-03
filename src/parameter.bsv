@@ -1,10 +1,13 @@
 //SIMULATIONS
-//change this when the trace file is changed 1792835
-`define traceSize 5
+//change this when the trace file is changed 1792835 895842 4184792
+`define traceSize 895842
 
 //uncomment below line if you want to see simulation display
-// `define  DISPLAY             1
-// `define  DEBUG               1
+// `define TAGE_DISPLAY 1
+
+
+
+
 
 //ANALYSIS
 //change the below parameters for analysis only
