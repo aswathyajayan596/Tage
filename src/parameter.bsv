@@ -3,7 +3,7 @@
 `define traceSize 895842
 
 //uncomment below line if you want to see simulation display
-`define DISPLAY 1
+// `define TAGE_DISPLAY 1
 
 
 

@@ -69,25 +69,25 @@ package Testbench;
 
         //execute this at the start as well as there is misprediction (inorder to start over)
         rule rl_initial( ctr == 1   || upd_pkt.mispred == 1'b1  && !display_enabled);
-            `ifdef DISPLAY1
+            `ifdef TAGE_DISPLAY
                 $fdisplay(fh, "\n=====================================================================================================================");
                 $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
             `endif
 
-            `ifdef DISPLAY1
+            `ifdef TAGE_DISPLAY
                 if (upd_pkt.mispred == 1'b1)
                     $fdisplay(fh, "\nMisprediction happened in last iteration. Starting from current PC");
             `endif
 
             let pc = branches.sub(ctr-1);
 
-            `ifdef DISPLAY1
+            `ifdef TAGE_DISPLAY
                 $fdisplay(fh, "\nCurrent Branch Address, PC =  %h", pc, cur_cycle); 
             `endif
 
             predictor.computePrediction(pc);
 
-            `ifdef DISPLAY1
+            `ifdef TAGE_DISPLAY
                 $fdisplay(fh, "Prediction started, Prediction for current branch address will be obtained in the next cycle");
             `endif
 
@@ -98,7 +98,7 @@ package Testbench;
 
         rule rl_comp_pred_upd (ctr < `traceSize+1 && ctr > 1 && upd_pkt.mispred == 1'b0);
                         
-            `ifdef DISPLAY1
+            `ifdef TAGE_DISPLAY
                 $fdisplay(fh, "\n=====================================================================================================================");
                 $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
             `endif
@@ -108,12 +108,12 @@ package Testbench;
             let pc = branches.sub(ctr-1);
             t_pred_pkt = predictor.output_packet();
 
-            `ifdef DISPLAY1
+            `ifdef TAGE_DISPLAY
                 $fdisplay(fh, "\n--------------------------------------------  Prediction Packet -------------------------------------- \n",fshow(t_pred_pkt), cur_cycle);
                 $fdisplay(fh, "--------------------------------------------------------------------------------------------------------");
             `endif
 
-            `ifdef DISPLAY1
+            `ifdef TAGE_DISPLAY
                 $fdisplay(fh, "\nProgram Counter of Last Branch =  %h", branches.sub(ctr-2));
                 $fdisplay(fh, "Prediction of Last Branch = %b", t_pred_pkt.pred);
             `endif
@@ -125,14 +125,14 @@ package Testbench;
             t_u_pkt = get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-2)));
 
 
-            `ifdef DISPLAY1  
+            `ifdef TAGE_DISPLAY  
                 $fdisplay(fh, "Outcome of Last branch assigned to Updation_Packet = %b", t_u_pkt.actualOutcome, cur_cycle);
             `endif
 
             upd_pkt <= get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-2)));
             predictor.updateTablePred(t_u_pkt);
 
-             `ifdef DISPLAY1 
+             `ifdef TAGE_DISPLAY 
                 $fdisplay(fh, "\n\n\n------------------------------------------  Updation Packet --------------------------------------------- \n",fshow(t_u_pkt), cur_cycle);
                 $fdisplay(fh, "-------------------------------------------------------------------------------------------------------------");
             `endif
@@ -148,7 +148,7 @@ package Testbench;
 
                 predictor.computePrediction(pc); //compute prediction for the current PC if there is no misprediction
                 
-                `ifdef DISPLAY1
+                `ifdef TAGE_DISPLAY
                     $fdisplay(fh, "\nCurrent Branch Address, PC =  %h", pc, cur_cycle);  
                     $fdisplay(fh, "Prediction started, Prediction for current branch address will be obtained in the next cycle");
                 `endif
@@ -168,7 +168,7 @@ package Testbench;
             // $fdisplay(fh, "\n=====================================================================================================================");
             // $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
 
-            // `ifdef DISPLAY1
+            // `ifdef TAGE_DISPLAY
             //     $fdisplay(fh, "\n=====================================================================================================================");
             //     $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
             // `endif
@@ -185,7 +185,7 @@ package Testbench;
             `endif
            
 
-        `ifdef DISPLAY1
+        `ifdef TAGE_DISPLAY
             // $fdisplay(fh, "Incorrect = %d      Correct = %d",incorrect,correct);
             $fdisplay(fh, "\nBimodal Table \n", fshow(table_ctr[0]));
             $fdisplay(fh, "\nTable 1\n", fshow(table_ctr[1]));
