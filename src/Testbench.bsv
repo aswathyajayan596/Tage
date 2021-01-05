@@ -6,7 +6,6 @@ package Testbench;
     import RegFile          :: *;    //For trace files
     import Vector           :: *;    //for performance counters
 
-
     `include "parameter.bsv"         // for traceSize that is parameterized.
 
     //for generating updation packet after obtaining branch instruction outcome
@@ -26,7 +25,10 @@ package Testbench;
                                         phr:            t_pred_pkt1.phr,
                                         tableNo:        t_pred_pkt1.tableNo,
                                         altpred:        t_pred_pkt1.altpred,
-                                        pred:           t_pred_pkt1.pred
+                                        pred:           t_pred_pkt1.pred,
+                                        index_compHist: t_pred_pkt1.index_compHist,
+                                        tag_compHist1:  t_pred_pkt1.tag_compHist1,
+                                        tag_compHist2:  t_pred_pkt1.tag_compHist2
                                    };
         return t_upd_pkt;
 
