@@ -14,8 +14,8 @@ typedef Bit#(TLog#(`BIMODALSIZE))                   BimodalIndex;               
 typedef Bit#(TLog#(`TABLESIZE))                     TagTableIndex;                        //7bits
 typedef Bit#(`BIMODAL_CTR_LEN)                      BimodalCtr;                  //2bits counter
 typedef Bit#(`TAGTABLE_CTR_LEN)                     TagTableCtr;                          //3bits counter
-typedef Bit#(`TAG1_SIZE)                            TableTag1;                         //8bits
-typedef Bit#(`TAG2_SIZE)                            TableTag2;                         //9bits
+typedef Bit#(`TAG1_CSR1_SIZE)                       TableTag1;                         //8bits
+typedef Bit#(`TAG2_CSR1_SIZE)                       TableTag2;                         //9bits
 typedef Bit#(`U_LEN)                                UsefulCtr;                   //2bits
 typedef Bit#(`OUTCOME)                              ActualOutcome;               //1bit
 typedef Bit#(`PRED)                                 Prediction;                         //1bit
@@ -41,48 +41,59 @@ typedef struct {
     BimodalCtr ctr;
 } BimodalEntry deriving(Bits, Eq, FShow);
 
+typedef union tagged {
+    Bit#(`TABLE_LEN)            CSR_index;
+    Bit#(`TAG1_CSR1_SIZE)       CSR1_tag1;          //8 bit
+    Bit#(`TAG1_CSR2_SIZE)       CSR2_tag1;          //7 bit
+    Bit#(`TAG2_CSR1_SIZE)       CSR1_tag2;          //9 bit
+    Bit#(`TAG2_CSR2_SIZE)       CSR2_tag2;          //8 bit
+} CSR deriving (Bits, Eq, FShow);
+
 
 typedef struct {
-  Bit#(32) geomLength;
-  Bit#(32) targetLength;
-  Bit#(64) compHist;
-  Bit#(32) bmax_index;
-} CompressedHist deriving (Bits, Eq, FShow);
+  Int#(10) geomLength;
+  Int#(10) targetLength;
+  CSR foldHist;
+} FoldHist deriving (Bits, Eq, FShow);
 
 
 
 typedef struct {
-    BimodalIndex                                  bimodal_index;
-    Vector#(`NUMTAGTABLES, TagTableIndex)         tagTable_index;
-    Vector#(`NUMTAGTABLES, Tag)                   tableTag;
-    Vector#(`NUMTAGTABLES, UsefulCtr)             uCtr;
-    Vector#(TAdd#(`NUMTAGTABLES,1), TagTableCtr)  ctr;
-    GlobalHistory                                 ghr;
-    Prediction                                    pred;
-    TableNo                                       tableNo;
-    AltPrediction                                 altpred;
-    PathHistory                                   phr;
-    Vector#(`NUMTAGTABLES, CompressedHist)        index_compHist;
-    Vector#(`NUMTAGTABLES, CompressedHist)        tag_compHist1;
-    Vector#(`NUMTAGTABLES, CompressedHist)        tag_compHist2;
+    BimodalIndex                                            bimodal_index;
+    Vector#(`NUMTAGTABLES, TagTableIndex)                   tagTable_index;
+    Vector#(`NUMTAGTABLES, Tag)                             tableTag;
+    Vector#(`NUMTAGTABLES, UsefulCtr)                       uCtr;
+    Vector#(TAdd#(`NUMTAGTABLES,1), TagTableCtr)            ctr;
+    GlobalHistory                                           ghr;
+    Prediction                                              pred;
+    TableNo                                                 tableNo;
+    AltPrediction                                           altpred;
+    PathHistory                                             phr;
+    Vector#(TSub#(`NUMTAGTABLES,1), Bit#(`TABLE_LEN))       index_csr;          //10bit
+    Vector#(2,  Bit#(`TAG1_CSR1_SIZE))                      tag1_csr1;          //8 bit
+    Vector#(2,  Bit#(`TAG1_CSR2_SIZE))                      tag1_csr2;          //7 bit
+    Vector#(2,  Bit#(`TAG2_CSR1_SIZE))                      tag2_csr1;          //9 bit
+    Vector#(2,  Bit#(`TAG2_CSR2_SIZE))                      tag2_csr2;          //8 bit
 } PredictionPacket deriving(Bits, Eq, FShow);
 
 typedef struct {
-    BimodalIndex                                  bimodal_index;
-    Vector#(`NUMTAGTABLES, TagTableIndex)         tagTable_index;
-    Vector#(`NUMTAGTABLES, Tag)                   tableTag;
-    Vector#(`NUMTAGTABLES, UsefulCtr)             uCtr;
-    Vector#(TAdd#(`NUMTAGTABLES,1), TagTableCtr)  ctr;
-    Prediction                                    pred;
-    GlobalHistory                                 ghr;
-    TableNo                                       tableNo;
-    AltPrediction                                 altpred;
-    Misprediction                                 mispred;
-    ActualOutcome                                 actualOutcome;
-    PathHistory                                   phr;
-    Vector#(`NUMTAGTABLES, CompressedHist)        index_compHist;
-    Vector#(`NUMTAGTABLES, CompressedHist)        tag_compHist1;
-    Vector#(`NUMTAGTABLES, CompressedHist)        tag_compHist2;
+    BimodalIndex                                            bimodal_index;
+    Vector#(`NUMTAGTABLES, TagTableIndex)                   tagTable_index;
+    Vector#(`NUMTAGTABLES, Tag)                             tableTag;
+    Vector#(`NUMTAGTABLES, UsefulCtr)                       uCtr;
+    Vector#(TAdd#(`NUMTAGTABLES,1), TagTableCtr)            ctr;
+    Prediction                                              pred;
+    GlobalHistory                                           ghr;
+    TableNo                                                 tableNo;
+    AltPrediction                                           altpred;
+    Misprediction                                           mispred;
+    ActualOutcome                                           actualOutcome;
+    PathHistory                                             phr;
+    Vector#(TSub#(`NUMTAGTABLES,1), Bit#(`TABLE_LEN))       index_csr;          //10bit
+    Vector#(2,  Bit#(`TAG1_CSR1_SIZE))                      tag1_csr1;          //8 bit
+    Vector#(2,  Bit#(`TAG1_CSR2_SIZE))                      tag1_csr2;          //7 bit
+    Vector#(2,  Bit#(`TAG2_CSR1_SIZE))                      tag2_csr1;          //9 bit
+    Vector#(2,  Bit#(`TAG2_CSR2_SIZE))                      tag2_csr2;          //8 bit
 } UpdationPacket deriving(Bits,Eq, FShow);
 
 typedef struct {

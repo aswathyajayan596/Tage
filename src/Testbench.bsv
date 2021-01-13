@@ -26,9 +26,11 @@ package Testbench;
                                         tableNo:        t_pred_pkt1.tableNo,
                                         altpred:        t_pred_pkt1.altpred,
                                         pred:           t_pred_pkt1.pred,
-                                        index_compHist: t_pred_pkt1.index_compHist,
-                                        tag_compHist1:  t_pred_pkt1.tag_compHist1,
-                                        tag_compHist2:  t_pred_pkt1.tag_compHist2
+                                        index_csr: t_pred_pkt1.index_csr,
+                                        tag1_csr1:  t_pred_pkt1.tag1_csr1,
+                                        tag1_csr2:  t_pred_pkt1.tag1_csr2,
+                                        tag2_csr1: t_pred_pkt1.tag2_csr1,
+                                        tag2_csr2: t_pred_pkt1.tag2_csr2
                                    };
         return t_upd_pkt;
 

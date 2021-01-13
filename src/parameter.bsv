@@ -14,15 +14,17 @@
 `define     NUMTAGTABLES        4   
 `define     TABLESIZE           1024
 `define     BIMODALSIZE         1024
-`define     TAG1_SIZE           8
-`define     TAG2_SIZE           9
-`define     GHR1                5
-`define     GHR2                15
-`define     GHR3                44
+`define     TAG1_CSR1_SIZE      8
+`define     TAG1_CSR2_SIZE      7
+`define     TAG2_CSR1_SIZE      9
+`define     TAG2_CSR2_SIZE      8
+`define     GHR1                9
+`define     GHR2                19
+`define     GHR3                39
 `define     GHR4                130
-`define     BIMODAL_LEN         10
-`define     TABLE_LEN           10
-`define     PHR_LEN             32
+`define     BIMODAL_LEN         9              // 1024 entries
+`define     TABLE_LEN           10              // 1024 entries
+`define     PHR_LEN             16
 
 //HARDWARE SPECIFIC
 //change the below parameters only if needed, dependent on architecture of TAGE and the design

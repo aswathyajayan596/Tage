@@ -89,9 +89,12 @@ package Tage_predictor;
       RegFile#(TagTableIndex, TagEntry) table_2 <- mkRegFile(0, table_max);        //tagged table 2
       RegFile#(TagTableIndex, TagEntry) table_3 <- mkRegFile(0, table_max);        //tagged table 3
 
-      Vector#(`NUMTAGTABLES, Reg#(CompressedHist)) indexComp  <-  replicateM(mkReg(unpack(0)));
-      Vector#(`NUMTAGTABLES, Reg#(CompressedHist)) tagComp1   <-  replicateM(mkReg(unpack(0)));
-      Vector#(`NUMTAGTABLES, Reg#(CompressedHist)) tagComp2   <-  replicateM(mkReg(unpack(0)));
+      Vector#(TSub#(`NUMTAGTABLES,1), Reg#(FoldHist)) reg_index_csr  <-  replicateM(mkReg(unpack(0)));
+
+      Vector#(2, Reg#(FoldHist))      reg_tag1_csr1   <-  replicateM(mkReg(unpack(0)));
+      Vector#(2, Reg#(FoldHist))      reg_tag1_csr2   <-  replicateM(mkReg(unpack(0)));
+      Vector#(2, Reg#(FoldHist))      reg_tag2_csr1   <-  replicateM(mkReg(unpack(0)));
+      Vector#(2, Reg#(FoldHist))      reg_tag2_csr2   <-  replicateM(mkReg(unpack(0)));
       
       RegFile#(TagTableIndex, TagEntry) tagTables[`NUMTAGTABLES] = {table_0, table_1, table_2, table_3}; //array of Tagged table predictors  
       
@@ -115,133 +118,199 @@ package Tage_predictor;
       Reg#(Bool) tagtable_rst_complete <- mkReg(False);
 
       //D Wires for Compressed Histories
-      Wire#(Vector#(`NUMTAGTABLES, CompressedHist)) dw_index_compHist <- mkDWire(unpack(0));
-      Wire#(Vector#(`NUMTAGTABLES, CompressedHist)) dw_tag_compHist1 <- mkDWire(unpack(0));
-      Wire#(Vector#(`NUMTAGTABLES, CompressedHist)) dw_tag_compHist2 <- mkDWire(unpack(0));
+      Wire#(Vector#(TSub#(`NUMTAGTABLES,1), Bit#(`TABLE_LEN))) dw_index_csr <- mkDWire(unpack(0));
+      Wire#(Vector#(2, Bit#(`TAG1_CSR1_SIZE))) dw_tag1_csr1 <- mkDWire(unpack(0));
+      Wire#(Vector#(2, Bit#(`TAG1_CSR2_SIZE))) dw_tag1_csr2 <- mkDWire(unpack(0));
+      Wire#(Vector#(2, Bit#(`TAG2_CSR1_SIZE))) dw_tag2_csr1 <- mkDWire(unpack(0));
+      Wire#(Vector#(2, Bit#(`TAG2_CSR2_SIZE))) dw_tag2_csr2 <- mkDWire(unpack(0));
       
 
       function initialise_CompHist ();
+
+        
   
-          action 
+        action 
+  
+           reg_index_csr[0] <= FoldHist {                                                           //index_csr for Table2
+                                        geomLength:   `GHR2,
+                                        targetLength: `TABLE_LEN, 
+                                        foldHist:     tagged CSR_index 0
+                                      };
               
-              Integer geometric[4] = {`GHR1, `GHR2 , `GHR3, `GHR4};
-              CompressedHist index[4];
-              CompressedHist tag1[4];
-              CompressedHist tag2[4];
-              Bit#(32) b_index[4];
-              Bit#(32) b_tag1[4];
-              Bit#(32) b_tag2[4];
+          reg_index_csr[1] <= FoldHist {                                                           //index_csr for Table3
+                                        geomLength:   `GHR3,
+                                        targetLength: `TABLE_LEN, 
+                                        foldHist:     tagged CSR_index 0
+                                      };
+            
+          reg_index_csr[2] <= FoldHist {                                                           //index_csr for Table4
+                                        geomLength:   `GHR4,
+                                        targetLength: `TABLE_LEN, 
+                                        foldHist:     tagged CSR_index 0
+                                      };
 
-              for (Integer i = 0; i < 4; i=i+1) begin
-              b_index[i] = fromInteger(geometric[i] % `TABLE_LEN);
-              b_tag1[i]  = fromInteger(geometric[i] % `TAG1_SIZE);
-              b_tag2[i]  = fromInteger(geometric[i] % `TAG2_SIZE);
-              end
+          reg_tag1_csr1[0] <= FoldHist {                                                           //tag_csr1 for Table0, size 8
+                                        geomLength: `GHR1,                    
+                                        targetLength: `TAG1_CSR1_SIZE, 
+                                        foldHist:     tagged CSR1_tag1 0
+                                      };
               
-
-              for (Integer i = 0; i < 4; i=i+1) begin
+          reg_tag1_csr2[0] <= FoldHist {                                                           //tag_csr2 for Table0, size 7
+                                        geomLength: `GHR1,
+                                        targetLength: `TAG1_CSR2_SIZE, 
+                                        foldHist:     tagged CSR2_tag1 0
+                                      };
               
-              index[i] =  CompressedHist { geomLength: fromInteger(geometric[i]), targetLength: `TABLE_LEN, compHist: unpack(0), bmax_index: b_index[i]};
-              tag1[i]  =  CompressedHist { geomLength: fromInteger(geometric[i]), targetLength: `TAG1_SIZE, compHist: unpack(0), bmax_index: b_tag1[i]};
-              tag2[i]  =  CompressedHist { geomLength: fromInteger(geometric[i]), targetLength: `TAG2_SIZE, compHist: unpack(0), bmax_index: b_tag2[i]};
-              indexComp[i] <= index[i];
-              tagComp1[i]  <= tag1[i];
-              tagComp2[i]  <= tag2[i];
+          reg_tag1_csr1[1] <= FoldHist {                                                           //tag_csr1 for Table1, size 8
+                                        geomLength: `GHR2,
+                                        targetLength: `TAG1_CSR1_SIZE, 
+                                        foldHist:     tagged CSR1_tag1 0
+                                      };
 
-              end
+          reg_tag1_csr2[1] <= FoldHist {                                                           //tag_csr2 for Table1, size 7
+                                        geomLength: `GHR2,
+                                        targetLength: `TAG1_CSR2_SIZE, 
+                                        foldHist:     tagged CSR2_tag1 0
+                                      };
+              
+          reg_tag2_csr1[0] <= FoldHist {                                                           //tag_csr1 for Table2, size 8
+                                        geomLength: `GHR3,
+                                        targetLength: `TAG2_CSR1_SIZE, 
+                                        foldHist:     tagged CSR1_tag2 0
+                                      };
+
+          reg_tag2_csr2[0] <= FoldHist {                                                           //tag_csr2 for Table2, size 7
+                                        geomLength: `GHR3,
+                                        targetLength: `TAG2_CSR2_SIZE, 
+                                        foldHist:     tagged CSR2_tag2 0
+                                      };
+
+          reg_tag2_csr1[1] <= FoldHist {                                                           //tag_csr1 for Table3, size 8
+                                        geomLength: `GHR4,
+                                        targetLength: `TAG2_CSR1_SIZE, 
+                                        foldHist:     tagged CSR1_tag2 0
+                                      };
+
+          reg_tag2_csr2[1] <= FoldHist {                                                           //tag_csr2 for Table3, size 7
+                                        geomLength: `GHR4,
+                                        targetLength: `TAG2_CSR2_SIZE, 
+                                        foldHist:     tagged CSR2_tag2 0
+                                      };
 
           endaction
 
       endfunction
 
-      function ActionValue#(Bit#(64)) update_individualCompHist(Bit#(1) geometric_max,Bit#(1) outcome, CompressedHist index_or_tag);
+      function Bit#(14) update_individualCSRs(Bit#(1) geometric_max,Bit#(1) outcome, FoldHist csr_value);
 
-          actionvalue 
-      
-              Bit#(64) compressed_history;
-              compressed_history = index_or_tag.compHist;
+        
+              CSR fold_history;
+              fold_history = csr_value.foldHist;
+              Bit#(14) bits_fold_history = zeroExtend(pack(fold_history));
 
-            //   $display("\nInitial Compressed History: %b", compressed_history);
-              let index = index_or_tag.bmax_index;
-              let v_msb = msb(compressed_history);
-              compressed_history = (compressed_history << 1);
-              let t_len = index_or_tag.targetLength;
-              compressed_history = compressed_history[t_len-1:0];
-              compressed_history[0] = v_msb;
+            //   $display("\nInitial CSR value: %b", fold_history);
+              let index = csr_value.geomLength;
+              let t_len = csr_value.targetLength;
+              let v_msb = bits_fold_history[t_len-1];
+              bits_fold_history = (bits_fold_history << 1);
+              // bits_fold_history = bits_fold_history[t_len-1:0];
+            //   bits_fold_history[0] = v_msb;
 
-            //   $display("Circcular Shifted Compressed History: %b", compressed_history);
+            //   $display("Circular Shifted CSR value: %b", bits_fold_history);
 
 
-              compressed_history[0] = compressed_history[0] ^ outcome;
+              bits_fold_history[0] = bits_fold_history[0] ^ outcome ^ v_msb;
 
-            //   $display("Outcome added, Compressed History: %b", compressed_history);
+            //   $display("Outcome added, CSR value: %b", bits_fold_history);
 
             //   $display("Geometric max: %b", geometric_max);  
-              compressed_history[index] = compressed_history[index] ^ geometric_max;
+              bits_fold_history[index] = bits_fold_history[index] ^ geometric_max;
 
-            //   $display("Final Compressed History: %b", compressed_history);
-              return compressed_history;
+            //   $display("Final CSR value: %b", bits_fold_history);
 
-          endactionvalue
-          
+
+              return bits_fold_history;
+        
+        
       endfunction
 
       function Action updateCompHists (Bit#(131) t_ghr);
           action
-              for (Bit#(3) i=0; i < 4; i=i+1) begin
-            //   $display ("\nIndex updation");
-              Bit#(64) t_indexComp <- update_individualCompHist(t_ghr[`TABLE_LEN],t_ghr[0], indexComp[i]);
-            //   $display ("\nTag1 updation");
-              Bit#(64) t_tagComp1 <- update_individualCompHist(t_ghr[`TAG1_SIZE], t_ghr[0], tagComp1[i]);
-            //   $display ("\nTag2 updation");
-              Bit#(64) t_tagComp2 <- update_individualCompHist(t_ghr[`TAG2_SIZE], t_ghr[0], tagComp2[i]);
+           
+            
+            
+            reg_index_csr[0].foldHist <= tagged CSR_index truncate(update_individualCSRs(t_ghr[`TABLE_LEN - 1], t_ghr[0], reg_index_csr[0]));
+            reg_index_csr[1].foldHist <= tagged CSR_index truncate(update_individualCSRs(t_ghr[`TABLE_LEN - 1], t_ghr[0], reg_index_csr[1]));
+            reg_index_csr[2].foldHist <= tagged CSR_index truncate(update_individualCSRs(t_ghr[`TABLE_LEN - 1], t_ghr[0], reg_index_csr[2]));
+            reg_tag1_csr1[0].foldHist <= tagged CSR1_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR1_SIZE], t_ghr[0], reg_tag1_csr1[0]));
+            reg_tag1_csr1[1].foldHist <= tagged CSR1_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR1_SIZE], t_ghr[0], reg_tag1_csr1[1]));
+            reg_tag1_csr2[0].foldHist <= tagged CSR2_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR2_SIZE], t_ghr[0], reg_tag1_csr2[0]));
+            reg_tag1_csr2[1].foldHist <= tagged CSR2_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR2_SIZE], t_ghr[0], reg_tag1_csr2[1]));
+            reg_tag2_csr1[0].foldHist <= tagged CSR1_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR1_SIZE], t_ghr[0], reg_tag2_csr1[0]));
+            reg_tag2_csr1[1].foldHist <= tagged CSR1_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR2_SIZE], t_ghr[0], reg_tag2_csr1[1]));
+            reg_tag2_csr2[0].foldHist <= tagged CSR2_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR2_SIZE], t_ghr[0], reg_tag2_csr2[0]));
+            reg_tag2_csr2[1].foldHist <= tagged CSR2_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR2_SIZE], t_ghr[0], reg_tag2_csr2[1]));
 
-              indexComp[i].compHist <= t_indexComp;
-              tagComp1[i].compHist <= t_tagComp1;
-              tagComp2[i].compHist <= t_tagComp2;
-              end
           endaction
       endfunction
 
-      function Bit#(64) compFoldIndex(ProgramCounter pc, PathHistory t_phr, TableNo ti);
-          Bit#(64) index = 0;
+      function Bit#(`TABLE_LEN) compFoldIndex(ProgramCounter pc, PathHistory v_phr, TableNo ti);
+          Bit#(`TABLE_LEN) index = 0;
           if (ti == 3'b000) begin
-          index = pc[`BIMODAL_LEN - 1:0];        //13bit pc
-          return index;
+            index = pc[`BIMODAL_LEN:0];        //10bit pc
+            return index;
           end
           else if (ti == 3'b001) begin
-          index = pc ^ (pc >> `TABLE_LEN) ^ indexComp[0].compHist ^ zeroExtend(t_phr) ^ (zeroExtend(t_phr) >> `TABLE_LEN); // indexTagPred[0] = PC ^ (PC >> TAGPREDLOG) ^ indexComp[0].compHist ^ PHR ^ (PHR >> TAGPREDLOG);
-          return index;
+            index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^ 
+                    ghr[9:0] ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+            return index;
           end
           else if (ti == 3'b010) begin
-          index = pc ^ (pc >> (`TABLE_LEN - 1)) ^ indexComp[1].compHist ^ zeroExtend(t_phr) ^ (zeroExtend(t_phr) >> `TABLE_LEN);
-          return index;
+            index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
+                    truncate(pack(reg_index_csr[0].foldHist)) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+            return index;
           end
           else if (ti == 3'b011) begin
-          index = pc ^ (pc >> (`TABLE_LEN - 2)) ^ indexComp[2].compHist ^ zeroExtend(t_phr) ^ (zeroExtend(t_phr) >> `TABLE_LEN);
-          return index;
+            index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
+                    truncate(pack(reg_index_csr[1].foldHist)) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+            return index;
           end
           else begin
-          index = pc ^ (pc >> (`TABLE_LEN - 3)) ^ indexComp[3].compHist ^ zeroExtend(t_phr) ^ (zeroExtend(t_phr) >> `TABLE_LEN);
-          return index;
+            index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
+                    truncate(pack(reg_index_csr[2].foldHist)) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+            return index;
           end
       endfunction
 
-      function Bit#(64) compFoldTag(ProgramCounter pc, TableNo ti);
-        Bit#(64) comp_tag_table = 0;
+      function Bit#(10) compFoldTag(ProgramCounter pc, TableNo ti);
+        Bit#(10) comp_tag_table = 0;
         if (ti == 3'b001) begin
-          comp_tag_table = pc ^ tagComp1[0].compHist ^ (tagComp2[0].compHist << 1) ;
-          // tag[i] = PC ^ tagComp[0][i].compHist ^ (tagComp[1][i].compHist << 1);
+          
+          Bit#(8) csr_1 = truncate(pack(reg_tag1_csr1[0].foldHist));
+          Bit#(7) csr_2 = truncate(pack(reg_tag1_csr2[0].foldHist));
+          comp_tag_table = zeroExtend(pc[7:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;
+          
         end
         else if (ti == 3'b010) begin
-          comp_tag_table = pc ^ tagComp1[1].compHist ^ (tagComp2[1].compHist << 1) ;
-
+          
+          Bit#(8) csr_1 = truncate(pack(reg_tag1_csr1[1].foldHist));
+          Bit#(7) csr_2 = truncate(pack(reg_tag1_csr2[1].foldHist));
+          comp_tag_table = zeroExtend(pc[7:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;
+          
         end
         else if (ti == 3'b011) begin
-          comp_tag_table = pc ^ tagComp1[2].compHist ^ (tagComp2[2].compHist << 1) ;
+         
+          Bit#(9) csr_1 = truncate(pack(reg_tag2_csr1[0].foldHist));
+          Bit#(8) csr_2 = truncate(pack(reg_tag2_csr2[0].foldHist));
+          comp_tag_table = zeroExtend(pc[8:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;
+          
         end
         else if (ti == 3'b100) begin
-          comp_tag_table = pc ^ tagComp1[3].compHist ^ (tagComp2[3].compHist << 1) ;
+          
+          Bit#(9) csr_1 = truncate(pack(reg_tag2_csr1[1].foldHist));
+          Bit#(8) csr_2 = truncate(pack(reg_tag2_csr2[1].foldHist));
+          comp_tag_table = zeroExtend(pc[8:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;
+          
         end
         return comp_tag_table;
       endfunction
@@ -287,6 +356,7 @@ package Tage_predictor;
           if (bimodal_rst_complete && tagtable_rst_complete) begin
               rg_resetting <= False;
               initialise_CompHist();
+
               `ifdef TAGE_DISPLAY
                   if (display) begin
                       $fdisplay(fh, "\nReset Over!",cur_cycle);
@@ -313,9 +383,27 @@ package Tage_predictor;
                       $fdisplay(fh, "Speculatively updated PHR:(reflects on internal GHR in next cycle) %b", t_phr);
                   end
               `endif
-              writeVReg( indexComp, dw_index_compHist);
-              writeVReg( tagComp1, dw_tag_compHist1);
-              writeVReg( tagComp2, dw_tag_compHist2);
+
+
+
+          reg_index_csr[0].foldHist <= tagged CSR_index dw_index_csr[0];
+          reg_index_csr[1].foldHist <= tagged CSR_index dw_index_csr[1];
+          reg_index_csr[2].foldHist <= tagged CSR_index dw_index_csr[2];
+          reg_tag1_csr1[0].foldHist  <= tagged CSR1_tag1 dw_tag1_csr1[0];
+          reg_tag1_csr1[1].foldHist  <= tagged CSR1_tag1 dw_tag1_csr1[1];
+          reg_tag1_csr2[0].foldHist  <= tagged CSR2_tag1 dw_tag1_csr2[0];
+          reg_tag1_csr2[1].foldHist  <= tagged CSR2_tag1 dw_tag1_csr2[1];
+          reg_tag2_csr1[0].foldHist  <= tagged CSR1_tag2 dw_tag2_csr1[0];
+          reg_tag2_csr1[1].foldHist  <= tagged CSR1_tag2 dw_tag2_csr1[1];
+          reg_tag2_csr2[0].foldHist  <= tagged CSR2_tag2 dw_tag2_csr2[0];
+          reg_tag2_csr2[1].foldHist  <= tagged CSR2_tag2 dw_tag2_csr2[1];
+              
+              // writeVReg( reg_index_csr, dw_index_csr);
+              // writeVReg( reg_tag1_csr1, dw_tag1_csr1);
+              // writeVReg( reg_tag1_csr2, dw_tag1_csr2);
+              // writeVReg( reg_tag2_csr1, dw_tag2_csr1);
+              // writeVReg( reg_tag2_csr2, dw_tag2_csr2);
+
           end
           else if(dw_pred_over) begin
               t_ghr = update_GHR(ghr, dw_pred);
@@ -360,21 +448,27 @@ package Tage_predictor;
           //updating PHR in temporary prediction packet
           t_pred_pkt.phr = update_PHR(phr, pc);
 
-          for (Integer i = 0; i < `NUMTAGTABLES; i=i+1) begin
-            t_pred_pkt.index_compHist[i] = indexComp[i];
-            t_pred_pkt.tag_compHist1[i] = tagComp1[i];
-            t_pred_pkt.tag_compHist2[i] = tagComp2[i];
-          end
 
+          t_pred_pkt.index_csr[0] = truncate(pack(reg_index_csr[0].foldHist));
+          t_pred_pkt.index_csr[1] = truncate(pack(reg_index_csr[1].foldHist));
+          t_pred_pkt.index_csr[2] = truncate(pack(reg_index_csr[2].foldHist));
+          t_pred_pkt.tag1_csr1[0] = truncate(pack(reg_tag1_csr1[0].foldHist));
+          t_pred_pkt.tag1_csr2[0] = truncate(pack(reg_tag1_csr2[0].foldHist));
+          t_pred_pkt.tag1_csr1[1] = truncate(pack(reg_tag1_csr1[1].foldHist));
+          t_pred_pkt.tag1_csr2[1] = truncate(pack(reg_tag1_csr2[1].foldHist));
+          t_pred_pkt.tag2_csr1[0] = truncate(pack(reg_tag2_csr1[0].foldHist));
+          t_pred_pkt.tag2_csr2[0] = truncate(pack(reg_tag2_csr2[0].foldHist));
+          t_pred_pkt.tag2_csr1[1] = truncate(pack(reg_tag2_csr1[1].foldHist));
+          t_pred_pkt.tag2_csr2[1] = truncate(pack(reg_tag2_csr2[1].foldHist));
           
 
 
           //calling index computation function for each table and calling tag computation function for each table
-          bimodal_index = truncate(compFoldIndex(pc,t_pred_pkt.phr,3'b000));
+          bimodal_index = compFoldIndex(pc,t_pred_pkt.phr,3'b000);
           t_pred_pkt.bimodal_index = bimodal_index;
           for (Integer i = 0; i < 4; i=i+1) begin
               TableNo tNo = fromInteger(i+1);
-              tagTable_indexes[i] = truncate(compFoldIndex(pc,t_pred_pkt.phr,tNo));
+              tagTable_indexes[i] = compFoldIndex(pc,t_pred_pkt.phr,tNo);
               t_pred_pkt.tagTable_index[i] = tagTable_indexes[i];
               if(i<2) begin
                   computedTag[i] = tagged Tag1 truncate(compFoldTag(pc,tNo));
@@ -470,9 +564,31 @@ package Tage_predictor;
           dw_outcome <= upd_pkt.actualOutcome;
           dw_mispred <= upd_pkt.mispred;
 
-          dw_index_compHist <= upd_pkt.index_compHist;
-          dw_tag_compHist1  <= upd_pkt.tag_compHist1;
-          dw_tag_compHist2  <= upd_pkt.tag_compHist2;
+
+          dw_index_csr <= upd_pkt.index_csr;
+          
+          dw_tag1_csr1  <= upd_pkt.tag1_csr1;
+         
+          dw_tag1_csr2  <= upd_pkt.tag1_csr2;
+          
+          dw_tag2_csr1  <= upd_pkt.tag2_csr1;
+         
+          dw_tag2_csr2  <= upd_pkt.tag2_csr2;
+          
+
+
+
+          // dw_index_csr[0].foldHist <= upd_pkt.index_csr[0];
+          // dw_index_csr[1].foldHist <= tagged CSR_index upd_pkt.index_csr[1];
+          // dw_index_csr[2].foldHist <= tagged CSR_index upd_pkt.index_csr[2];
+          // dw_tag1_csr1[0].foldHist  <= tagged CSR1_tag1 upd_pkt.tag1_csr1[0];
+          // dw_tag1_csr1[1].foldHist  <= tagged CSR1_tag1 upd_pkt.tag1_csr1[1];
+          // dw_tag1_csr2[0].foldHist  <= tagged CSR2_tag1 upd_pkt.tag1_csr2[0];
+          // dw_tag1_csr2[1].foldHist  <= tagged CSR2_tag1 upd_pkt.tag1_csr2[1];
+          // dw_tag2_csr1[0].foldHist  <= tagged CSR1_tag2 upd_pkt.tag2_csr1[0];
+          // dw_tag2_csr1[1].foldHist  <= tagged CSR1_tag2 upd_pkt.tag2_csr1[1];
+          // dw_tag2_csr2[0].foldHist  <= tagged CSR2_tag2 upd_pkt.tag2_csr2[0];
+          // dw_tag2_csr2[1].foldHist  <= tagged CSR2_tag2 upd_pkt.tag2_csr2[1];
 
           //store the indexes of each entry of predictor tables from the updation packet
           //Store the corresponding indexed entry whose index is obtained from the updation packet
@@ -548,9 +664,7 @@ package Tage_predictor;
                   3'b010 :    tagTable_entries = allocate_entry(tagTable_entries, 2, upd_pkt.tableTag, upd_pkt.actualOutcome);
                   3'b011 :    tagTable_entries = allocate_entry(tagTable_entries, 3, upd_pkt.tableTag, upd_pkt.actualOutcome);
               endcase
-          end  
-
-
+          end
                          
           
           //Assigning back the corresponding entries to the prediction tables.
