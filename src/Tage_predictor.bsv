@@ -125,134 +125,170 @@ package Tage_predictor;
       Wire#(Vector#(2, Bit#(`TAG2_CSR2_SIZE))) dw_tag2_csr2 <- mkDWire(unpack(0));
       
 
-      function initialise_CompHist ();
+    function initialise_CompHist ();
 
-        
-  
-        action 
-  
-           reg_index_csr[0] <= FoldHist {                                                           //index_csr for Table2
-                                        geomLength:   `GHR2,
-                                        targetLength: `TABLE_LEN, 
-                                        foldHist:     tagged CSR_index 0
-                                      };
-              
-          reg_index_csr[1] <= FoldHist {                                                           //index_csr for Table3
-                                        geomLength:   `GHR3,
-                                        targetLength: `TABLE_LEN, 
-                                        foldHist:     tagged CSR_index 0
-                                      };
             
-          reg_index_csr[2] <= FoldHist {                                                           //index_csr for Table4
-                                        geomLength:   `GHR4,
-                                        targetLength: `TABLE_LEN, 
-                                        foldHist:     tagged CSR_index 0
-                                      };
-
-          reg_tag1_csr1[0] <= FoldHist {                                                           //tag_csr1 for Table0, size 8
-                                        geomLength: `GHR1,                    
-                                        targetLength: `TAG1_CSR1_SIZE, 
-                                        foldHist:     tagged CSR1_tag1 0
-                                      };
+      
+            action 
+      
+              reg_index_csr[0] <= FoldHist {                                                           //index_csr for Table2
+                                          geomLength:   `GHR2,
+                                          targetLength: `TABLE_LEN, 
+                                          foldHist:     tagged CSR_index 0
+                                        };
+                
+            reg_index_csr[1] <= FoldHist {                                                           //index_csr for Table3
+                                          geomLength:   `GHR3,
+                                          targetLength: `TABLE_LEN, 
+                                          foldHist:     tagged CSR_index 0
+                                        };
               
-          reg_tag1_csr2[0] <= FoldHist {                                                           //tag_csr2 for Table0, size 7
-                                        geomLength: `GHR1,
-                                        targetLength: `TAG1_CSR2_SIZE, 
-                                        foldHist:     tagged CSR2_tag1 0
-                                      };
-              
-          reg_tag1_csr1[1] <= FoldHist {                                                           //tag_csr1 for Table1, size 8
-                                        geomLength: `GHR2,
-                                        targetLength: `TAG1_CSR1_SIZE, 
-                                        foldHist:     tagged CSR1_tag1 0
-                                      };
+            reg_index_csr[2] <= FoldHist {                                                           //index_csr for Table4
+                                          geomLength:   `GHR4,
+                                          targetLength: `TABLE_LEN, 
+                                          foldHist:     tagged CSR_index 0
+                                        };
 
-          reg_tag1_csr2[1] <= FoldHist {                                                           //tag_csr2 for Table1, size 7
-                                        geomLength: `GHR2,
-                                        targetLength: `TAG1_CSR2_SIZE, 
-                                        foldHist:     tagged CSR2_tag1 0
-                                      };
-              
-          reg_tag2_csr1[0] <= FoldHist {                                                           //tag_csr1 for Table2, size 8
-                                        geomLength: `GHR3,
-                                        targetLength: `TAG2_CSR1_SIZE, 
-                                        foldHist:     tagged CSR1_tag2 0
-                                      };
+            reg_tag1_csr1[0] <= FoldHist {                                                           //tag_csr1 for Table1, size 8
+                                          geomLength: `GHR1,                    
+                                          targetLength: `TAG1_CSR1_SIZE, 
+                                          foldHist:     tagged CSR1_tag1 0
+                                        };
+                
+            reg_tag1_csr2[0] <= FoldHist {                                                           //tag_csr2 for Table1, size 7
+                                          geomLength: `GHR1,
+                                          targetLength: `TAG1_CSR2_SIZE, 
+                                          foldHist:     tagged CSR2_tag1 0
+                                        };
+                
+            reg_tag1_csr1[1] <= FoldHist {                                                           //tag_csr1 for Table2, size 8
+                                          geomLength: `GHR2,
+                                          targetLength: `TAG1_CSR1_SIZE, 
+                                          foldHist:     tagged CSR1_tag1 0
+                                        };
 
-          reg_tag2_csr2[0] <= FoldHist {                                                           //tag_csr2 for Table2, size 7
-                                        geomLength: `GHR3,
-                                        targetLength: `TAG2_CSR2_SIZE, 
-                                        foldHist:     tagged CSR2_tag2 0
-                                      };
+            reg_tag1_csr2[1] <= FoldHist {                                                           //tag_csr2 for Table2, size 7
+                                          geomLength: `GHR2,
+                                          targetLength: `TAG1_CSR2_SIZE, 
+                                          foldHist:     tagged CSR2_tag1 0
+                                        };
+                
+            reg_tag2_csr1[0] <= FoldHist {                                                           //tag_csr1 for Table3, size 8
+                                          geomLength: `GHR3,
+                                          targetLength: `TAG2_CSR1_SIZE, 
+                                          foldHist:     tagged CSR1_tag2 0
+                                        };
 
-          reg_tag2_csr1[1] <= FoldHist {                                                           //tag_csr1 for Table3, size 8
-                                        geomLength: `GHR4,
-                                        targetLength: `TAG2_CSR1_SIZE, 
-                                        foldHist:     tagged CSR1_tag2 0
-                                      };
+            reg_tag2_csr2[0] <= FoldHist {                                                           //tag_csr2 for Table3, size 7
+                                          geomLength: `GHR3,
+                                          targetLength: `TAG2_CSR2_SIZE, 
+                                          foldHist:     tagged CSR2_tag2 0
+                                        };
 
-          reg_tag2_csr2[1] <= FoldHist {                                                           //tag_csr2 for Table3, size 7
-                                        geomLength: `GHR4,
-                                        targetLength: `TAG2_CSR2_SIZE, 
-                                        foldHist:     tagged CSR2_tag2 0
-                                      };
+            reg_tag2_csr1[1] <= FoldHist {                                                           //tag_csr1 for Table4, size 8
+                                          geomLength: `GHR4,
+                                          targetLength: `TAG2_CSR1_SIZE, 
+                                          foldHist:     tagged CSR1_tag2 0
+                                        };
 
-          endaction
+            reg_tag2_csr2[1] <= FoldHist {                                                           //tag_csr2 for Table4, size 7
+                                          geomLength: `GHR4,
+                                          targetLength: `TAG2_CSR2_SIZE, 
+                                          foldHist:     tagged CSR2_tag2 0
+                                        };
 
-      endfunction
+              endaction
 
-      function Bit#(14) update_individualCSRs(Bit#(1) geometric_max,Bit#(1) outcome, FoldHist csr_value);
+    endfunction
 
-        
-              CSR fold_history;
-              fold_history = csr_value.foldHist;
-              Bit#(14) bits_fold_history = zeroExtend(pack(fold_history));
+        function ActionValue#(Bit#(14)) update_individualCSRs(Bit#(1) geometric_max,Bit#(1) outcome, FoldHist csr);
 
-            //   $display("\nInitial CSR value: %b", fold_history);
-              let index = csr_value.geomLength;
-              let t_len = csr_value.targetLength;
-              let v_msb = bits_fold_history[t_len-1];
-              bits_fold_history = (bits_fold_history << 1);
-              // bits_fold_history = bits_fold_history[t_len-1:0];
-            //   bits_fold_history[0] = v_msb;
+            actionvalue
+            CSR fold_history;
+            fold_history = csr.foldHist;
+            Bit#(14) bits_fold_history = 0;
 
-            //   $display("Circular Shifted CSR value: %b", bits_fold_history);
+            $display("Geomlength = %d, TargetLength = %d",csr.geomLength,csr.targetLength);
+
+            case (fold_history) matches
+              tagged CSR_index  .ind  : bits_fold_history = zeroExtend(ind);
+              tagged CSR1_tag1  .tag_11: bits_fold_history = zeroExtend(tag_11);
+              tagged CSR1_tag2  .tag_12: bits_fold_history = zeroExtend(tag_12);
+              tagged CSR2_tag1  .tag_21: bits_fold_history = zeroExtend(tag_21);
+              tagged CSR2_tag2  .tag_22: bits_fold_history = zeroExtend(tag_22);
+            endcase
+
+            // case (orand) matches
+            //   tagged Register .r : x = rf [r];
+            //   tagged Literal .n : x = n;
+            //   tagged Indexed {regAddr: .ra, regIndex: .ri} : x = mem[ra+ri];
+            // endcase
+
+            $display("\n\nInitial CSR value: %b", bits_fold_history);
+            let index = csr.geomLength % csr.targetLength;
+            let t_len = csr.targetLength;
+            let v_msb = bits_fold_history[t_len-1];
+            bits_fold_history = (bits_fold_history << 1);
+            // bits_fold_history = bits_fold_history[t_len-1:0];
+          //   bits_fold_history[0] = v_msb;
+
+            $display("Circular Shifted CSR value: %b", bits_fold_history);
 
 
-              bits_fold_history[0] = bits_fold_history[0] ^ outcome ^ v_msb;
+            bits_fold_history[0] = bits_fold_history[0] ^ outcome ^ v_msb;
 
-            //   $display("Outcome added, CSR value: %b", bits_fold_history);
+            $display("Outcome = %b", outcome);
+            $display("Outcome added, CSR value: %b", bits_fold_history);
 
-            //   $display("Geometric max: %b", geometric_max);  
-              bits_fold_history[index] = bits_fold_history[index] ^ geometric_max;
+            $display("Geometric max: %b", geometric_max);  
+            $display("Geometric max index: %d", index);
+            bits_fold_history[index] = bits_fold_history[index] ^ geometric_max;
 
-            //   $display("Final CSR value: %b", bits_fold_history);
+            $display("Final CSR value: %b\n\n", bits_fold_history);
 
 
-              return bits_fold_history;
-        
-        
-      endfunction
+            return bits_fold_history;
+      endactionvalue
+      
+    endfunction
 
-      function Action updateCompHists (Bit#(131) t_ghr);
-          action
-           
-            
-            
-            reg_index_csr[0].foldHist <= tagged CSR_index truncate(update_individualCSRs(t_ghr[`TABLE_LEN - 1], t_ghr[0], reg_index_csr[0]));
-            reg_index_csr[1].foldHist <= tagged CSR_index truncate(update_individualCSRs(t_ghr[`TABLE_LEN - 1], t_ghr[0], reg_index_csr[1]));
-            reg_index_csr[2].foldHist <= tagged CSR_index truncate(update_individualCSRs(t_ghr[`TABLE_LEN - 1], t_ghr[0], reg_index_csr[2]));
-            reg_tag1_csr1[0].foldHist <= tagged CSR1_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR1_SIZE], t_ghr[0], reg_tag1_csr1[0]));
-            reg_tag1_csr1[1].foldHist <= tagged CSR1_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR1_SIZE], t_ghr[0], reg_tag1_csr1[1]));
-            reg_tag1_csr2[0].foldHist <= tagged CSR2_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR2_SIZE], t_ghr[0], reg_tag1_csr2[0]));
-            reg_tag1_csr2[1].foldHist <= tagged CSR2_tag1 truncate(update_individualCSRs(t_ghr[`TAG1_CSR2_SIZE], t_ghr[0], reg_tag1_csr2[1]));
-            reg_tag2_csr1[0].foldHist <= tagged CSR1_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR1_SIZE], t_ghr[0], reg_tag2_csr1[0]));
-            reg_tag2_csr1[1].foldHist <= tagged CSR1_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR2_SIZE], t_ghr[0], reg_tag2_csr1[1]));
-            reg_tag2_csr2[0].foldHist <= tagged CSR2_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR2_SIZE], t_ghr[0], reg_tag2_csr2[0]));
-            reg_tag2_csr2[1].foldHist <= tagged CSR2_tag2 truncate(update_individualCSRs(t_ghr[`TAG2_CSR2_SIZE], t_ghr[0], reg_tag2_csr2[1]));
+       function Action updateCompHists (Bit#(131) t_ghr, Bit#(1) ghr_4);
+        action
+          let fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_index_csr[0]);
+          reg_index_csr[0].foldHist <= tagged CSR_index truncate(fh);
 
-          endaction
-      endfunction
+          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_index_csr[1]);
+          reg_index_csr[1].foldHist <= tagged CSR_index truncate(fh);
+
+          fh <- update_individualCSRs(ghr_4, t_ghr[0], reg_index_csr[2]);
+          reg_index_csr[2].foldHist <= tagged CSR_index truncate(fh);
+
+          fh <- update_individualCSRs(t_ghr[`GHR1], t_ghr[0], reg_tag1_csr1[0]);
+          reg_tag1_csr1[0].foldHist <= tagged CSR1_tag1 truncate(fh);
+
+          fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_tag1_csr1[1]);
+          reg_tag1_csr1[1].foldHist <= tagged CSR1_tag1 truncate(fh);
+
+          fh <- update_individualCSRs(t_ghr[`GHR1], t_ghr[0], reg_tag1_csr2[0]);
+          reg_tag1_csr2[0].foldHist <= tagged CSR2_tag1 truncate(fh);
+
+          fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_tag1_csr2[1]);
+          reg_tag1_csr2[1].foldHist <= tagged CSR2_tag1 truncate(fh);
+
+          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_tag2_csr1[0]);
+          reg_tag2_csr1[0].foldHist <= tagged CSR1_tag2 truncate(fh);
+
+          fh <- update_individualCSRs(ghr_4, t_ghr[0], reg_tag2_csr1[1]);
+          reg_tag2_csr1[1].foldHist <= tagged CSR1_tag2 truncate(fh);
+
+          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_tag2_csr2[0]);
+          reg_tag2_csr2[0].foldHist <= tagged CSR2_tag2 truncate(fh);
+
+          fh <- update_individualCSRs(ghr_4, t_ghr[0], reg_tag2_csr2[1]);
+          reg_tag2_csr2[1].foldHist <= tagged CSR2_tag2 truncate(fh);
+          
+        endaction
+    endfunction
 
       function Bit#(`TABLE_LEN) compFoldIndex(ProgramCounter pc, PathHistory v_phr, TableNo ti);
           Bit#(`TABLE_LEN) index = 0;

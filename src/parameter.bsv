@@ -19,7 +19,7 @@
 `define     TAG2_CSR1_SIZE      9
 `define     TAG2_CSR2_SIZE      8
 `define     GHR1                9
-`define     GHR2                19
+`define     GHR2                15
 `define     GHR3                39
 `define     GHR4                130
 `define     BIMODAL_LEN         9              // 1024 entries
