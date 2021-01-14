@@ -14,31 +14,7 @@ package Tage_predictor;
       method Action displayInternal(Bool start_display);
   endinterface
 
-  `ifdef TAGE_DISPLAY
-      function Action check_u_counters(Vector#(`NUMTAGTABLES,TagEntry) entries);
-          action
-              Integer found = 0;
-              for (Integer i=0; i<`NUMTAGTABLES; i=i+1) begin
-                  if (entries[i].uCtr > 0) begin
-                      found = found + 1;
-                  end
-              end
-              `ifdef TAGE_DISPLAY
-              if (display) begin
-                  $fdisplay(fh, "Found value = %d", found);
-              end
-              `endif
-              if(found == `NUMTAGTABLES) begin
-              `ifdef TAGE_DISPLAY
-                      $fdisplay(fh, "Found value = %d", found);
-                      $fdisplay(fh, "Found all u>0", fshow(entries));
-                      $fdisplay(fh, "\n");
-              `endif
-
-              end
-          endaction
-      endfunction
-  `endif
+ 
 
   function GlobalHistory update_GHR(GlobalHistory t_ghr, Bit#(1) pred_or_outcome);
       t_ghr = (t_ghr << 1);
@@ -123,6 +99,51 @@ package Tage_predictor;
       Wire#(Vector#(2, Bit#(`TAG1_CSR2_SIZE))) dw_tag1_csr2 <- mkDWire(unpack(0));
       Wire#(Vector#(2, Bit#(`TAG2_CSR1_SIZE))) dw_tag2_csr1 <- mkDWire(unpack(0));
       Wire#(Vector#(2, Bit#(`TAG2_CSR2_SIZE))) dw_tag2_csr2 <- mkDWire(unpack(0));
+
+       //display Register
+      Reg#(Bool) display <- mkReg(False);
+
+         //for file write to get simulation result
+      `ifdef TAGE_DISPLAY
+          let fh <- mkReg(InvalidFile) ;
+          String dumpFile = "sim_results.txt" ;
+          
+          rule rl_fdisplay(fh == InvalidFile);
+              File lfh <- $fopen( dumpFile, "w" ) ;
+              if ( lfh == InvalidFile )
+              begin
+                  $display("cannot open %s", dumpFile);
+                  $finish(0);
+              end
+              fh <= lfh ;
+          endrule
+      `endif
+
+     `ifdef TAGE_DISPLAY
+      function Action check_u_counters(Vector#(`NUMTAGTABLES,TagEntry) entries);
+          action
+              Integer found = 0;
+              for (Integer i=0; i<`NUMTAGTABLES; i=i+1) begin
+                  if (entries[i].uCtr > 0) begin
+                      found = found + 1;
+                  end
+              end
+              `ifdef TAGE_DISPLAY
+              if (display) begin
+                  $fdisplay(fh, "Found value = %d", found);
+              end
+              `endif
+              if(found == `NUMTAGTABLES) begin
+              `ifdef TAGE_DISPLAY
+                      $fdisplay(fh, "Found value = %d", found);
+                      $fdisplay(fh, "Found all u>0", fshow(entries));
+                      $fdisplay(fh, "\n");
+              `endif
+
+              end
+          endaction
+      endfunction
+  `endif
       
 
     function initialise_CompHist ();
@@ -201,14 +222,14 @@ package Tage_predictor;
 
     endfunction
 
-        function ActionValue#(Bit#(14)) update_individualCSRs(Bit#(1) geometric_max,Bit#(1) outcome, FoldHist csr);
+        function ActionValue#(Bit#(14)) speculative_update_individualCSRs(Bit#(1) geometric_max,Bit#(1) outcome, FoldHist csr);
 
             actionvalue
             CSR fold_history;
             fold_history = csr.foldHist;
             Bit#(14) bits_fold_history = 0;
 
-            $display("Geomlength = %d, TargetLength = %d",csr.geomLength,csr.targetLength);
+            // $display("Geomlength = %d, TargetLength = %d",csr.geomLength,csr.targetLength);
 
             case (fold_history) matches
               tagged CSR_index  .ind  : bits_fold_history = zeroExtend(ind);
@@ -218,33 +239,25 @@ package Tage_predictor;
               tagged CSR2_tag2  .tag_22: bits_fold_history = zeroExtend(tag_22);
             endcase
 
-            // case (orand) matches
-            //   tagged Register .r : x = rf [r];
-            //   tagged Literal .n : x = n;
-            //   tagged Indexed {regAddr: .ra, regIndex: .ri} : x = mem[ra+ri];
-            // endcase
-
-            $display("\n\nInitial CSR value: %b", bits_fold_history);
+            // $display("\n\nInitial CSR value: %b", bits_fold_history);
             let index = csr.geomLength % csr.targetLength;
             let t_len = csr.targetLength;
             let v_msb = bits_fold_history[t_len-1];
             bits_fold_history = (bits_fold_history << 1);
-            // bits_fold_history = bits_fold_history[t_len-1:0];
-          //   bits_fold_history[0] = v_msb;
 
-            $display("Circular Shifted CSR value: %b", bits_fold_history);
+            // $display("Circular Shifted CSR value: %b", bits_fold_history);
 
 
             bits_fold_history[0] = bits_fold_history[0] ^ outcome ^ v_msb;
 
-            $display("Outcome = %b", outcome);
-            $display("Outcome added, CSR value: %b", bits_fold_history);
+            // $display("Outcome = %b", outcome);
+            // $display("Outcome added, CSR value: %b", bits_fold_history);
 
-            $display("Geometric max: %b", geometric_max);  
-            $display("Geometric max index: %d", index);
+            // $display("Geometric max: %b", geometric_max);  
+            // $display("Geometric max index: %d", index);
             bits_fold_history[index] = bits_fold_history[index] ^ geometric_max;
 
-            $display("Final CSR value: %b\n\n", bits_fold_history);
+            // $display("Final CSR value: %b\n\n", bits_fold_history);
 
 
             return bits_fold_history;
@@ -252,43 +265,139 @@ package Tage_predictor;
       
     endfunction
 
-       function Action updateCompHists (Bit#(131) t_ghr, Bit#(1) ghr_4);
+    function ActionValue#(Bit#(14)) update_individualCSRs(Bit#(1) geometric_max,Bit#(1) outcome, CSR fold_history, Int#(10) geomLength, Int#(10) targetLength);
+
+            actionvalue
+            // CSR fold_history;
+            // fold_history = csr.foldHist;
+            Bit#(14) bits_fold_history = 0;
+
+            // $display("Geomlength = %d, TargetLength = %d",csr.geomLength,csr.targetLength);
+
+            case (fold_history) matches
+              tagged CSR_index  .ind  : bits_fold_history = zeroExtend(ind);
+              tagged CSR1_tag1  .tag_11: bits_fold_history = zeroExtend(tag_11);
+              tagged CSR1_tag2  .tag_12: bits_fold_history = zeroExtend(tag_12);
+              tagged CSR2_tag1  .tag_21: bits_fold_history = zeroExtend(tag_21);
+              tagged CSR2_tag2  .tag_22: bits_fold_history = zeroExtend(tag_22);
+            endcase
+
+            // $display("\n\nInitial CSR value: %b", bits_fold_history);
+            let index = geomLength % targetLength;
+            let t_len = targetLength;
+            let v_msb = bits_fold_history[t_len-1];
+            bits_fold_history = (bits_fold_history << 1);
+
+            // $display("Circular Shifted CSR value: %b", bits_fold_history);
+
+
+            bits_fold_history[0] = bits_fold_history[0] ^ outcome ^ v_msb;
+
+            // $display("Outcome = %b", outcome);
+            // $display("Outcome added, CSR value: %b", bits_fold_history);
+
+            // $display("Geometric max: %b", geometric_max);  
+            // $display("Geometric max index: %d", index);
+            bits_fold_history[index] = bits_fold_history[index] ^ geometric_max;
+
+            // $display("Final CSR value: %b\n\n", bits_fold_history);
+
+
+            return bits_fold_history;
+      endactionvalue
+      
+    endfunction
+
+       function Action speculative_updateCSRs (Bit#(131) t_ghr, Bit#(1) ghr_4);
         action
-          let fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_index_csr[0]);
+          let fh <- speculative_update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_index_csr[0]);
           reg_index_csr[0].foldHist <= tagged CSR_index truncate(fh);
 
-          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_index_csr[1]);
+          fh <- speculative_update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_index_csr[1]);
           reg_index_csr[1].foldHist <= tagged CSR_index truncate(fh);
 
-          fh <- update_individualCSRs(ghr_4, t_ghr[0], reg_index_csr[2]);
+          fh <- speculative_update_individualCSRs(ghr_4, t_ghr[0], reg_index_csr[2]);
           reg_index_csr[2].foldHist <= tagged CSR_index truncate(fh);
 
-          fh <- update_individualCSRs(t_ghr[`GHR1], t_ghr[0], reg_tag1_csr1[0]);
+          fh <- speculative_update_individualCSRs(t_ghr[`GHR1], t_ghr[0], reg_tag1_csr1[0]);
           reg_tag1_csr1[0].foldHist <= tagged CSR1_tag1 truncate(fh);
 
-          fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_tag1_csr1[1]);
+          fh <- speculative_update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_tag1_csr1[1]);
           reg_tag1_csr1[1].foldHist <= tagged CSR1_tag1 truncate(fh);
 
-          fh <- update_individualCSRs(t_ghr[`GHR1], t_ghr[0], reg_tag1_csr2[0]);
+          fh <- speculative_update_individualCSRs(t_ghr[`GHR1], t_ghr[0], reg_tag1_csr2[0]);
           reg_tag1_csr2[0].foldHist <= tagged CSR2_tag1 truncate(fh);
 
-          fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_tag1_csr2[1]);
+          fh <- speculative_update_individualCSRs(t_ghr[`GHR2], t_ghr[0], reg_tag1_csr2[1]);
           reg_tag1_csr2[1].foldHist <= tagged CSR2_tag1 truncate(fh);
 
-          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_tag2_csr1[0]);
+          fh <- speculative_update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_tag2_csr1[0]);
           reg_tag2_csr1[0].foldHist <= tagged CSR1_tag2 truncate(fh);
 
-          fh <- update_individualCSRs(ghr_4, t_ghr[0], reg_tag2_csr1[1]);
+          fh <- speculative_update_individualCSRs(ghr_4, t_ghr[0], reg_tag2_csr1[1]);
           reg_tag2_csr1[1].foldHist <= tagged CSR1_tag2 truncate(fh);
 
-          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_tag2_csr2[0]);
+          fh <- speculative_update_individualCSRs(t_ghr[`GHR3], t_ghr[0], reg_tag2_csr2[0]);
           reg_tag2_csr2[0].foldHist <= tagged CSR2_tag2 truncate(fh);
 
-          fh <- update_individualCSRs(ghr_4, t_ghr[0], reg_tag2_csr2[1]);
+          fh <- speculative_update_individualCSRs(ghr_4, t_ghr[0], reg_tag2_csr2[1]);
           reg_tag2_csr2[1].foldHist <= tagged CSR2_tag2 truncate(fh);
           
         endaction
-    endfunction
+        endfunction
+    
+    
+          function Action updateCSRs (Bit#(131) t_ghr, Bit#(1) ghr_4);
+            
+            action
+
+          CSR foldHist = tagged CSR_index dw_index_csr[0];
+
+          let fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], foldHist, fromInteger(`GHR2), fromInteger(`TABLE_LEN));
+          reg_index_csr[0].foldHist <= tagged CSR_index truncate(fh);
+          
+          foldHist = tagged CSR_index dw_index_csr[1];
+          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], foldHist, fromInteger(`GHR3), fromInteger(`TABLE_LEN));
+          reg_index_csr[1].foldHist <= tagged CSR_index truncate(fh);
+
+          foldHist = tagged CSR_index dw_index_csr[2];
+          fh <- update_individualCSRs(ghr_4, t_ghr[0], foldHist, fromInteger(`GHR4), fromInteger(`TABLE_LEN));
+          reg_index_csr[2].foldHist <= tagged CSR_index truncate(fh);
+          
+          foldHist = tagged CSR1_tag1 dw_tag1_csr1[0];
+          fh <- update_individualCSRs(t_ghr[`GHR1], t_ghr[0], foldHist, fromInteger(`GHR1), fromInteger(`TAG1_CSR1_SIZE));
+          reg_tag1_csr1[0].foldHist <= tagged CSR1_tag1 truncate(fh);
+
+          foldHist = tagged CSR1_tag1 dw_tag1_csr1[1];
+          fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], foldHist, fromInteger(`GHR2), fromInteger(`TAG1_CSR1_SIZE));
+          reg_tag1_csr1[1].foldHist <= tagged CSR1_tag1 truncate(fh);
+
+          foldHist = tagged CSR2_tag1 dw_tag1_csr2[0];
+          fh <- update_individualCSRs(t_ghr[`GHR1], t_ghr[0], foldHist, fromInteger(`GHR1), fromInteger(`TAG1_CSR2_SIZE));
+          reg_tag1_csr2[0].foldHist <= tagged CSR2_tag1 truncate(fh);
+
+          foldHist = tagged CSR2_tag1 dw_tag1_csr2[1];
+          fh <- update_individualCSRs(t_ghr[`GHR2], t_ghr[0], foldHist, fromInteger(`GHR2), fromInteger(`TAG1_CSR2_SIZE));
+          reg_tag1_csr2[1].foldHist <= tagged CSR2_tag1 truncate(fh);
+
+          foldHist = tagged CSR1_tag2 dw_tag2_csr1[0];
+          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], foldHist, fromInteger(`GHR2), fromInteger(`TAG2_CSR1_SIZE));
+          reg_tag2_csr1[0].foldHist <= tagged CSR1_tag2 truncate(fh);
+
+          foldHist = tagged CSR1_tag2 dw_tag2_csr1[1];
+          fh <- update_individualCSRs(ghr_4, t_ghr[0], foldHist, fromInteger(`GHR4), fromInteger(`TAG2_CSR1_SIZE));
+          reg_tag2_csr1[1].foldHist <= tagged CSR1_tag2 truncate(fh);
+
+          foldHist = tagged CSR2_tag2 dw_tag2_csr2[0];
+          fh <- update_individualCSRs(t_ghr[`GHR3], t_ghr[0], foldHist, fromInteger(`GHR3), fromInteger(`TAG2_CSR2_SIZE));
+          reg_tag2_csr2[0].foldHist <= tagged CSR2_tag2 truncate(fh);
+
+          foldHist = tagged CSR2_tag2 dw_tag2_csr2[1];
+          fh <- update_individualCSRs(ghr_4, t_ghr[0], foldHist, fromInteger(`GHR4), fromInteger(`TAG2_CSR2_SIZE));
+          reg_tag2_csr2[1].foldHist <= tagged CSR2_tag2 truncate(fh);
+          
+        endaction
+        endfunction
 
       function Bit#(`TABLE_LEN) compFoldIndex(ProgramCounter pc, PathHistory v_phr, TableNo ti);
           Bit#(`TABLE_LEN) index = 0;
@@ -298,22 +407,22 @@ package Tage_predictor;
           end
           else if (ti == 3'b001) begin
             index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^ 
-                    ghr[9:0] ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                    ghr[9:0]; //^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
             return index;
           end
           else if (ti == 3'b010) begin
             index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                    truncate(pack(reg_index_csr[0].foldHist)) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                    truncate(pack(reg_index_csr[0].foldHist));// ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
             return index;
           end
           else if (ti == 3'b011) begin
             index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                    truncate(pack(reg_index_csr[1].foldHist)) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                    truncate(pack(reg_index_csr[1].foldHist));// ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
             return index;
           end
           else begin
             index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                    truncate(pack(reg_index_csr[2].foldHist)) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                    truncate(pack(reg_index_csr[2].foldHist));// ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
             return index;
           end
       endfunction
@@ -350,26 +459,6 @@ package Tage_predictor;
         end
         return comp_tag_table;
       endfunction
-
-      //display Register
-      Reg#(Bool) display <- mkReg(False);
-
-      
-      //for file write to get simulation result
-      `ifdef TAGE_DISPLAY
-          let fh <- mkReg(InvalidFile) ;
-          String dumpFile = "sim_results.txt" ;
-          
-          rule rl_fdisplay(fh == InvalidFile);
-              File lfh <- $fopen( dumpFile, "w" ) ;
-              if ( lfh == InvalidFile )
-              begin
-                  $display("cannot open %s", dumpFile);
-                  $finish(0);
-              end
-              fh <= lfh ;
-          endrule
-      `endif
 
       
 
@@ -420,19 +509,9 @@ package Tage_predictor;
                   end
               `endif
 
+                updateCSRs(t_ghr, ghr[`GHR4]);
 
-
-          reg_index_csr[0].foldHist <= tagged CSR_index dw_index_csr[0];
-          reg_index_csr[1].foldHist <= tagged CSR_index dw_index_csr[1];
-          reg_index_csr[2].foldHist <= tagged CSR_index dw_index_csr[2];
-          reg_tag1_csr1[0].foldHist  <= tagged CSR1_tag1 dw_tag1_csr1[0];
-          reg_tag1_csr1[1].foldHist  <= tagged CSR1_tag1 dw_tag1_csr1[1];
-          reg_tag1_csr2[0].foldHist  <= tagged CSR2_tag1 dw_tag1_csr2[0];
-          reg_tag1_csr2[1].foldHist  <= tagged CSR2_tag1 dw_tag1_csr2[1];
-          reg_tag2_csr1[0].foldHist  <= tagged CSR1_tag2 dw_tag2_csr1[0];
-          reg_tag2_csr1[1].foldHist  <= tagged CSR1_tag2 dw_tag2_csr1[1];
-          reg_tag2_csr2[0].foldHist  <= tagged CSR2_tag2 dw_tag2_csr2[0];
-          reg_tag2_csr2[1].foldHist  <= tagged CSR2_tag2 dw_tag2_csr2[1];
+          
               
               // writeVReg( reg_index_csr, dw_index_csr);
               // writeVReg( reg_tag1_csr1, dw_tag1_csr1);
@@ -450,7 +529,7 @@ package Tage_predictor;
                       $fdisplay(fh, "Speculatively updated PHR:(reflects on internal GHR in next cycle) %b", t_phr);
                   end
               `endif
-              updateCompHists(t_ghr);
+              speculative_updateCSRs(t_ghr, ghr[`GHR4]);
           end
           ghr <= t_ghr;
           phr <= t_phr;

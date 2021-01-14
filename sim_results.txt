@@ -1,0 +1,1878 @@
+DIST-FP-4 trace
+
+
+
+Reset Over!      1024
+
+
+In computePrediction method      1025
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100011111011      1025
+
+
+Structures before prediction      1025
+Computed Tags of T1    tagged Tag1 'hfb      1025
+Computed Tags of T2    tagged Tag1 'hfb      1025
+Computed Tags of T3    tagged Tag2 'h0fb      1025
+Computed Tags of T4    tagged Tag2 'h0fb      1025
+Computed Bimodal index     'h0fb      1025
+Computed Index of Tagged Table of T1   'h0e9      1025
+Computed Index of Tagged Table of T2   'h0e9      1025
+Computed Index of Tagged Table of T3   'h0e9      1025
+Computed Index of Tagged Table of T4   'h0e9      1025
+Current internal PHR = 0000000000000000      1025
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1025
+
+
+Structures after prediction      1025
+Computed Tags of T1    tagged Tag1 'hfb      1025
+Computed Tags of T2    tagged Tag1 'hfb      1025
+Computed Tags of T3    tagged Tag2 'h0fb      1025
+Computed Tags of T4    tagged Tag2 'h0fb      1025
+Computed Bimodal index     'h0fb      1025
+Computed Index of Tagged Table of T1   'h0e9      1025
+Computed Index of Tagged Table of T2   'h0e9      1025
+Computed Index of Tagged Table of T3   'h0e9      1025
+Computed Index of Tagged Table of T4   'h0e9      1025
+Prediction Packet     PredictionPacket { bimodal_index: 'h0fb, tagTable_index: <V 'h0e9 'h0e9 'h0e9 'h0e9  >, tableTag: <V tagged Tag1 'hfb tagged Tag1 'hfb tagged Tag2 'h0fb tagged Tag2 'h0fb  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0000, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1025
+
+Prediction Over!      1025
+
+===============================================================================================      1025
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000000000
+
+
+In computePrediction method      1026
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100100010000      1026
+
+
+Structures before prediction      1026
+Computed Tags of T1    tagged Tag1 'h10      1026
+Computed Tags of T2    tagged Tag1 'h10      1026
+Computed Tags of T3    tagged Tag2 'h110      1026
+Computed Tags of T4    tagged Tag2 'h110      1026
+Computed Bimodal index     'h110      1026
+Computed Index of Tagged Table of T1   'h102      1026
+Computed Index of Tagged Table of T2   'h102      1026
+Computed Index of Tagged Table of T3   'h102      1026
+Computed Index of Tagged Table of T4   'h102      1026
+Current internal PHR = 0000000000000000      1026
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1026
+
+
+Structures after prediction      1026
+Computed Tags of T1    tagged Tag1 'h10      1026
+Computed Tags of T2    tagged Tag1 'h10      1026
+Computed Tags of T3    tagged Tag2 'h110      1026
+Computed Tags of T4    tagged Tag2 'h110      1026
+Computed Bimodal index     'h110      1026
+Computed Index of Tagged Table of T1   'h102      1026
+Computed Index of Tagged Table of T2   'h102      1026
+Computed Index of Tagged Table of T3   'h102      1026
+Computed Index of Tagged Table of T4   'h102      1026
+Prediction Packet     PredictionPacket { bimodal_index: 'h110, tagTable_index: <V 'h102 'h102 'h102 'h102  >, tableTag: <V tagged Tag1 'h10 tagged Tag1 'h10 tagged Tag2 'h110 tagged Tag2 'h110  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0000, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1026
+
+Prediction Over!      1026
+
+===============================================================================================      1026
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1026
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hfb tagged Tag1 'hfb tagged Tag2 'h0fb tagged Tag2 'h0fb  >      1026
+Bimodal index in Updation Packet     'h0fb      1026
+Index of Tagged Tables in Updation Packet    <V 'h0e9 'h0e9 'h0e9 'h0e9  >      1026
+Updation Packet     UpdationPacket { bimodal_index: 'h0fb, tagTable_index: <V 'h0e9 'h0e9 'h0e9 'h0e9  >, tableTag: <V tagged Tag1 'hfb tagged Tag1 'hfb tagged Tag2 'h0fb tagged Tag2 'h0fb  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1026
+Updation Packet's PHR = 0000000000000000      1026
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1026
+Found value =           0
+
+
+Structures after updation      1026
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hfb tagged Tag1 'hfb tagged Tag2 'h0fb tagged Tag2 'h0fb  >      1026
+Bimodal index in Updation Packet     'h0fb      1026
+Index of Tagged Tables in Updation Packet    <V 'h0e9 'h0e9 'h0e9 'h0e9  >      1026
+Updation Packet     UpdationPacket { bimodal_index: 'h0fb, tagTable_index: <V 'h0e9 'h0e9 'h0e9 'h0e9  >, tableTag: <V tagged Tag1 'hfb tagged Tag1 'hfb tagged Tag2 'h0fb tagged Tag2 'h0fb  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1026
+Updation Packet's PHR = 0000000000000000      1026
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1026
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000000000
+
+
+In computePrediction method      1027
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100100011100      1027
+
+
+Structures before prediction      1027
+Computed Tags of T1    tagged Tag1 'h1c      1027
+Computed Tags of T2    tagged Tag1 'h1c      1027
+Computed Tags of T3    tagged Tag2 'h11c      1027
+Computed Tags of T4    tagged Tag2 'h11c      1027
+Computed Bimodal index     'h11c      1027
+Computed Index of Tagged Table of T1   'h10e      1027
+Computed Index of Tagged Table of T2   'h10e      1027
+Computed Index of Tagged Table of T3   'h10e      1027
+Computed Index of Tagged Table of T4   'h10e      1027
+Current internal PHR = 0000000000000000      1027
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1027
+
+
+Structures after prediction      1027
+Computed Tags of T1    tagged Tag1 'h1c      1027
+Computed Tags of T2    tagged Tag1 'h1c      1027
+Computed Tags of T3    tagged Tag2 'h11c      1027
+Computed Tags of T4    tagged Tag2 'h11c      1027
+Computed Bimodal index     'h11c      1027
+Computed Index of Tagged Table of T1   'h10e      1027
+Computed Index of Tagged Table of T2   'h10e      1027
+Computed Index of Tagged Table of T3   'h10e      1027
+Computed Index of Tagged Table of T4   'h10e      1027
+Prediction Packet     PredictionPacket { bimodal_index: 'h11c, tagTable_index: <V 'h10e 'h10e 'h10e 'h10e  >, tableTag: <V tagged Tag1 'h1c tagged Tag1 'h1c tagged Tag2 'h11c tagged Tag2 'h11c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0001, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1027
+
+Prediction Over!      1027
+
+===============================================================================================      1027
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1027
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h10 tagged Tag1 'h10 tagged Tag2 'h110 tagged Tag2 'h110  >      1027
+Bimodal index in Updation Packet     'h110      1027
+Index of Tagged Tables in Updation Packet    <V 'h102 'h102 'h102 'h102  >      1027
+Updation Packet     UpdationPacket { bimodal_index: 'h110, tagTable_index: <V 'h102 'h102 'h102 'h102  >, tableTag: <V tagged Tag1 'h10 tagged Tag1 'h10 tagged Tag2 'h110 tagged Tag2 'h110  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1027
+Updation Packet's PHR = 0000000000000000      1027
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1027
+Found value =           0
+
+
+Structures after updation      1027
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h10 tagged Tag1 'h10 tagged Tag2 'h110 tagged Tag2 'h110  >      1027
+Bimodal index in Updation Packet     'h110      1027
+Index of Tagged Tables in Updation Packet    <V 'h102 'h102 'h102 'h102  >      1027
+Updation Packet     UpdationPacket { bimodal_index: 'h110, tagTable_index: <V 'h102 'h102 'h102 'h102  >, tableTag: <V tagged Tag1 'h10 tagged Tag1 'h10 tagged Tag2 'h110 tagged Tag2 'h110  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0000, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1027
+Updation Packet's PHR = 0000000000000000      1027
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1027
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000000001
+
+
+In computePrediction method      1028
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100100100101      1028
+
+
+Structures before prediction      1028
+Computed Tags of T1    tagged Tag1 'h25      1028
+Computed Tags of T2    tagged Tag1 'h25      1028
+Computed Tags of T3    tagged Tag2 'h125      1028
+Computed Tags of T4    tagged Tag2 'h125      1028
+Computed Bimodal index     'h125      1028
+Computed Index of Tagged Table of T1   'h137      1028
+Computed Index of Tagged Table of T2   'h137      1028
+Computed Index of Tagged Table of T3   'h137      1028
+Computed Index of Tagged Table of T4   'h137      1028
+Current internal PHR = 0000000000000001      1028
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1028
+
+
+Structures after prediction      1028
+Computed Tags of T1    tagged Tag1 'h25      1028
+Computed Tags of T2    tagged Tag1 'h25      1028
+Computed Tags of T3    tagged Tag2 'h125      1028
+Computed Tags of T4    tagged Tag2 'h125      1028
+Computed Bimodal index     'h125      1028
+Computed Index of Tagged Table of T1   'h137      1028
+Computed Index of Tagged Table of T2   'h137      1028
+Computed Index of Tagged Table of T3   'h137      1028
+Computed Index of Tagged Table of T4   'h137      1028
+Prediction Packet     PredictionPacket { bimodal_index: 'h125, tagTable_index: <V 'h137 'h137 'h137 'h137  >, tableTag: <V tagged Tag1 'h25 tagged Tag1 'h25 tagged Tag2 'h125 tagged Tag2 'h125  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0003, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1028
+
+Prediction Over!      1028
+
+===============================================================================================      1028
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1028
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h1c tagged Tag1 'h1c tagged Tag2 'h11c tagged Tag2 'h11c  >      1028
+Bimodal index in Updation Packet     'h11c      1028
+Index of Tagged Tables in Updation Packet    <V 'h10e 'h10e 'h10e 'h10e  >      1028
+Updation Packet     UpdationPacket { bimodal_index: 'h11c, tagTable_index: <V 'h10e 'h10e 'h10e 'h10e  >, tableTag: <V tagged Tag1 'h1c tagged Tag1 'h1c tagged Tag2 'h11c tagged Tag2 'h11c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0001, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1028
+Updation Packet's PHR = 0000000000000001      1028
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1028
+Found value =           0
+
+
+Structures after updation      1028
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h1c tagged Tag1 'h1c tagged Tag2 'h11c tagged Tag2 'h11c  >      1028
+Bimodal index in Updation Packet     'h11c      1028
+Index of Tagged Tables in Updation Packet    <V 'h10e 'h10e 'h10e 'h10e  >      1028
+Updation Packet     UpdationPacket { bimodal_index: 'h11c, tagTable_index: <V 'h10e 'h10e 'h10e 'h10e  >, tableTag: <V tagged Tag1 'h1c tagged Tag1 'h1c tagged Tag2 'h11c tagged Tag2 'h11c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0001, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1028
+Updation Packet's PHR = 0000000000000001      1028
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1028
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000000011
+
+
+In computePrediction method      1029
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100100101110      1029
+
+
+Structures before prediction      1029
+Computed Tags of T1    tagged Tag1 'h2e      1029
+Computed Tags of T2    tagged Tag1 'h2e      1029
+Computed Tags of T3    tagged Tag2 'h12e      1029
+Computed Tags of T4    tagged Tag2 'h12e      1029
+Computed Bimodal index     'h12e      1029
+Computed Index of Tagged Table of T1   'h13c      1029
+Computed Index of Tagged Table of T2   'h13c      1029
+Computed Index of Tagged Table of T3   'h13c      1029
+Computed Index of Tagged Table of T4   'h13c      1029
+Current internal PHR = 0000000000000011      1029
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1029
+
+
+Structures after prediction      1029
+Computed Tags of T1    tagged Tag1 'h2e      1029
+Computed Tags of T2    tagged Tag1 'h2e      1029
+Computed Tags of T3    tagged Tag2 'h12e      1029
+Computed Tags of T4    tagged Tag2 'h12e      1029
+Computed Bimodal index     'h12e      1029
+Computed Index of Tagged Table of T1   'h13c      1029
+Computed Index of Tagged Table of T2   'h13c      1029
+Computed Index of Tagged Table of T3   'h13c      1029
+Computed Index of Tagged Table of T4   'h13c      1029
+Prediction Packet     PredictionPacket { bimodal_index: 'h12e, tagTable_index: <V 'h13c 'h13c 'h13c 'h13c  >, tableTag: <V tagged Tag1 'h2e tagged Tag1 'h2e tagged Tag2 'h12e tagged Tag2 'h12e  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0007, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1029
+
+Prediction Over!      1029
+
+===============================================================================================      1029
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1029
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h25 tagged Tag1 'h25 tagged Tag2 'h125 tagged Tag2 'h125  >      1029
+Bimodal index in Updation Packet     'h125      1029
+Index of Tagged Tables in Updation Packet    <V 'h137 'h137 'h137 'h137  >      1029
+Updation Packet     UpdationPacket { bimodal_index: 'h125, tagTable_index: <V 'h137 'h137 'h137 'h137  >, tableTag: <V tagged Tag1 'h25 tagged Tag1 'h25 tagged Tag2 'h125 tagged Tag2 'h125  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0003, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1029
+Updation Packet's PHR = 0000000000000011      1029
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1029
+Found value =           0
+
+
+Structures after updation      1029
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h25 tagged Tag1 'h25 tagged Tag2 'h125 tagged Tag2 'h125  >      1029
+Bimodal index in Updation Packet     'h125      1029
+Index of Tagged Tables in Updation Packet    <V 'h137 'h137 'h137 'h137  >      1029
+Updation Packet     UpdationPacket { bimodal_index: 'h125, tagTable_index: <V 'h137 'h137 'h137 'h137  >, tableTag: <V tagged Tag1 'h25 tagged Tag1 'h25 tagged Tag2 'h125 tagged Tag2 'h125  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0003, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1029
+Updation Packet's PHR = 0000000000000011      1029
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1029
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000000111
+
+
+In computePrediction method      1030
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100100111010      1030
+
+
+Structures before prediction      1030
+Computed Tags of T1    tagged Tag1 'h3a      1030
+Computed Tags of T2    tagged Tag1 'h3a      1030
+Computed Tags of T3    tagged Tag2 'h13a      1030
+Computed Tags of T4    tagged Tag2 'h13a      1030
+Computed Bimodal index     'h13a      1030
+Computed Index of Tagged Table of T1   'h128      1030
+Computed Index of Tagged Table of T2   'h128      1030
+Computed Index of Tagged Table of T3   'h128      1030
+Computed Index of Tagged Table of T4   'h128      1030
+Current internal PHR = 0000000000000111      1030
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1030
+
+
+Structures after prediction      1030
+Computed Tags of T1    tagged Tag1 'h3a      1030
+Computed Tags of T2    tagged Tag1 'h3a      1030
+Computed Tags of T3    tagged Tag2 'h13a      1030
+Computed Tags of T4    tagged Tag2 'h13a      1030
+Computed Bimodal index     'h13a      1030
+Computed Index of Tagged Table of T1   'h128      1030
+Computed Index of Tagged Table of T2   'h128      1030
+Computed Index of Tagged Table of T3   'h128      1030
+Computed Index of Tagged Table of T4   'h128      1030
+Prediction Packet     PredictionPacket { bimodal_index: 'h13a, tagTable_index: <V 'h128 'h128 'h128 'h128  >, tableTag: <V tagged Tag1 'h3a tagged Tag1 'h3a tagged Tag2 'h13a tagged Tag2 'h13a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h000e, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1030
+
+Prediction Over!      1030
+
+===============================================================================================      1030
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1030
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h2e tagged Tag1 'h2e tagged Tag2 'h12e tagged Tag2 'h12e  >      1030
+Bimodal index in Updation Packet     'h12e      1030
+Index of Tagged Tables in Updation Packet    <V 'h13c 'h13c 'h13c 'h13c  >      1030
+Updation Packet     UpdationPacket { bimodal_index: 'h12e, tagTable_index: <V 'h13c 'h13c 'h13c 'h13c  >, tableTag: <V tagged Tag1 'h2e tagged Tag1 'h2e tagged Tag2 'h12e tagged Tag2 'h12e  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0007, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1030
+Updation Packet's PHR = 0000000000000111      1030
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1030
+Found value =           0
+
+
+Structures after updation      1030
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h2e tagged Tag1 'h2e tagged Tag2 'h12e tagged Tag2 'h12e  >      1030
+Bimodal index in Updation Packet     'h12e      1030
+Index of Tagged Tables in Updation Packet    <V 'h13c 'h13c 'h13c 'h13c  >      1030
+Updation Packet     UpdationPacket { bimodal_index: 'h12e, tagTable_index: <V 'h13c 'h13c 'h13c 'h13c  >, tableTag: <V tagged Tag1 'h2e tagged Tag1 'h2e tagged Tag2 'h12e tagged Tag2 'h12e  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0007, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1030
+Updation Packet's PHR = 0000000000000111      1030
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1030
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000001110
+
+
+In computePrediction method      1031
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100101000100      1031
+
+
+Structures before prediction      1031
+Computed Tags of T1    tagged Tag1 'h44      1031
+Computed Tags of T2    tagged Tag1 'h44      1031
+Computed Tags of T3    tagged Tag2 'h144      1031
+Computed Tags of T4    tagged Tag2 'h144      1031
+Computed Bimodal index     'h144      1031
+Computed Index of Tagged Table of T1   'h156      1031
+Computed Index of Tagged Table of T2   'h156      1031
+Computed Index of Tagged Table of T3   'h156      1031
+Computed Index of Tagged Table of T4   'h156      1031
+Current internal PHR = 0000000000001110      1031
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1031
+
+
+Structures after prediction      1031
+Computed Tags of T1    tagged Tag1 'h44      1031
+Computed Tags of T2    tagged Tag1 'h44      1031
+Computed Tags of T3    tagged Tag2 'h144      1031
+Computed Tags of T4    tagged Tag2 'h144      1031
+Computed Bimodal index     'h144      1031
+Computed Index of Tagged Table of T1   'h156      1031
+Computed Index of Tagged Table of T2   'h156      1031
+Computed Index of Tagged Table of T3   'h156      1031
+Computed Index of Tagged Table of T4   'h156      1031
+Prediction Packet     PredictionPacket { bimodal_index: 'h144, tagTable_index: <V 'h156 'h156 'h156 'h156  >, tableTag: <V tagged Tag1 'h44 tagged Tag1 'h44 tagged Tag2 'h144 tagged Tag2 'h144  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h001d, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1031
+
+Prediction Over!      1031
+
+===============================================================================================      1031
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1031
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h3a tagged Tag1 'h3a tagged Tag2 'h13a tagged Tag2 'h13a  >      1031
+Bimodal index in Updation Packet     'h13a      1031
+Index of Tagged Tables in Updation Packet    <V 'h128 'h128 'h128 'h128  >      1031
+Updation Packet     UpdationPacket { bimodal_index: 'h13a, tagTable_index: <V 'h128 'h128 'h128 'h128  >, tableTag: <V tagged Tag1 'h3a tagged Tag1 'h3a tagged Tag2 'h13a tagged Tag2 'h13a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h000e, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1031
+Updation Packet's PHR = 0000000000001110      1031
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1031
+Found value =           0
+
+
+Structures after updation      1031
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h3a tagged Tag1 'h3a tagged Tag2 'h13a tagged Tag2 'h13a  >      1031
+Bimodal index in Updation Packet     'h13a      1031
+Index of Tagged Tables in Updation Packet    <V 'h128 'h128 'h128 'h128  >      1031
+Updation Packet     UpdationPacket { bimodal_index: 'h13a, tagTable_index: <V 'h128 'h128 'h128 'h128  >, tableTag: <V tagged Tag1 'h3a tagged Tag1 'h3a tagged Tag2 'h13a tagged Tag2 'h13a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h000e, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1031
+Updation Packet's PHR = 0000000000001110      1031
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1031
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000011101
+
+
+In computePrediction method      1032
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000101100101001011      1032
+
+
+Structures before prediction      1032
+Computed Tags of T1    tagged Tag1 'h4b      1032
+Computed Tags of T2    tagged Tag1 'h4b      1032
+Computed Tags of T3    tagged Tag2 'h14b      1032
+Computed Tags of T4    tagged Tag2 'h14b      1032
+Computed Bimodal index     'h14b      1032
+Computed Index of Tagged Table of T1   'h159      1032
+Computed Index of Tagged Table of T2   'h159      1032
+Computed Index of Tagged Table of T3   'h159      1032
+Computed Index of Tagged Table of T4   'h159      1032
+Current internal PHR = 0000000000011101      1032
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1032
+
+
+Structures after prediction      1032
+Computed Tags of T1    tagged Tag1 'h4b      1032
+Computed Tags of T2    tagged Tag1 'h4b      1032
+Computed Tags of T3    tagged Tag2 'h14b      1032
+Computed Tags of T4    tagged Tag2 'h14b      1032
+Computed Bimodal index     'h14b      1032
+Computed Index of Tagged Table of T1   'h159      1032
+Computed Index of Tagged Table of T2   'h159      1032
+Computed Index of Tagged Table of T3   'h159      1032
+Computed Index of Tagged Table of T4   'h159      1032
+Prediction Packet     PredictionPacket { bimodal_index: 'h14b, tagTable_index: <V 'h159 'h159 'h159 'h159  >, tableTag: <V tagged Tag1 'h4b tagged Tag1 'h4b tagged Tag2 'h14b tagged Tag2 'h14b  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h003a, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1032
+
+Prediction Over!      1032
+
+===============================================================================================      1032
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1032
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h44 tagged Tag1 'h44 tagged Tag2 'h144 tagged Tag2 'h144  >      1032
+Bimodal index in Updation Packet     'h144      1032
+Index of Tagged Tables in Updation Packet    <V 'h156 'h156 'h156 'h156  >      1032
+Updation Packet     UpdationPacket { bimodal_index: 'h144, tagTable_index: <V 'h156 'h156 'h156 'h156  >, tableTag: <V tagged Tag1 'h44 tagged Tag1 'h44 tagged Tag2 'h144 tagged Tag2 'h144  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h001d, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1032
+Updation Packet's PHR = 0000000000011101      1032
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1032
+Found value =           0
+
+
+Structures after updation      1032
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h44 tagged Tag1 'h44 tagged Tag2 'h144 tagged Tag2 'h144  >      1032
+Bimodal index in Updation Packet     'h144      1032
+Index of Tagged Tables in Updation Packet    <V 'h156 'h156 'h156 'h156  >      1032
+Updation Packet     UpdationPacket { bimodal_index: 'h144, tagTable_index: <V 'h156 'h156 'h156 'h156  >, tableTag: <V tagged Tag1 'h44 tagged Tag1 'h44 tagged Tag2 'h144 tagged Tag2 'h144  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h001d, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1032
+Updation Packet's PHR = 0000000000011101      1032
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1032
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000000111010
+
+
+In computePrediction method      1033
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100100100101101      1033
+
+
+Structures before prediction      1033
+Computed Tags of T1    tagged Tag1 'h2d      1033
+Computed Tags of T2    tagged Tag1 'h2d      1033
+Computed Tags of T3    tagged Tag2 'h12d      1033
+Computed Tags of T4    tagged Tag2 'h12d      1033
+Computed Bimodal index     'h12d      1033
+Computed Index of Tagged Table of T1   'h13b      1033
+Computed Index of Tagged Table of T2   'h13b      1033
+Computed Index of Tagged Table of T3   'h13b      1033
+Computed Index of Tagged Table of T4   'h13b      1033
+Current internal PHR = 0000000000111010      1033
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1033
+
+
+Structures after prediction      1033
+Computed Tags of T1    tagged Tag1 'h2d      1033
+Computed Tags of T2    tagged Tag1 'h2d      1033
+Computed Tags of T3    tagged Tag2 'h12d      1033
+Computed Tags of T4    tagged Tag2 'h12d      1033
+Computed Bimodal index     'h12d      1033
+Computed Index of Tagged Table of T1   'h13b      1033
+Computed Index of Tagged Table of T2   'h13b      1033
+Computed Index of Tagged Table of T3   'h13b      1033
+Computed Index of Tagged Table of T4   'h13b      1033
+Prediction Packet     PredictionPacket { bimodal_index: 'h12d, tagTable_index: <V 'h13b 'h13b 'h13b 'h13b  >, tableTag: <V tagged Tag1 'h2d tagged Tag1 'h2d tagged Tag2 'h12d tagged Tag2 'h12d  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000000, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0075, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1033
+
+Prediction Over!      1033
+
+===============================================================================================      1033
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1033
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h4b tagged Tag1 'h4b tagged Tag2 'h14b tagged Tag2 'h14b  >      1033
+Bimodal index in Updation Packet     'h14b      1033
+Index of Tagged Tables in Updation Packet    <V 'h159 'h159 'h159 'h159  >      1033
+Updation Packet     UpdationPacket { bimodal_index: 'h14b, tagTable_index: <V 'h159 'h159 'h159 'h159  >, tableTag: <V tagged Tag1 'h4b tagged Tag1 'h4b tagged Tag2 'h14b tagged Tag2 'h14b  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h003a, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1033
+Updation Packet's PHR = 0000000000111010      1033
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1033
+Found value =           0
+
+
+Structures after updation      1033
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h4b tagged Tag1 'h4b tagged Tag2 'h14b tagged Tag2 'h14b  >      1033
+Bimodal index in Updation Packet     'h14b      1033
+Index of Tagged Tables in Updation Packet    <V 'h159 'h159 'h159 'h159  >      1033
+Updation Packet     UpdationPacket { bimodal_index: 'h14b, tagTable_index: <V 'h159 'h159 'h159 'h159  >, tableTag: <V tagged Tag1 'h4b tagged Tag1 'h4b tagged Tag2 'h14b tagged Tag2 'h14b  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h003a, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1033
+Updation Packet's PHR = 0000000000111010      1033
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1033
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000001110101
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1034
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h2d tagged Tag1 'h2d tagged Tag2 'h12d tagged Tag2 'h12d  >      1034
+Bimodal index in Updation Packet     'h12d      1034
+Index of Tagged Tables in Updation Packet    <V 'h13b 'h13b 'h13b 'h13b  >      1034
+Updation Packet     UpdationPacket { bimodal_index: 'h12d, tagTable_index: <V 'h13b 'h13b 'h13b 'h13b  >, tableTag: <V tagged Tag1 'h2d tagged Tag1 'h2d tagged Tag2 'h12d tagged Tag2 'h12d  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'h0075, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1034
+Updation Packet's PHR = 0000000001110101      1034
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1034
+Found value =           0
+
+
+Structures after updation      1034
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h2d tagged Tag1 'h2d tagged Tag2 'h12d tagged Tag2 'h12d  >      1034
+Bimodal index in Updation Packet     'h12d      1034
+Index of Tagged Tables in Updation Packet    <V 'h13b 'h13b 'h13b 'h13b  >      1034
+Updation Packet     UpdationPacket { bimodal_index: 'h12d, tagTable_index: <V 'h13b 'h13b 'h13b 'h13b  >, tableTag: <V tagged Tag1 'h2d tagged Tag1 'h2d tagged Tag2 'h12d tagged Tag2 'h12d  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000000, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'h0075, index_csr: <V 'h000 'h000 'h000  >, tag1_csr1: <V 'h00 'h00  >, tag1_csr2: <V 'h00 'h00  >, tag2_csr1: <V 'h000 'h000  >, tag2_csr2: <V 'h00 'h00  > }      1034
+Updation Packet's PHR = 0000000001110101      1034
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000      1034
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000001110101
+
+
+In computePrediction method      1035
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100100101001111      1035
+
+
+Structures before prediction      1035
+Computed Tags of T1    tagged Tag1 'h4c      1035
+Computed Tags of T2    tagged Tag1 'h4c      1035
+Computed Tags of T3    tagged Tag2 'h14c      1035
+Computed Tags of T4    tagged Tag2 'h14c      1035
+Computed Bimodal index     'h14f      1035
+Computed Index of Tagged Table of T1   'h158      1035
+Computed Index of Tagged Table of T2   'h158      1035
+Computed Index of Tagged Table of T3   'h158      1035
+Computed Index of Tagged Table of T4   'h158      1035
+Current internal PHR = 0000000001110101      1035
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001      1035
+
+
+Structures after prediction      1035
+Computed Tags of T1    tagged Tag1 'h4c      1035
+Computed Tags of T2    tagged Tag1 'h4c      1035
+Computed Tags of T3    tagged Tag2 'h14c      1035
+Computed Tags of T4    tagged Tag2 'h14c      1035
+Computed Bimodal index     'h14f      1035
+Computed Index of Tagged Table of T1   'h158      1035
+Computed Index of Tagged Table of T2   'h158      1035
+Computed Index of Tagged Table of T3   'h158      1035
+Computed Index of Tagged Table of T4   'h158      1035
+Prediction Packet     PredictionPacket { bimodal_index: 'h14f, tagTable_index: <V 'h158 'h158 'h158 'h158  >, tableTag: <V tagged Tag1 'h4c tagged Tag1 'h4c tagged Tag2 'h14c tagged Tag2 'h14c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000001, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h00eb, index_csr: <V 'h001 'h001 'h001  >, tag1_csr1: <V 'h01 'h01  >, tag1_csr2: <V 'h01 'h01  >, tag2_csr1: <V 'h001 'h001  >, tag2_csr2: <V 'h01 'h01  > }      1035
+
+Prediction Over!      1035
+
+===============================================================================================      1035
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000011101011
+
+
+In computePrediction method      1036
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100100101100011      1036
+
+
+Structures before prediction      1036
+Computed Tags of T1    tagged Tag1 'h65      1036
+Computed Tags of T2    tagged Tag1 'h65      1036
+Computed Tags of T3    tagged Tag2 'h165      1036
+Computed Tags of T4    tagged Tag2 'h165      1036
+Computed Bimodal index     'h163      1036
+Computed Index of Tagged Table of T1   'h177      1036
+Computed Index of Tagged Table of T2   'h177      1036
+Computed Index of Tagged Table of T3   'h177      1036
+Computed Index of Tagged Table of T4   'h177      1036
+Current internal PHR = 0000000011101011      1036
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010      1036
+
+
+Structures after prediction      1036
+Computed Tags of T1    tagged Tag1 'h65      1036
+Computed Tags of T2    tagged Tag1 'h65      1036
+Computed Tags of T3    tagged Tag2 'h165      1036
+Computed Tags of T4    tagged Tag2 'h165      1036
+Computed Bimodal index     'h163      1036
+Computed Index of Tagged Table of T1   'h177      1036
+Computed Index of Tagged Table of T2   'h177      1036
+Computed Index of Tagged Table of T3   'h177      1036
+Computed Index of Tagged Table of T4   'h177      1036
+Prediction Packet     PredictionPacket { bimodal_index: 'h163, tagTable_index: <V 'h177 'h177 'h177 'h177  >, tableTag: <V tagged Tag1 'h65 tagged Tag1 'h65 tagged Tag2 'h165 tagged Tag2 'h165  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000002, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h01d6, index_csr: <V 'h002 'h002 'h002  >, tag1_csr1: <V 'h02 'h02  >, tag1_csr2: <V 'h02 'h02  >, tag2_csr1: <V 'h002 'h002  >, tag2_csr2: <V 'h02 'h02  > }      1036
+
+Prediction Over!      1036
+
+===============================================================================================      1036
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1036
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h4c tagged Tag1 'h4c tagged Tag2 'h14c tagged Tag2 'h14c  >      1036
+Bimodal index in Updation Packet     'h14f      1036
+Index of Tagged Tables in Updation Packet    <V 'h158 'h158 'h158 'h158  >      1036
+Updation Packet     UpdationPacket { bimodal_index: 'h14f, tagTable_index: <V 'h158 'h158 'h158 'h158  >, tableTag: <V tagged Tag1 'h4c tagged Tag1 'h4c tagged Tag2 'h14c tagged Tag2 'h14c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000001, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h00eb, index_csr: <V 'h001 'h001 'h001  >, tag1_csr1: <V 'h01 'h01  >, tag1_csr2: <V 'h01 'h01  >, tag2_csr1: <V 'h001 'h001  >, tag2_csr2: <V 'h01 'h01  > }      1036
+Updation Packet's PHR = 0000000011101011      1036
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001      1036
+Found value =           0
+
+
+Structures after updation      1036
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h4c tagged Tag1 'h4c tagged Tag2 'h14c tagged Tag2 'h14c  >      1036
+Bimodal index in Updation Packet     'h14f      1036
+Index of Tagged Tables in Updation Packet    <V 'h158 'h158 'h158 'h158  >      1036
+Updation Packet     UpdationPacket { bimodal_index: 'h14f, tagTable_index: <V 'h158 'h158 'h158 'h158  >, tableTag: <V tagged Tag1 'h4c tagged Tag1 'h4c tagged Tag2 'h14c tagged Tag2 'h14c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000001, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h00eb, index_csr: <V 'h001 'h001 'h001  >, tag1_csr1: <V 'h01 'h01  >, tag1_csr2: <V 'h01 'h01  >, tag2_csr1: <V 'h001 'h001  >, tag2_csr2: <V 'h01 'h01  > }      1036
+Updation Packet's PHR = 0000000011101011      1036
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001      1036
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000000111010110
+
+
+In computePrediction method      1037
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100100101110010      1037
+
+
+Structures before prediction      1037
+Computed Tags of T1    tagged Tag1 'h7e      1037
+Computed Tags of T2    tagged Tag1 'h7e      1037
+Computed Tags of T3    tagged Tag2 'h17e      1037
+Computed Tags of T4    tagged Tag2 'h17e      1037
+Computed Bimodal index     'h172      1037
+Computed Index of Tagged Table of T1   'h160      1037
+Computed Index of Tagged Table of T2   'h160      1037
+Computed Index of Tagged Table of T3   'h160      1037
+Computed Index of Tagged Table of T4   'h160      1037
+Current internal PHR = 0000000111010110      1037
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100      1037
+
+
+Structures after prediction      1037
+Computed Tags of T1    tagged Tag1 'h7e      1037
+Computed Tags of T2    tagged Tag1 'h7e      1037
+Computed Tags of T3    tagged Tag2 'h17e      1037
+Computed Tags of T4    tagged Tag2 'h17e      1037
+Computed Bimodal index     'h172      1037
+Computed Index of Tagged Table of T1   'h160      1037
+Computed Index of Tagged Table of T2   'h160      1037
+Computed Index of Tagged Table of T3   'h160      1037
+Computed Index of Tagged Table of T4   'h160      1037
+Prediction Packet     PredictionPacket { bimodal_index: 'h172, tagTable_index: <V 'h160 'h160 'h160 'h160  >, tableTag: <V tagged Tag1 'h7e tagged Tag1 'h7e tagged Tag2 'h17e tagged Tag2 'h17e  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000004, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h03ac, index_csr: <V 'h004 'h004 'h004  >, tag1_csr1: <V 'h04 'h04  >, tag1_csr2: <V 'h04 'h04  >, tag2_csr1: <V 'h004 'h004  >, tag2_csr2: <V 'h04 'h04  > }      1037
+
+Prediction Over!      1037
+
+===============================================================================================      1037
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1037
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h65 tagged Tag1 'h65 tagged Tag2 'h165 tagged Tag2 'h165  >      1037
+Bimodal index in Updation Packet     'h163      1037
+Index of Tagged Tables in Updation Packet    <V 'h177 'h177 'h177 'h177  >      1037
+Updation Packet     UpdationPacket { bimodal_index: 'h163, tagTable_index: <V 'h177 'h177 'h177 'h177  >, tableTag: <V tagged Tag1 'h65 tagged Tag1 'h65 tagged Tag2 'h165 tagged Tag2 'h165  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000002, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h01d6, index_csr: <V 'h002 'h002 'h002  >, tag1_csr1: <V 'h02 'h02  >, tag1_csr2: <V 'h02 'h02  >, tag2_csr1: <V 'h002 'h002  >, tag2_csr2: <V 'h02 'h02  > }      1037
+Updation Packet's PHR = 0000000111010110      1037
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010      1037
+Found value =           0
+
+
+Structures after updation      1037
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h65 tagged Tag1 'h65 tagged Tag2 'h165 tagged Tag2 'h165  >      1037
+Bimodal index in Updation Packet     'h163      1037
+Index of Tagged Tables in Updation Packet    <V 'h177 'h177 'h177 'h177  >      1037
+Updation Packet     UpdationPacket { bimodal_index: 'h163, tagTable_index: <V 'h177 'h177 'h177 'h177  >, tableTag: <V tagged Tag1 'h65 tagged Tag1 'h65 tagged Tag2 'h165 tagged Tag2 'h165  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000002, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h01d6, index_csr: <V 'h002 'h002 'h002  >, tag1_csr1: <V 'h02 'h02  >, tag1_csr2: <V 'h02 'h02  >, tag2_csr1: <V 'h002 'h002  >, tag2_csr2: <V 'h02 'h02  > }      1037
+Updation Packet's PHR = 0000000111010110      1037
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010      1037
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000001110101100
+
+
+In computePrediction method      1038
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100100101111100      1038
+
+
+Structures before prediction      1038
+Computed Tags of T1    tagged Tag1 'h64      1038
+Computed Tags of T2    tagged Tag1 'h64      1038
+Computed Tags of T3    tagged Tag2 'h164      1038
+Computed Tags of T4    tagged Tag2 'h164      1038
+Computed Bimodal index     'h17c      1038
+Computed Index of Tagged Table of T1   'h162      1038
+Computed Index of Tagged Table of T2   'h162      1038
+Computed Index of Tagged Table of T3   'h162      1038
+Computed Index of Tagged Table of T4   'h162      1038
+Current internal PHR = 0000001110101100      1038
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000      1038
+
+
+Structures after prediction      1038
+Computed Tags of T1    tagged Tag1 'h64      1038
+Computed Tags of T2    tagged Tag1 'h64      1038
+Computed Tags of T3    tagged Tag2 'h164      1038
+Computed Tags of T4    tagged Tag2 'h164      1038
+Computed Bimodal index     'h17c      1038
+Computed Index of Tagged Table of T1   'h162      1038
+Computed Index of Tagged Table of T2   'h162      1038
+Computed Index of Tagged Table of T3   'h162      1038
+Computed Index of Tagged Table of T4   'h162      1038
+Prediction Packet     PredictionPacket { bimodal_index: 'h17c, tagTable_index: <V 'h162 'h162 'h162 'h162  >, tableTag: <V tagged Tag1 'h64 tagged Tag1 'h64 tagged Tag2 'h164 tagged Tag2 'h164  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000008, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0759, index_csr: <V 'h008 'h008 'h008  >, tag1_csr1: <V 'h08 'h08  >, tag1_csr2: <V 'h08 'h08  >, tag2_csr1: <V 'h008 'h008  >, tag2_csr2: <V 'h08 'h08  > }      1038
+
+Prediction Over!      1038
+
+===============================================================================================      1038
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1038
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h7e tagged Tag1 'h7e tagged Tag2 'h17e tagged Tag2 'h17e  >      1038
+Bimodal index in Updation Packet     'h172      1038
+Index of Tagged Tables in Updation Packet    <V 'h160 'h160 'h160 'h160  >      1038
+Updation Packet     UpdationPacket { bimodal_index: 'h172, tagTable_index: <V 'h160 'h160 'h160 'h160  >, tableTag: <V tagged Tag1 'h7e tagged Tag1 'h7e tagged Tag2 'h17e tagged Tag2 'h17e  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000004, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h03ac, index_csr: <V 'h004 'h004 'h004  >, tag1_csr1: <V 'h04 'h04  >, tag1_csr2: <V 'h04 'h04  >, tag2_csr1: <V 'h004 'h004  >, tag2_csr2: <V 'h04 'h04  > }      1038
+Updation Packet's PHR = 0000001110101100      1038
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100      1038
+Found value =           0
+
+
+Structures after updation      1038
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h7e tagged Tag1 'h7e tagged Tag2 'h17e tagged Tag2 'h17e  >      1038
+Bimodal index in Updation Packet     'h172      1038
+Index of Tagged Tables in Updation Packet    <V 'h160 'h160 'h160 'h160  >      1038
+Updation Packet     UpdationPacket { bimodal_index: 'h172, tagTable_index: <V 'h160 'h160 'h160 'h160  >, tableTag: <V tagged Tag1 'h7e tagged Tag1 'h7e tagged Tag2 'h17e tagged Tag2 'h17e  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000004, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h03ac, index_csr: <V 'h004 'h004 'h004  >, tag1_csr1: <V 'h04 'h04  >, tag1_csr2: <V 'h04 'h04  >, tag2_csr1: <V 'h004 'h004  >, tag2_csr2: <V 'h04 'h04  > }      1038
+Updation Packet's PHR = 0000001110101100      1038
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100      1038
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000011101011001
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1039
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h64 tagged Tag1 'h64 tagged Tag2 'h164 tagged Tag2 'h164  >      1039
+Bimodal index in Updation Packet     'h17c      1039
+Index of Tagged Tables in Updation Packet    <V 'h162 'h162 'h162 'h162  >      1039
+Updation Packet     UpdationPacket { bimodal_index: 'h17c, tagTable_index: <V 'h162 'h162 'h162 'h162  >, tableTag: <V tagged Tag1 'h64 tagged Tag1 'h64 tagged Tag2 'h164 tagged Tag2 'h164  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000008, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'h0759, index_csr: <V 'h008 'h008 'h008  >, tag1_csr1: <V 'h08 'h08  >, tag1_csr2: <V 'h08 'h08  >, tag2_csr1: <V 'h008 'h008  >, tag2_csr2: <V 'h08 'h08  > }      1039
+Updation Packet's PHR = 0000011101011001      1039
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000      1039
+Found value =           0
+
+
+Structures after updation      1039
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h64 tagged Tag1 'h64 tagged Tag2 'h164 tagged Tag2 'h164  >      1039
+Bimodal index in Updation Packet     'h17c      1039
+Index of Tagged Tables in Updation Packet    <V 'h162 'h162 'h162 'h162  >      1039
+Updation Packet     UpdationPacket { bimodal_index: 'h17c, tagTable_index: <V 'h162 'h162 'h162 'h162  >, tableTag: <V tagged Tag1 'h64 tagged Tag1 'h64 tagged Tag2 'h164 tagged Tag2 'h164  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000008, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'h0759, index_csr: <V 'h008 'h008 'h008  >, tag1_csr1: <V 'h08 'h08  >, tag1_csr2: <V 'h08 'h08  >, tag2_csr1: <V 'h008 'h008  >, tag2_csr2: <V 'h08 'h08  > }      1039
+Updation Packet's PHR = 0000011101011001      1039
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000      1039
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000011101011001
+
+
+In computePrediction method      1040
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100011011100100      1040
+
+
+Structures before prediction      1040
+Computed Tags of T1    tagged Tag1 'hd7      1040
+Computed Tags of T2    tagged Tag1 'hd7      1040
+Computed Tags of T3    tagged Tag2 'h0d7      1040
+Computed Tags of T4    tagged Tag2 'h0d7      1040
+Computed Bimodal index     'h2e4      1040
+Computed Index of Tagged Table of T1   'h2e0      1040
+Computed Index of Tagged Table of T2   'h2e0      1040
+Computed Index of Tagged Table of T3   'h2e0      1040
+Computed Index of Tagged Table of T4   'h2e0      1040
+Current internal PHR = 0000011101011001      1040
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001      1040
+
+
+Structures after prediction      1040
+Computed Tags of T1    tagged Tag1 'hd7      1040
+Computed Tags of T2    tagged Tag1 'hd7      1040
+Computed Tags of T3    tagged Tag2 'h0d7      1040
+Computed Tags of T4    tagged Tag2 'h0d7      1040
+Computed Bimodal index     'h2e4      1040
+Computed Index of Tagged Table of T1   'h2e0      1040
+Computed Index of Tagged Table of T2   'h2e0      1040
+Computed Index of Tagged Table of T3   'h2e0      1040
+Computed Index of Tagged Table of T4   'h2e0      1040
+Prediction Packet     PredictionPacket { bimodal_index: 'h2e4, tagTable_index: <V 'h2e0 'h2e0 'h2e0 'h2e0  >, tableTag: <V tagged Tag1 'hd7 tagged Tag1 'hd7 tagged Tag2 'h0d7 tagged Tag2 'h0d7  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000011, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h0eb3, index_csr: <V 'h011 'h011 'h011  >, tag1_csr1: <V 'h11 'h11  >, tag1_csr2: <V 'h11 'h11  >, tag2_csr1: <V 'h011 'h011  >, tag2_csr2: <V 'h11 'h11  > }      1040
+
+Prediction Over!      1040
+
+===============================================================================================      1040
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0000111010110011
+
+
+In computePrediction method      1041
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100011011111010      1041
+
+
+Structures before prediction      1041
+Computed Tags of T1    tagged Tag1 'h9c      1041
+Computed Tags of T2    tagged Tag1 'h9c      1041
+Computed Tags of T3    tagged Tag2 'h09c      1041
+Computed Tags of T4    tagged Tag2 'h09c      1041
+Computed Bimodal index     'h2fa      1041
+Computed Index of Tagged Table of T1   'h2cd      1041
+Computed Index of Tagged Table of T2   'h2cd      1041
+Computed Index of Tagged Table of T3   'h2cd      1041
+Computed Index of Tagged Table of T4   'h2cd      1041
+Current internal PHR = 0000111010110011      1041
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010      1041
+
+
+Structures after prediction      1041
+Computed Tags of T1    tagged Tag1 'h9c      1041
+Computed Tags of T2    tagged Tag1 'h9c      1041
+Computed Tags of T3    tagged Tag2 'h09c      1041
+Computed Tags of T4    tagged Tag2 'h09c      1041
+Computed Bimodal index     'h2fa      1041
+Computed Index of Tagged Table of T1   'h2cd      1041
+Computed Index of Tagged Table of T2   'h2cd      1041
+Computed Index of Tagged Table of T3   'h2cd      1041
+Computed Index of Tagged Table of T4   'h2cd      1041
+Prediction Packet     PredictionPacket { bimodal_index: 'h2fa, tagTable_index: <V 'h2cd 'h2cd 'h2cd 'h2cd  >, tableTag: <V tagged Tag1 'h9c tagged Tag1 'h9c tagged Tag2 'h09c tagged Tag2 'h09c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000022, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h1d66, index_csr: <V 'h022 'h022 'h022  >, tag1_csr1: <V 'h22 'h22  >, tag1_csr2: <V 'h22 'h22  >, tag2_csr1: <V 'h022 'h022  >, tag2_csr2: <V 'h22 'h22  > }      1041
+
+Prediction Over!      1041
+
+===============================================================================================      1041
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1041
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hd7 tagged Tag1 'hd7 tagged Tag2 'h0d7 tagged Tag2 'h0d7  >      1041
+Bimodal index in Updation Packet     'h2e4      1041
+Index of Tagged Tables in Updation Packet    <V 'h2e0 'h2e0 'h2e0 'h2e0  >      1041
+Updation Packet     UpdationPacket { bimodal_index: 'h2e4, tagTable_index: <V 'h2e0 'h2e0 'h2e0 'h2e0  >, tableTag: <V tagged Tag1 'hd7 tagged Tag1 'hd7 tagged Tag2 'h0d7 tagged Tag2 'h0d7  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000011, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0eb3, index_csr: <V 'h011 'h011 'h011  >, tag1_csr1: <V 'h11 'h11  >, tag1_csr2: <V 'h11 'h11  >, tag2_csr1: <V 'h011 'h011  >, tag2_csr2: <V 'h11 'h11  > }      1041
+Updation Packet's PHR = 0000111010110011      1041
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001      1041
+Found value =           0
+
+
+Structures after updation      1041
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hd7 tagged Tag1 'hd7 tagged Tag2 'h0d7 tagged Tag2 'h0d7  >      1041
+Bimodal index in Updation Packet     'h2e4      1041
+Index of Tagged Tables in Updation Packet    <V 'h2e0 'h2e0 'h2e0 'h2e0  >      1041
+Updation Packet     UpdationPacket { bimodal_index: 'h2e4, tagTable_index: <V 'h2e0 'h2e0 'h2e0 'h2e0  >, tableTag: <V tagged Tag1 'hd7 tagged Tag1 'hd7 tagged Tag2 'h0d7 tagged Tag2 'h0d7  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000011, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h0eb3, index_csr: <V 'h011 'h011 'h011  >, tag1_csr1: <V 'h11 'h11  >, tag1_csr2: <V 'h11 'h11  >, tag2_csr1: <V 'h011 'h011  >, tag2_csr2: <V 'h11 'h11  > }      1041
+Updation Packet's PHR = 0000111010110011      1041
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001      1041
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0001110101100110
+
+
+In computePrediction method      1042
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000000100011100000101      1042
+
+
+Structures before prediction      1042
+Computed Tags of T1    tagged Tag1 'hc9      1042
+Computed Tags of T2    tagged Tag1 'hc9      1042
+Computed Tags of T3    tagged Tag2 'h1c9      1042
+Computed Tags of T4    tagged Tag2 'h1c9      1042
+Computed Bimodal index     'h305      1042
+Computed Index of Tagged Table of T1   'h354      1042
+Computed Index of Tagged Table of T2   'h354      1042
+Computed Index of Tagged Table of T3   'h354      1042
+Computed Index of Tagged Table of T4   'h354      1042
+Current internal PHR = 0001110101100110      1042
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100      1042
+
+
+Structures after prediction      1042
+Computed Tags of T1    tagged Tag1 'hc9      1042
+Computed Tags of T2    tagged Tag1 'hc9      1042
+Computed Tags of T3    tagged Tag2 'h1c9      1042
+Computed Tags of T4    tagged Tag2 'h1c9      1042
+Computed Bimodal index     'h305      1042
+Computed Index of Tagged Table of T1   'h354      1042
+Computed Index of Tagged Table of T2   'h354      1042
+Computed Index of Tagged Table of T3   'h354      1042
+Computed Index of Tagged Table of T4   'h354      1042
+Prediction Packet     PredictionPacket { bimodal_index: 'h305, tagTable_index: <V 'h354 'h354 'h354 'h354  >, tableTag: <V tagged Tag1 'hc9 tagged Tag1 'hc9 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000044, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h3acd, index_csr: <V 'h044 'h044 'h044  >, tag1_csr1: <V 'h44 'h44  >, tag1_csr2: <V 'h44 'h44  >, tag2_csr1: <V 'h044 'h044  >, tag2_csr2: <V 'h44 'h44  > }      1042
+
+Prediction Over!      1042
+
+===============================================================================================      1042
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1042
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h9c tagged Tag1 'h9c tagged Tag2 'h09c tagged Tag2 'h09c  >      1042
+Bimodal index in Updation Packet     'h2fa      1042
+Index of Tagged Tables in Updation Packet    <V 'h2cd 'h2cd 'h2cd 'h2cd  >      1042
+Updation Packet     UpdationPacket { bimodal_index: 'h2fa, tagTable_index: <V 'h2cd 'h2cd 'h2cd 'h2cd  >, tableTag: <V tagged Tag1 'h9c tagged Tag1 'h9c tagged Tag2 'h09c tagged Tag2 'h09c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000022, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h1d66, index_csr: <V 'h022 'h022 'h022  >, tag1_csr1: <V 'h22 'h22  >, tag1_csr2: <V 'h22 'h22  >, tag2_csr1: <V 'h022 'h022  >, tag2_csr2: <V 'h22 'h22  > }      1042
+Updation Packet's PHR = 0001110101100110      1042
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010      1042
+Found value =           0
+
+
+Structures after updation      1042
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h9c tagged Tag1 'h9c tagged Tag2 'h09c tagged Tag2 'h09c  >      1042
+Bimodal index in Updation Packet     'h2fa      1042
+Index of Tagged Tables in Updation Packet    <V 'h2cd 'h2cd 'h2cd 'h2cd  >      1042
+Updation Packet     UpdationPacket { bimodal_index: 'h2fa, tagTable_index: <V 'h2cd 'h2cd 'h2cd 'h2cd  >, tableTag: <V tagged Tag1 'h9c tagged Tag1 'h9c tagged Tag2 'h09c tagged Tag2 'h09c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000022, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h1d66, index_csr: <V 'h022 'h022 'h022  >, tag1_csr1: <V 'h22 'h22  >, tag1_csr2: <V 'h22 'h22  >, tag2_csr1: <V 'h022 'h022  >, tag2_csr2: <V 'h22 'h22  > }      1042
+Updation Packet's PHR = 0001110101100110      1042
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010      1042
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0011101011001101
+
+
+In computePrediction method      1043
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010011000000      1043
+
+
+Structures before prediction      1043
+Computed Tags of T1    tagged Tag1 'h5a      1043
+Computed Tags of T2    tagged Tag1 'h5a      1043
+Computed Tags of T3    tagged Tag2 'h158      1043
+Computed Tags of T4    tagged Tag2 'h158      1043
+Computed Bimodal index     'h0c0      1043
+Computed Index of Tagged Table of T1   'h065      1043
+Computed Index of Tagged Table of T2   'h065      1043
+Computed Index of Tagged Table of T3   'h065      1043
+Computed Index of Tagged Table of T4   'h065      1043
+Current internal PHR = 0011101011001101      1043
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000      1043
+
+
+Structures after prediction      1043
+Computed Tags of T1    tagged Tag1 'h5a      1043
+Computed Tags of T2    tagged Tag1 'h5a      1043
+Computed Tags of T3    tagged Tag2 'h158      1043
+Computed Tags of T4    tagged Tag2 'h158      1043
+Computed Bimodal index     'h0c0      1043
+Computed Index of Tagged Table of T1   'h065      1043
+Computed Index of Tagged Table of T2   'h065      1043
+Computed Index of Tagged Table of T3   'h065      1043
+Computed Index of Tagged Table of T4   'h065      1043
+Prediction Packet     PredictionPacket { bimodal_index: 'h0c0, tagTable_index: <V 'h065 'h065 'h065 'h065  >, tableTag: <V tagged Tag1 'h5a tagged Tag1 'h5a tagged Tag2 'h158 tagged Tag2 'h158  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000088, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h759a, index_csr: <V 'h088 'h088 'h088  >, tag1_csr1: <V 'h88 'h88  >, tag1_csr2: <V 'h09 'h09  >, tag2_csr1: <V 'h088 'h088  >, tag2_csr2: <V 'h88 'h88  > }      1043
+
+Prediction Over!      1043
+
+===============================================================================================      1043
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1043
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hc9 tagged Tag1 'hc9 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >      1043
+Bimodal index in Updation Packet     'h305      1043
+Index of Tagged Tables in Updation Packet    <V 'h354 'h354 'h354 'h354  >      1043
+Updation Packet     UpdationPacket { bimodal_index: 'h305, tagTable_index: <V 'h354 'h354 'h354 'h354  >, tableTag: <V tagged Tag1 'hc9 tagged Tag1 'hc9 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000044, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h3acd, index_csr: <V 'h044 'h044 'h044  >, tag1_csr1: <V 'h44 'h44  >, tag1_csr2: <V 'h44 'h44  >, tag2_csr1: <V 'h044 'h044  >, tag2_csr2: <V 'h44 'h44  > }      1043
+Updation Packet's PHR = 0011101011001101      1043
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100      1043
+Found value =           0
+
+
+Structures after updation      1043
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hc9 tagged Tag1 'hc9 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >      1043
+Bimodal index in Updation Packet     'h305      1043
+Index of Tagged Tables in Updation Packet    <V 'h354 'h354 'h354 'h354  >      1043
+Updation Packet     UpdationPacket { bimodal_index: 'h305, tagTable_index: <V 'h354 'h354 'h354 'h354  >, tableTag: <V tagged Tag1 'hc9 tagged Tag1 'hc9 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000044, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h3acd, index_csr: <V 'h044 'h044 'h044  >, tag1_csr1: <V 'h44 'h44  >, tag1_csr2: <V 'h44 'h44  >, tag2_csr1: <V 'h044 'h044  >, tag2_csr2: <V 'h44 'h44  > }      1043
+Updation Packet's PHR = 0011101011001101      1043
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100      1043
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0111010110011010
+
+
+In computePrediction method      1044
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010011100110      1044
+
+
+Structures before prediction      1044
+Computed Tags of T1    tagged Tag1 'hd3      1044
+Computed Tags of T2    tagged Tag1 'hd3      1044
+Computed Tags of T3    tagged Tag2 'h1d4      1044
+Computed Tags of T4    tagged Tag2 'h1d4      1044
+Computed Bimodal index     'h0e6      1044
+Computed Index of Tagged Table of T1   'h1db      1044
+Computed Index of Tagged Table of T2   'h1db      1044
+Computed Index of Tagged Table of T3   'h1db      1044
+Computed Index of Tagged Table of T4   'h1db      1044
+Current internal PHR = 0111010110011010      1044
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000      1044
+
+
+Structures after prediction      1044
+Computed Tags of T1    tagged Tag1 'hd3      1044
+Computed Tags of T2    tagged Tag1 'hd3      1044
+Computed Tags of T3    tagged Tag2 'h1d4      1044
+Computed Tags of T4    tagged Tag2 'h1d4      1044
+Computed Bimodal index     'h0e6      1044
+Computed Index of Tagged Table of T1   'h1db      1044
+Computed Index of Tagged Table of T2   'h1db      1044
+Computed Index of Tagged Table of T3   'h1db      1044
+Computed Index of Tagged Table of T4   'h1db      1044
+Prediction Packet     PredictionPacket { bimodal_index: 'h0e6, tagTable_index: <V 'h1db 'h1db 'h1db 'h1db  >, tableTag: <V tagged Tag1 'hd3 tagged Tag1 'hd3 tagged Tag2 'h1d4 tagged Tag2 'h1d4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000110, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'heb35, index_csr: <V 'h110 'h110 'h110  >, tag1_csr1: <V 'h11 'h11  >, tag1_csr2: <V 'h12 'h12  >, tag2_csr1: <V 'h110 'h110  >, tag2_csr2: <V 'h11 'h11  > }      1044
+
+Prediction Over!      1044
+
+===============================================================================================      1044
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1044
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h5a tagged Tag1 'h5a tagged Tag2 'h158 tagged Tag2 'h158  >      1044
+Bimodal index in Updation Packet     'h0c0      1044
+Index of Tagged Tables in Updation Packet    <V 'h065 'h065 'h065 'h065  >      1044
+Updation Packet     UpdationPacket { bimodal_index: 'h0c0, tagTable_index: <V 'h065 'h065 'h065 'h065  >, tableTag: <V tagged Tag1 'h5a tagged Tag1 'h5a tagged Tag2 'h158 tagged Tag2 'h158  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000088, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h759a, index_csr: <V 'h088 'h088 'h088  >, tag1_csr1: <V 'h88 'h88  >, tag1_csr2: <V 'h09 'h09  >, tag2_csr1: <V 'h088 'h088  >, tag2_csr2: <V 'h88 'h88  > }      1044
+Updation Packet's PHR = 0111010110011010      1044
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000      1044
+Found value =           0
+
+
+Structures after updation      1044
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h5a tagged Tag1 'h5a tagged Tag2 'h158 tagged Tag2 'h158  >      1044
+Bimodal index in Updation Packet     'h0c0      1044
+Index of Tagged Tables in Updation Packet    <V 'h065 'h065 'h065 'h065  >      1044
+Updation Packet     UpdationPacket { bimodal_index: 'h0c0, tagTable_index: <V 'h065 'h065 'h065 'h065  >, tableTag: <V tagged Tag1 'h5a tagged Tag1 'h5a tagged Tag2 'h158 tagged Tag2 'h158  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000088, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h759a, index_csr: <V 'h088 'h088 'h088  >, tag1_csr1: <V 'h88 'h88  >, tag1_csr2: <V 'h09 'h09  >, tag2_csr1: <V 'h088 'h088  >, tag2_csr2: <V 'h88 'h88  > }      1044
+Updation Packet's PHR = 0111010110011010      1044
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000      1044
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1110101100110101
+
+
+In computePrediction method      1045
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010011111101      1045
+
+
+Structures before prediction      1045
+Computed Tags of T1    tagged Tag1 'h9d      1045
+Computed Tags of T2    tagged Tag1 'h97      1045
+Computed Tags of T3    tagged Tag2 'h098      1045
+Computed Tags of T4    tagged Tag2 'h098      1045
+Computed Bimodal index     'h0fd      1045
+Computed Index of Tagged Table of T1   'h2f0      1045
+Computed Index of Tagged Table of T2   'h2f0      1045
+Computed Index of Tagged Table of T3   'h2f0      1045
+Computed Index of Tagged Table of T4   'h2f0      1045
+Current internal PHR = 1110101100110101      1045
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000      1045
+
+
+Structures after prediction      1045
+Computed Tags of T1    tagged Tag1 'h9d      1045
+Computed Tags of T2    tagged Tag1 'h97      1045
+Computed Tags of T3    tagged Tag2 'h098      1045
+Computed Tags of T4    tagged Tag2 'h098      1045
+Computed Bimodal index     'h0fd      1045
+Computed Index of Tagged Table of T1   'h2f0      1045
+Computed Index of Tagged Table of T2   'h2f0      1045
+Computed Index of Tagged Table of T3   'h2f0      1045
+Computed Index of Tagged Table of T4   'h2f0      1045
+Prediction Packet     PredictionPacket { bimodal_index: 'h0fd, tagTable_index: <V 'h2f0 'h2f0 'h2f0 'h2f0  >, tableTag: <V tagged Tag1 'h9d tagged Tag1 'h97 tagged Tag2 'h098 tagged Tag2 'h098  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000220, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'hd66b, index_csr: <V 'h220 'h220 'h220  >, tag1_csr1: <V 'h20 'h22  >, tag1_csr2: <V 'h20 'h24  >, tag2_csr1: <V 'h021 'h021  >, tag2_csr2: <V 'h22 'h22  > }      1045
+
+Prediction Over!      1045
+
+===============================================================================================      1045
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1045
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hd3 tagged Tag1 'hd3 tagged Tag2 'h1d4 tagged Tag2 'h1d4  >      1045
+Bimodal index in Updation Packet     'h0e6      1045
+Index of Tagged Tables in Updation Packet    <V 'h1db 'h1db 'h1db 'h1db  >      1045
+Updation Packet     UpdationPacket { bimodal_index: 'h0e6, tagTable_index: <V 'h1db 'h1db 'h1db 'h1db  >, tableTag: <V tagged Tag1 'hd3 tagged Tag1 'hd3 tagged Tag2 'h1d4 tagged Tag2 'h1d4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000110, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'heb35, index_csr: <V 'h110 'h110 'h110  >, tag1_csr1: <V 'h11 'h11  >, tag1_csr2: <V 'h12 'h12  >, tag2_csr1: <V 'h110 'h110  >, tag2_csr2: <V 'h11 'h11  > }      1045
+Updation Packet's PHR = 1110101100110101      1045
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000      1045
+Found value =           0
+
+
+Structures after updation      1045
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hd3 tagged Tag1 'hd3 tagged Tag2 'h1d4 tagged Tag2 'h1d4  >      1045
+Bimodal index in Updation Packet     'h0e6      1045
+Index of Tagged Tables in Updation Packet    <V 'h1db 'h1db 'h1db 'h1db  >      1045
+Updation Packet     UpdationPacket { bimodal_index: 'h0e6, tagTable_index: <V 'h1db 'h1db 'h1db 'h1db  >, tableTag: <V tagged Tag1 'hd3 tagged Tag1 'hd3 tagged Tag2 'h1d4 tagged Tag2 'h1d4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000110, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'heb35, index_csr: <V 'h110 'h110 'h110  >, tag1_csr1: <V 'h11 'h11  >, tag1_csr2: <V 'h12 'h12  >, tag2_csr1: <V 'h110 'h110  >, tag2_csr2: <V 'h11 'h11  > }      1045
+Updation Packet's PHR = 1110101100110101      1045
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000      1045
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1101011001101011
+
+
+In computePrediction method      1046
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010100000011      1046
+
+
+Structures before prediction      1046
+Computed Tags of T1    tagged Tag1 'hc3      1046
+Computed Tags of T2    tagged Tag1 'hd7      1046
+Computed Tags of T3    tagged Tag2 'h1c9      1046
+Computed Tags of T4    tagged Tag2 'h1c9      1046
+Computed Bimodal index     'h103      1046
+Computed Index of Tagged Table of T1   'h16e      1046
+Computed Index of Tagged Table of T2   'h16f      1046
+Computed Index of Tagged Table of T3   'h16f      1046
+Computed Index of Tagged Table of T4   'h16f      1046
+Current internal PHR = 1101011001101011      1046
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000      1046
+
+
+Structures after prediction      1046
+Computed Tags of T1    tagged Tag1 'hc3      1046
+Computed Tags of T2    tagged Tag1 'hd7      1046
+Computed Tags of T3    tagged Tag2 'h1c9      1046
+Computed Tags of T4    tagged Tag2 'h1c9      1046
+Computed Bimodal index     'h103      1046
+Computed Index of Tagged Table of T1   'h16e      1046
+Computed Index of Tagged Table of T2   'h16f      1046
+Computed Index of Tagged Table of T3   'h16f      1046
+Computed Index of Tagged Table of T4   'h16f      1046
+Prediction Packet     PredictionPacket { bimodal_index: 'h103, tagTable_index: <V 'h16e 'h16f 'h16f 'h16f  >, tableTag: <V tagged Tag1 'hc3 tagged Tag1 'hd7 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000440, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'hacd6, index_csr: <V 'h041 'h041 'h041  >, tag1_csr1: <V 'h40 'h44  >, tag1_csr2: <V 'h40 'h48  >, tag2_csr1: <V 'h042 'h042  >, tag2_csr2: <V 'h44 'h44  > }      1046
+
+Prediction Over!      1046
+
+===============================================================================================      1046
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1046
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h9d tagged Tag1 'h97 tagged Tag2 'h098 tagged Tag2 'h098  >      1046
+Bimodal index in Updation Packet     'h0fd      1046
+Index of Tagged Tables in Updation Packet    <V 'h2f0 'h2f0 'h2f0 'h2f0  >      1046
+Updation Packet     UpdationPacket { bimodal_index: 'h0fd, tagTable_index: <V 'h2f0 'h2f0 'h2f0 'h2f0  >, tableTag: <V tagged Tag1 'h9d tagged Tag1 'h97 tagged Tag2 'h098 tagged Tag2 'h098  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000220, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hd66b, index_csr: <V 'h220 'h220 'h220  >, tag1_csr1: <V 'h20 'h22  >, tag1_csr2: <V 'h20 'h24  >, tag2_csr1: <V 'h021 'h021  >, tag2_csr2: <V 'h22 'h22  > }      1046
+Updation Packet's PHR = 1101011001101011      1046
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000      1046
+Found value =           0
+
+
+Structures after updation      1046
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h9d tagged Tag1 'h97 tagged Tag2 'h098 tagged Tag2 'h098  >      1046
+Bimodal index in Updation Packet     'h0fd      1046
+Index of Tagged Tables in Updation Packet    <V 'h2f0 'h2f0 'h2f0 'h2f0  >      1046
+Updation Packet     UpdationPacket { bimodal_index: 'h0fd, tagTable_index: <V 'h2f0 'h2f0 'h2f0 'h2f0  >, tableTag: <V tagged Tag1 'h9d tagged Tag1 'h97 tagged Tag2 'h098 tagged Tag2 'h098  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000220, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hd66b, index_csr: <V 'h220 'h220 'h220  >, tag1_csr1: <V 'h20 'h22  >, tag1_csr2: <V 'h20 'h24  >, tag2_csr1: <V 'h021 'h021  >, tag2_csr2: <V 'h22 'h22  > }      1046
+Updation Packet's PHR = 1101011001101011      1046
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000      1046
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1010110011010110
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1047
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hc3 tagged Tag1 'hd7 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >      1047
+Bimodal index in Updation Packet     'h103      1047
+Index of Tagged Tables in Updation Packet    <V 'h16e 'h16f 'h16f 'h16f  >      1047
+Updation Packet     UpdationPacket { bimodal_index: 'h103, tagTable_index: <V 'h16e 'h16f 'h16f 'h16f  >, tableTag: <V tagged Tag1 'hc3 tagged Tag1 'hd7 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000440, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'hacd6, index_csr: <V 'h041 'h041 'h041  >, tag1_csr1: <V 'h40 'h44  >, tag1_csr2: <V 'h40 'h48  >, tag2_csr1: <V 'h042 'h042  >, tag2_csr2: <V 'h44 'h44  > }      1047
+Updation Packet's PHR = 1010110011010110      1047
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000      1047
+Found value =           0
+
+
+Structures after updation      1047
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hc3 tagged Tag1 'hd7 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >      1047
+Bimodal index in Updation Packet     'h103      1047
+Index of Tagged Tables in Updation Packet    <V 'h16e 'h16f 'h16f 'h16f  >      1047
+Updation Packet     UpdationPacket { bimodal_index: 'h103, tagTable_index: <V 'h16e 'h16f 'h16f 'h16f  >, tableTag: <V tagged Tag1 'hc3 tagged Tag1 'hd7 tagged Tag2 'h1c9 tagged Tag2 'h1c9  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000440, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'hacd6, index_csr: <V 'h041 'h041 'h041  >, tag1_csr1: <V 'h40 'h44  >, tag1_csr2: <V 'h40 'h48  >, tag2_csr1: <V 'h042 'h042  >, tag2_csr2: <V 'h44 'h44  > }      1047
+Updation Packet's PHR = 1010110011010110      1047
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000      1047
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1010110011010110
+
+
+In computePrediction method      1048
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010011100110      1048
+
+
+Structures before prediction      1048
+Computed Tags of T1    tagged Tag1 'h67      1048
+Computed Tags of T2    tagged Tag1 'h4f      1048
+Computed Tags of T3    tagged Tag2 'h171      1048
+Computed Tags of T4    tagged Tag2 'h171      1048
+Computed Bimodal index     'h0e6      1048
+Computed Index of Tagged Table of T1   'h04a      1048
+Computed Index of Tagged Table of T2   'h048      1048
+Computed Index of Tagged Table of T3   'h048      1048
+Computed Index of Tagged Table of T4   'h048      1048
+Current internal PHR = 1010110011010110      1048
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001      1048
+
+
+Structures after prediction      1048
+Computed Tags of T1    tagged Tag1 'h67      1048
+Computed Tags of T2    tagged Tag1 'h4f      1048
+Computed Tags of T3    tagged Tag2 'h171      1048
+Computed Tags of T4    tagged Tag2 'h171      1048
+Computed Bimodal index     'h0e6      1048
+Computed Index of Tagged Table of T1   'h04a      1048
+Computed Index of Tagged Table of T2   'h048      1048
+Computed Index of Tagged Table of T3   'h048      1048
+Computed Index of Tagged Table of T4   'h048      1048
+Prediction Packet     PredictionPacket { bimodal_index: 'h0e6, tagTable_index: <V 'h04a 'h048 'h048 'h048  >, tableTag: <V tagged Tag1 'h67 tagged Tag1 'h4f tagged Tag2 'h171 tagged Tag2 'h171  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000000881, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h59ad, index_csr: <V 'h083 'h083 'h083  >, tag1_csr1: <V 'h81 'h89  >, tag1_csr2: <V 'h00 'h10  >, tag2_csr1: <V 'h085 'h085  >, tag2_csr2: <V 'h89 'h89  > }      1048
+
+Prediction Over!      1048
+
+===============================================================================================      1048
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0101100110101101
+
+
+In computePrediction method      1049
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010011111101      1049
+
+
+Structures before prediction      1049
+Computed Tags of T1    tagged Tag1 'hfe      1049
+Computed Tags of T2    tagged Tag1 'hae      1049
+Computed Tags of T3    tagged Tag2 'h1d1      1049
+Computed Tags of T4    tagged Tag2 'h1d1      1049
+Computed Bimodal index     'h0fd      1049
+Computed Index of Tagged Table of T1   'h1d2      1049
+Computed Index of Tagged Table of T2   'h1d6      1049
+Computed Index of Tagged Table of T3   'h1d6      1049
+Computed Index of Tagged Table of T4   'h1d6      1049
+Current internal PHR = 0101100110101101      1049
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010      1049
+
+
+Structures after prediction      1049
+Computed Tags of T1    tagged Tag1 'hfe      1049
+Computed Tags of T2    tagged Tag1 'hae      1049
+Computed Tags of T3    tagged Tag2 'h1d1      1049
+Computed Tags of T4    tagged Tag2 'h1d1      1049
+Computed Bimodal index     'h0fd      1049
+Computed Index of Tagged Table of T1   'h1d2      1049
+Computed Index of Tagged Table of T2   'h1d6      1049
+Computed Index of Tagged Table of T3   'h1d6      1049
+Computed Index of Tagged Table of T4   'h1d6      1049
+Prediction Packet     PredictionPacket { bimodal_index: 'h0fd, tagTable_index: <V 'h1d2 'h1d6 'h1d6 'h1d6  >, tableTag: <V tagged Tag1 'hfe tagged Tag1 'hae tagged Tag2 'h1d1 tagged Tag2 'h1d1  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000001102, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'hb35b, index_csr: <V 'h106 'h106 'h106  >, tag1_csr1: <V 'h03 'h13  >, tag1_csr2: <V 'h00 'h20  >, tag2_csr1: <V 'h10a 'h10a  >, tag2_csr2: <V 'h13 'h13  > }      1049
+
+Prediction Over!      1049
+
+===============================================================================================      1049
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1049
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h67 tagged Tag1 'h4f tagged Tag2 'h171 tagged Tag2 'h171  >      1049
+Bimodal index in Updation Packet     'h0e6      1049
+Index of Tagged Tables in Updation Packet    <V 'h04a 'h048 'h048 'h048  >      1049
+Updation Packet     UpdationPacket { bimodal_index: 'h0e6, tagTable_index: <V 'h04a 'h048 'h048 'h048  >, tableTag: <V tagged Tag1 'h67 tagged Tag1 'h4f tagged Tag2 'h171 tagged Tag2 'h171  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000881, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h59ad, index_csr: <V 'h083 'h083 'h083  >, tag1_csr1: <V 'h81 'h89  >, tag1_csr2: <V 'h00 'h10  >, tag2_csr1: <V 'h085 'h085  >, tag2_csr2: <V 'h89 'h89  > }      1049
+Updation Packet's PHR = 0101100110101101      1049
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001      1049
+Found value =           0
+
+
+Structures after updation      1049
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h67 tagged Tag1 'h4f tagged Tag2 'h171 tagged Tag2 'h171  >      1049
+Bimodal index in Updation Packet     'h0e6      1049
+Index of Tagged Tables in Updation Packet    <V 'h04a 'h048 'h048 'h048  >      1049
+Updation Packet     UpdationPacket { bimodal_index: 'h0e6, tagTable_index: <V 'h04a 'h048 'h048 'h048  >, tableTag: <V tagged Tag1 'h67 tagged Tag1 'h4f tagged Tag2 'h171 tagged Tag2 'h171  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000000881, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h59ad, index_csr: <V 'h083 'h083 'h083  >, tag1_csr1: <V 'h81 'h89  >, tag1_csr2: <V 'h00 'h10  >, tag2_csr1: <V 'h085 'h085  >, tag2_csr2: <V 'h89 'h89  > }      1049
+Updation Packet's PHR = 0101100110101101      1049
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001      1049
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000100
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1011001101011011
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1050
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hfe tagged Tag1 'hae tagged Tag2 'h1d1 tagged Tag2 'h1d1  >      1050
+Bimodal index in Updation Packet     'h0fd      1050
+Index of Tagged Tables in Updation Packet    <V 'h1d2 'h1d6 'h1d6 'h1d6  >      1050
+Updation Packet     UpdationPacket { bimodal_index: 'h0fd, tagTable_index: <V 'h1d2 'h1d6 'h1d6 'h1d6  >, tableTag: <V tagged Tag1 'hfe tagged Tag1 'hae tagged Tag2 'h1d1 tagged Tag2 'h1d1  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000001102, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'hb35b, index_csr: <V 'h106 'h106 'h106  >, tag1_csr1: <V 'h03 'h13  >, tag1_csr2: <V 'h00 'h20  >, tag2_csr1: <V 'h10a 'h10a  >, tag2_csr2: <V 'h13 'h13  > }      1050
+Updation Packet's PHR = 1011001101011011      1050
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010      1050
+Found value =           0
+
+
+Structures after updation      1050
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hfe tagged Tag1 'hae tagged Tag2 'h1d1 tagged Tag2 'h1d1  >      1050
+Bimodal index in Updation Packet     'h0fd      1050
+Index of Tagged Tables in Updation Packet    <V 'h1d2 'h1d6 'h1d6 'h1d6  >      1050
+Updation Packet     UpdationPacket { bimodal_index: 'h0fd, tagTable_index: <V 'h1d2 'h1d6 'h1d6 'h1d6  >, tableTag: <V tagged Tag1 'hfe tagged Tag1 'hae tagged Tag2 'h1d1 tagged Tag2 'h1d1  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000001102, tableNo: 'h0, altpred: 'h0, mispred: 'h1, actualOutcome: 'h1, phr: 'hb35b, index_csr: <V 'h106 'h106 'h106  >, tag1_csr1: <V 'h03 'h13  >, tag1_csr2: <V 'h00 'h20  >, tag2_csr1: <V 'h10a 'h10a  >, tag2_csr2: <V 'h13 'h13  > }      1050
+Updation Packet's PHR = 1011001101011011      1050
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010      1050
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1011001101011011
+
+
+In computePrediction method      1051
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010100010110      1051
+
+
+Structures before prediction      1051
+Computed Tags of T1    tagged Tag1 'h19      1051
+Computed Tags of T2    tagged Tag1 'hb3      1051
+Computed Tags of T3    tagged Tag2 'h14c      1051
+Computed Tags of T4    tagged Tag2 'h14c      1051
+Computed Bimodal index     'h116      1051
+Computed Index of Tagged Table of T1   'h33e      1051
+Computed Index of Tagged Table of T2   'h336      1051
+Computed Index of Tagged Table of T3   'h336      1051
+Computed Index of Tagged Table of T4   'h336      1051
+Current internal PHR = 1011001101011011      1051
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101      1051
+
+
+Structures after prediction      1051
+Computed Tags of T1    tagged Tag1 'h19      1051
+Computed Tags of T2    tagged Tag1 'hb3      1051
+Computed Tags of T3    tagged Tag2 'h14c      1051
+Computed Tags of T4    tagged Tag2 'h14c      1051
+Computed Bimodal index     'h116      1051
+Computed Index of Tagged Table of T1   'h33e      1051
+Computed Index of Tagged Table of T2   'h336      1051
+Computed Index of Tagged Table of T3   'h336      1051
+Computed Index of Tagged Table of T4   'h336      1051
+Prediction Packet     PredictionPacket { bimodal_index: 'h116, tagTable_index: <V 'h33e 'h336 'h336 'h336  >, tableTag: <V tagged Tag1 'h19 tagged Tag1 'hb3 tagged Tag2 'h14c tagged Tag2 'h14c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000002205, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h66b7, index_csr: <V 'h20d 'h20d 'h20d  >, tag1_csr1: <V 'h05 'h27  >, tag1_csr2: <V 'h05 'h41  >, tag2_csr1: <V 'h014 'h014  >, tag2_csr2: <V 'h27 'h27  > }      1051
+
+Prediction Over!      1051
+
+===============================================================================================      1051
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0110011010110111
+
+
+In computePrediction method      1052
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010100101110      1052
+
+
+Structures before prediction      1052
+Computed Tags of T1    tagged Tag1 'h30      1052
+Computed Tags of T2    tagged Tag1 'h66      1052
+Computed Tags of T3    tagged Tag2 'h19a      1052
+Computed Tags of T4    tagged Tag2 'h19a      1052
+Computed Bimodal index     'h12e      1052
+Computed Index of Tagged Table of T1   'h109      1052
+Computed Index of Tagged Table of T2   'h118      1052
+Computed Index of Tagged Table of T3   'h118      1052
+Computed Index of Tagged Table of T4   'h118      1052
+Current internal PHR = 0110011010110111      1052
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010      1052
+
+
+Structures after prediction      1052
+Computed Tags of T1    tagged Tag1 'h30      1052
+Computed Tags of T2    tagged Tag1 'h66      1052
+Computed Tags of T3    tagged Tag2 'h19a      1052
+Computed Tags of T4    tagged Tag2 'h19a      1052
+Computed Bimodal index     'h12e      1052
+Computed Index of Tagged Table of T1   'h109      1052
+Computed Index of Tagged Table of T2   'h118      1052
+Computed Index of Tagged Table of T3   'h118      1052
+Computed Index of Tagged Table of T4   'h118      1052
+Prediction Packet     PredictionPacket { bimodal_index: 'h12e, tagTable_index: <V 'h109 'h118 'h118 'h118  >, tableTag: <V tagged Tag1 'h30 tagged Tag1 'h66 tagged Tag2 'h19a tagged Tag2 'h19a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h00000000000000000000000000000440a, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'hcd6f, index_csr: <V 'h01b 'h01b 'h01b  >, tag1_csr1: <V 'h0a 'h4e  >, tag1_csr2: <V 'h0a 'h03  >, tag2_csr1: <V 'h028 'h028  >, tag2_csr2: <V 'h4e 'h4e  > }      1052
+
+Prediction Over!      1052
+
+===============================================================================================      1052
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1052
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h19 tagged Tag1 'hb3 tagged Tag2 'h14c tagged Tag2 'h14c  >      1052
+Bimodal index in Updation Packet     'h116      1052
+Index of Tagged Tables in Updation Packet    <V 'h33e 'h336 'h336 'h336  >      1052
+Updation Packet     UpdationPacket { bimodal_index: 'h116, tagTable_index: <V 'h33e 'h336 'h336 'h336  >, tableTag: <V tagged Tag1 'h19 tagged Tag1 'hb3 tagged Tag2 'h14c tagged Tag2 'h14c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000002205, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h66b7, index_csr: <V 'h20d 'h20d 'h20d  >, tag1_csr1: <V 'h05 'h27  >, tag1_csr2: <V 'h05 'h41  >, tag2_csr1: <V 'h014 'h014  >, tag2_csr2: <V 'h27 'h27  > }      1052
+Updation Packet's PHR = 0110011010110111      1052
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101      1052
+Found value =           0
+
+
+Structures after updation      1052
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h19 tagged Tag1 'hb3 tagged Tag2 'h14c tagged Tag2 'h14c  >      1052
+Bimodal index in Updation Packet     'h116      1052
+Index of Tagged Tables in Updation Packet    <V 'h33e 'h336 'h336 'h336  >      1052
+Updation Packet     UpdationPacket { bimodal_index: 'h116, tagTable_index: <V 'h33e 'h336 'h336 'h336  >, tableTag: <V tagged Tag1 'h19 tagged Tag1 'hb3 tagged Tag2 'h14c tagged Tag2 'h14c  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000002205, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h66b7, index_csr: <V 'h20d 'h20d 'h20d  >, tag1_csr1: <V 'h05 'h27  >, tag1_csr2: <V 'h05 'h41  >, tag2_csr1: <V 'h014 'h014  >, tag2_csr2: <V 'h27 'h27  > }      1052
+Updation Packet's PHR = 0110011010110111      1052
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101      1052
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1100110101101111
+
+
+In computePrediction method      1053
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010100110010      1053
+
+
+Structures before prediction      1053
+Computed Tags of T1    tagged Tag1 'h0e      1053
+Computed Tags of T2    tagged Tag1 'ha2      1053
+Computed Tags of T3    tagged Tag2 'h05a      1053
+Computed Tags of T4    tagged Tag2 'h05a      1053
+Computed Bimodal index     'h132      1053
+Computed Index of Tagged Table of T1   'h10b      1053
+Computed Index of Tagged Table of T2   'h129      1053
+Computed Index of Tagged Table of T3   'h129      1053
+Computed Index of Tagged Table of T4   'h129      1053
+Current internal PHR = 1100110101101111      1053
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100      1053
+
+
+Structures after prediction      1053
+Computed Tags of T1    tagged Tag1 'h0e      1053
+Computed Tags of T2    tagged Tag1 'ha2      1053
+Computed Tags of T3    tagged Tag2 'h05a      1053
+Computed Tags of T4    tagged Tag2 'h05a      1053
+Computed Bimodal index     'h132      1053
+Computed Index of Tagged Table of T1   'h10b      1053
+Computed Index of Tagged Table of T2   'h129      1053
+Computed Index of Tagged Table of T3   'h129      1053
+Computed Index of Tagged Table of T4   'h129      1053
+Prediction Packet     PredictionPacket { bimodal_index: 'h132, tagTable_index: <V 'h10b 'h129 'h129 'h129  >, tableTag: <V tagged Tag1 'h0e tagged Tag1 'ha2 tagged Tag2 'h05a tagged Tag2 'h05a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000008814, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h9ade, index_csr: <V 'h036 'h036 'h036  >, tag1_csr1: <V 'h14 'h9c  >, tag1_csr2: <V 'h14 'h06  >, tag2_csr1: <V 'h050 'h050  >, tag2_csr2: <V 'h9c 'h9c  > }      1053
+
+Prediction Over!      1053
+
+===============================================================================================      1053
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1053
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h30 tagged Tag1 'h66 tagged Tag2 'h19a tagged Tag2 'h19a  >      1053
+Bimodal index in Updation Packet     'h12e      1053
+Index of Tagged Tables in Updation Packet    <V 'h109 'h118 'h118 'h118  >      1053
+Updation Packet     UpdationPacket { bimodal_index: 'h12e, tagTable_index: <V 'h109 'h118 'h118 'h118  >, tableTag: <V tagged Tag1 'h30 tagged Tag1 'h66 tagged Tag2 'h19a tagged Tag2 'h19a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h00000000000000000000000000000440a, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hcd6f, index_csr: <V 'h01b 'h01b 'h01b  >, tag1_csr1: <V 'h0a 'h4e  >, tag1_csr2: <V 'h0a 'h03  >, tag2_csr1: <V 'h028 'h028  >, tag2_csr2: <V 'h4e 'h4e  > }      1053
+Updation Packet's PHR = 1100110101101111      1053
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010      1053
+Found value =           0
+
+
+Structures after updation      1053
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h30 tagged Tag1 'h66 tagged Tag2 'h19a tagged Tag2 'h19a  >      1053
+Bimodal index in Updation Packet     'h12e      1053
+Index of Tagged Tables in Updation Packet    <V 'h109 'h118 'h118 'h118  >      1053
+Updation Packet     UpdationPacket { bimodal_index: 'h12e, tagTable_index: <V 'h109 'h118 'h118 'h118  >, tableTag: <V tagged Tag1 'h30 tagged Tag1 'h66 tagged Tag2 'h19a tagged Tag2 'h19a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h00000000000000000000000000000440a, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hcd6f, index_csr: <V 'h01b 'h01b 'h01b  >, tag1_csr1: <V 'h0a 'h4e  >, tag1_csr2: <V 'h0a 'h03  >, tag2_csr1: <V 'h028 'h028  >, tag2_csr2: <V 'h4e 'h4e  > }      1053
+Updation Packet's PHR = 1100110101101111      1053
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010      1053
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1001101011011110
+
+
+In computePrediction method      1054
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010100111010      1054
+
+
+Structures before prediction      1054
+Computed Tags of T1    tagged Tag1 'h42      1054
+Computed Tags of T2    tagged Tag1 'h1b      1054
+Computed Tags of T3    tagged Tag2 'h1e8      1054
+Computed Tags of T4    tagged Tag2 'h1e8      1054
+Computed Bimodal index     'h13a      1054
+Computed Index of Tagged Table of T1   'h13f      1054
+Computed Index of Tagged Table of T2   'h17b      1054
+Computed Index of Tagged Table of T3   'h17b      1054
+Computed Index of Tagged Table of T4   'h17b      1054
+Current internal PHR = 1001101011011110      1054
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000      1054
+
+
+Structures after prediction      1054
+Computed Tags of T1    tagged Tag1 'h42      1054
+Computed Tags of T2    tagged Tag1 'h1b      1054
+Computed Tags of T3    tagged Tag2 'h1e8      1054
+Computed Tags of T4    tagged Tag2 'h1e8      1054
+Computed Bimodal index     'h13a      1054
+Computed Index of Tagged Table of T1   'h13f      1054
+Computed Index of Tagged Table of T2   'h17b      1054
+Computed Index of Tagged Table of T3   'h17b      1054
+Computed Index of Tagged Table of T4   'h17b      1054
+Prediction Packet     PredictionPacket { bimodal_index: 'h13a, tagTable_index: <V 'h13f 'h17b 'h17b 'h17b  >, tableTag: <V tagged Tag1 'h42 tagged Tag1 'h1b tagged Tag2 'h1e8 tagged Tag2 'h1e8  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000011028, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h35bc, index_csr: <V 'h06c 'h06c 'h06c  >, tag1_csr1: <V 'h28 'h39  >, tag1_csr2: <V 'h28 'h0c  >, tag2_csr1: <V 'h0a0 'h0a0  >, tag2_csr2: <V 'h39 'h39  > }      1054
+
+Prediction Over!      1054
+
+===============================================================================================      1054
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1054
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h0e tagged Tag1 'ha2 tagged Tag2 'h05a tagged Tag2 'h05a  >      1054
+Bimodal index in Updation Packet     'h132      1054
+Index of Tagged Tables in Updation Packet    <V 'h10b 'h129 'h129 'h129  >      1054
+Updation Packet     UpdationPacket { bimodal_index: 'h132, tagTable_index: <V 'h10b 'h129 'h129 'h129  >, tableTag: <V tagged Tag1 'h0e tagged Tag1 'ha2 tagged Tag2 'h05a tagged Tag2 'h05a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000008814, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h9ade, index_csr: <V 'h036 'h036 'h036  >, tag1_csr1: <V 'h14 'h9c  >, tag1_csr2: <V 'h14 'h06  >, tag2_csr1: <V 'h050 'h050  >, tag2_csr2: <V 'h9c 'h9c  > }      1054
+Updation Packet's PHR = 1001101011011110      1054
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100      1054
+Found value =           0
+
+
+Structures after updation      1054
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h0e tagged Tag1 'ha2 tagged Tag2 'h05a tagged Tag2 'h05a  >      1054
+Bimodal index in Updation Packet     'h132      1054
+Index of Tagged Tables in Updation Packet    <V 'h10b 'h129 'h129 'h129  >      1054
+Updation Packet     UpdationPacket { bimodal_index: 'h132, tagTable_index: <V 'h10b 'h129 'h129 'h129  >, tableTag: <V tagged Tag1 'h0e tagged Tag1 'ha2 tagged Tag2 'h05a tagged Tag2 'h05a  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000008814, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h9ade, index_csr: <V 'h036 'h036 'h036  >, tag1_csr1: <V 'h14 'h9c  >, tag1_csr2: <V 'h14 'h06  >, tag2_csr1: <V 'h050 'h050  >, tag2_csr2: <V 'h9c 'h9c  > }      1054
+Updation Packet's PHR = 1001101011011110      1054
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100      1054
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0011010110111100
+
+
+In computePrediction method      1055
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010101000000      1055
+
+
+Structures before prediction      1055
+Computed Tags of T1    tagged Tag1 'hb0      1055
+Computed Tags of T2    tagged Tag1 'h02      1055
+Computed Tags of T3    tagged Tag2 'h0e4      1055
+Computed Tags of T4    tagged Tag2 'h0e4      1055
+Computed Bimodal index     'h140      1055
+Computed Index of Tagged Table of T1   'h13d      1055
+Computed Index of Tagged Table of T2   'h1b5      1055
+Computed Index of Tagged Table of T3   'h1b5      1055
+Computed Index of Tagged Table of T4   'h1b5      1055
+Current internal PHR = 0011010110111100      1055
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010000      1055
+
+
+Structures after prediction      1055
+Computed Tags of T1    tagged Tag1 'hb0      1055
+Computed Tags of T2    tagged Tag1 'h02      1055
+Computed Tags of T3    tagged Tag2 'h0e4      1055
+Computed Tags of T4    tagged Tag2 'h0e4      1055
+Computed Bimodal index     'h140      1055
+Computed Index of Tagged Table of T1   'h13d      1055
+Computed Index of Tagged Table of T2   'h1b5      1055
+Computed Index of Tagged Table of T3   'h1b5      1055
+Computed Index of Tagged Table of T4   'h1b5      1055
+Prediction Packet     PredictionPacket { bimodal_index: 'h140, tagTable_index: <V 'h13d 'h1b5 'h1b5 'h1b5  >, tableTag: <V tagged Tag1 'hb0 tagged Tag1 'h02 tagged Tag2 'h0e4 tagged Tag2 'h0e4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000022050, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h6b78, index_csr: <V 'h0d8 'h0d8 'h0d8  >, tag1_csr1: <V 'h50 'h72  >, tag1_csr2: <V 'h50 'h18  >, tag2_csr1: <V 'h140 'h140  >, tag2_csr2: <V 'h72 'h72  > }      1055
+
+Prediction Over!      1055
+
+===============================================================================================      1055
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1055
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h42 tagged Tag1 'h1b tagged Tag2 'h1e8 tagged Tag2 'h1e8  >      1055
+Bimodal index in Updation Packet     'h13a      1055
+Index of Tagged Tables in Updation Packet    <V 'h13f 'h17b 'h17b 'h17b  >      1055
+Updation Packet     UpdationPacket { bimodal_index: 'h13a, tagTable_index: <V 'h13f 'h17b 'h17b 'h17b  >, tableTag: <V tagged Tag1 'h42 tagged Tag1 'h1b tagged Tag2 'h1e8 tagged Tag2 'h1e8  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000011028, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h35bc, index_csr: <V 'h06c 'h06c 'h06c  >, tag1_csr1: <V 'h28 'h39  >, tag1_csr2: <V 'h28 'h0c  >, tag2_csr1: <V 'h0a0 'h0a0  >, tag2_csr2: <V 'h39 'h39  > }      1055
+Updation Packet's PHR = 0011010110111100      1055
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000      1055
+Found value =           0
+
+
+Structures after updation      1055
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h42 tagged Tag1 'h1b tagged Tag2 'h1e8 tagged Tag2 'h1e8  >      1055
+Bimodal index in Updation Packet     'h13a      1055
+Index of Tagged Tables in Updation Packet    <V 'h13f 'h17b 'h17b 'h17b  >      1055
+Updation Packet     UpdationPacket { bimodal_index: 'h13a, tagTable_index: <V 'h13f 'h17b 'h17b 'h17b  >, tableTag: <V tagged Tag1 'h42 tagged Tag1 'h1b tagged Tag2 'h1e8 tagged Tag2 'h1e8  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h0 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000011028, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h35bc, index_csr: <V 'h06c 'h06c 'h06c  >, tag1_csr1: <V 'h28 'h39  >, tag1_csr2: <V 'h28 'h0c  >, tag2_csr1: <V 'h0a0 'h0a0  >, tag2_csr2: <V 'h39 'h39  > }      1055
+Updation Packet's PHR = 0011010110111100      1055
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000      1055
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0110101101111000
+
+
+In computePrediction method      1056
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010101001100      1056
+
+
+Structures before prediction      1056
+Computed Tags of T1    tagged Tag1 'hae      1056
+Computed Tags of T2    tagged Tag1 'hc8      1056
+Computed Tags of T3    tagged Tag2 'h005      1056
+Computed Tags of T4    tagged Tag2 'h005      1056
+Computed Bimodal index     'h14c      1056
+Computed Index of Tagged Table of T1   'h1c1      1056
+Computed Index of Tagged Table of T2   'h0d1      1056
+Computed Index of Tagged Table of T3   'h0d1      1056
+Computed Index of Tagged Table of T4   'h0d1      1056
+Current internal PHR = 0110101101111000      1056
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100000      1056
+
+
+Structures after prediction      1056
+Computed Tags of T1    tagged Tag1 'hae      1056
+Computed Tags of T2    tagged Tag1 'hc8      1056
+Computed Tags of T3    tagged Tag2 'h005      1056
+Computed Tags of T4    tagged Tag2 'h005      1056
+Computed Bimodal index     'h14c      1056
+Computed Index of Tagged Table of T1   'h1c1      1056
+Computed Index of Tagged Table of T2   'h0d1      1056
+Computed Index of Tagged Table of T3   'h0d1      1056
+Computed Index of Tagged Table of T4   'h0d1      1056
+Prediction Packet     PredictionPacket { bimodal_index: 'h14c, tagTable_index: <V 'h1c1 'h0d1 'h0d1 'h0d1  >, tableTag: <V tagged Tag1 'hae tagged Tag1 'hc8 tagged Tag2 'h005 tagged Tag2 'h005  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h0000000000000000000000000000440a0, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'hd6f1, index_csr: <V 'h1b0 'h1b0 'h1b0  >, tag1_csr1: <V 'ha0 'he4  >, tag1_csr2: <V 'h21 'h30  >, tag2_csr1: <V 'h081 'h081  >, tag2_csr2: <V 'he4 'he4  > }      1056
+
+Prediction Over!      1056
+
+===============================================================================================      1056
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1056
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hb0 tagged Tag1 'h02 tagged Tag2 'h0e4 tagged Tag2 'h0e4  >      1056
+Bimodal index in Updation Packet     'h140      1056
+Index of Tagged Tables in Updation Packet    <V 'h13d 'h1b5 'h1b5 'h1b5  >      1056
+Updation Packet     UpdationPacket { bimodal_index: 'h140, tagTable_index: <V 'h13d 'h1b5 'h1b5 'h1b5  >, tableTag: <V tagged Tag1 'hb0 tagged Tag1 'h02 tagged Tag2 'h0e4 tagged Tag2 'h0e4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000022050, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h6b78, index_csr: <V 'h0d8 'h0d8 'h0d8  >, tag1_csr1: <V 'h50 'h72  >, tag1_csr2: <V 'h50 'h18  >, tag2_csr1: <V 'h140 'h140  >, tag2_csr2: <V 'h72 'h72  > }      1056
+Updation Packet's PHR = 0110101101111000      1056
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010000      1056
+Found value =           0
+
+
+Structures after updation      1056
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hb0 tagged Tag1 'h02 tagged Tag2 'h0e4 tagged Tag2 'h0e4  >      1056
+Bimodal index in Updation Packet     'h140      1056
+Index of Tagged Tables in Updation Packet    <V 'h13d 'h1b5 'h1b5 'h1b5  >      1056
+Updation Packet     UpdationPacket { bimodal_index: 'h140, tagTable_index: <V 'h13d 'h1b5 'h1b5 'h1b5  >, tableTag: <V tagged Tag1 'hb0 tagged Tag1 'h02 tagged Tag2 'h0e4 tagged Tag2 'h0e4  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000022050, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'h6b78, index_csr: <V 'h0d8 'h0d8 'h0d8  >, tag1_csr1: <V 'h50 'h72  >, tag1_csr2: <V 'h50 'h18  >, tag2_csr1: <V 'h140 'h140  >, tag2_csr2: <V 'h72 'h72  > }      1056
+Updation Packet's PHR = 0110101101111000      1056
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010000      1056
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1101011011110001
+
+
+In computePrediction method      1057
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010101010000      1057
+
+
+Structures before prediction      1057
+Computed Tags of T1    tagged Tag1 'h95      1057
+Computed Tags of T2    tagged Tag1 'h11      1057
+Computed Tags of T3    tagged Tag2 'h1c0      1057
+Computed Tags of T4    tagged Tag2 'h1c0      1057
+Computed Bimodal index     'h150      1057
+Computed Index of Tagged Table of T1   'h03d      1057
+Computed Index of Tagged Table of T2   'h01d      1057
+Computed Index of Tagged Table of T3   'h21d      1057
+Computed Index of Tagged Table of T4   'h21d      1057
+Current internal PHR = 1101011011110001      1057
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000000      1057
+
+
+Structures after prediction      1057
+Computed Tags of T1    tagged Tag1 'h95      1057
+Computed Tags of T2    tagged Tag1 'h11      1057
+Computed Tags of T3    tagged Tag2 'h1c0      1057
+Computed Tags of T4    tagged Tag2 'h1c0      1057
+Computed Bimodal index     'h150      1057
+Computed Index of Tagged Table of T1   'h03d      1057
+Computed Index of Tagged Table of T2   'h01d      1057
+Computed Index of Tagged Table of T3   'h21d      1057
+Computed Index of Tagged Table of T4   'h21d      1057
+Prediction Packet     PredictionPacket { bimodal_index: 'h150, tagTable_index: <V 'h03d 'h01d 'h21d 'h21d  >, tableTag: <V tagged Tag1 'h95 tagged Tag1 'h11 tagged Tag2 'h1c0 tagged Tag2 'h1c0  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000088140, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'hade2, index_csr: <V 'h160 'h360 'h360  >, tag1_csr1: <V 'h41 'hc1  >, tag1_csr2: <V 'h42 'h40  >, tag2_csr1: <V 'h102 'h102  >, tag2_csr2: <V 'hc9 'hc9  > }      1057
+
+Prediction Over!      1057
+
+===============================================================================================      1057
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1057
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hae tagged Tag1 'hc8 tagged Tag2 'h005 tagged Tag2 'h005  >      1057
+Bimodal index in Updation Packet     'h14c      1057
+Index of Tagged Tables in Updation Packet    <V 'h1c1 'h0d1 'h0d1 'h0d1  >      1057
+Updation Packet     UpdationPacket { bimodal_index: 'h14c, tagTable_index: <V 'h1c1 'h0d1 'h0d1 'h0d1  >, tableTag: <V tagged Tag1 'hae tagged Tag1 'hc8 tagged Tag2 'h005 tagged Tag2 'h005  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h0000000000000000000000000000440a0, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hd6f1, index_csr: <V 'h1b0 'h1b0 'h1b0  >, tag1_csr1: <V 'ha0 'he4  >, tag1_csr2: <V 'h21 'h30  >, tag2_csr1: <V 'h081 'h081  >, tag2_csr2: <V 'he4 'he4  > }      1057
+Updation Packet's PHR = 1101011011110001      1057
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100000      1057
+Found value =           0
+
+
+Structures after updation      1057
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'hae tagged Tag1 'hc8 tagged Tag2 'h005 tagged Tag2 'h005  >      1057
+Bimodal index in Updation Packet     'h14c      1057
+Index of Tagged Tables in Updation Packet    <V 'h1c1 'h0d1 'h0d1 'h0d1  >      1057
+Updation Packet     UpdationPacket { bimodal_index: 'h14c, tagTable_index: <V 'h1c1 'h0d1 'h0d1 'h0d1  >, tableTag: <V tagged Tag1 'hae tagged Tag1 'hc8 tagged Tag2 'h005 tagged Tag2 'h005  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h0000000000000000000000000000440a0, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hd6f1, index_csr: <V 'h1b0 'h1b0 'h1b0  >, tag1_csr1: <V 'ha0 'he4  >, tag1_csr2: <V 'h21 'h30  >, tag2_csr1: <V 'h081 'h081  >, tag2_csr2: <V 'he4 'he4  > }      1057
+Updation Packet's PHR = 1101011011110001      1057
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100000      1057
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 1010110111100010
+
+
+In computePrediction method      1058
+
+Current Program Counter Value: 0000000000000000000000000000000000000000010000001010010101010101      1058
+
+
+Structures before prediction      1058
+Computed Tags of T1    tagged Tag1 'hd7      1058
+Computed Tags of T2    tagged Tag1 'hd4      1058
+Computed Tags of T3    tagged Tag2 'h076      1058
+Computed Tags of T4    tagged Tag2 'h076      1058
+Computed Bimodal index     'h155      1058
+Computed Index of Tagged Table of T1   'h3f8      1058
+Computed Index of Tagged Table of T2   'h3b8      1058
+Computed Index of Tagged Table of T3   'h3b9      1058
+Computed Index of Tagged Table of T4   'h3b9      1058
+Current internal PHR = 1010110111100010      1058
+Current internal GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000001010000000      1058
+
+
+Structures after prediction      1058
+Computed Tags of T1    tagged Tag1 'hd7      1058
+Computed Tags of T2    tagged Tag1 'hd4      1058
+Computed Tags of T3    tagged Tag2 'h076      1058
+Computed Tags of T4    tagged Tag2 'h076      1058
+Computed Bimodal index     'h155      1058
+Computed Index of Tagged Table of T1   'h3f8      1058
+Computed Index of Tagged Table of T2   'h3b8      1058
+Computed Index of Tagged Table of T3   'h3b9      1058
+Computed Index of Tagged Table of T4   'h3b9      1058
+Prediction Packet     PredictionPacket { bimodal_index: 'h155, tagTable_index: <V 'h3f8 'h3b8 'h3b9 'h3b9  >, tableTag: <V tagged Tag1 'hd7 tagged Tag1 'hd4 tagged Tag2 'h076 tagged Tag2 'h076  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, ghr: 'h000000000000000000000000000110280, pred: 'h0, tableNo: 'h0, altpred: 'h0, phr: 'h5bc5, index_csr: <V 'h2c0 'h2c1 'h2c1  >, tag1_csr1: <V 'h80 'h83  >, tag1_csr2: <V 'h01 'h01  >, tag2_csr1: <V 'h005 'h005  >, tag2_csr2: <V 'h93 'h93  > }      1058
+
+Prediction Over!      1058
+
+===============================================================================================      1058
+
+===============================================================================================
+
+
+In updation method
+
+
+Structures before updation      1058
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h95 tagged Tag1 'h11 tagged Tag2 'h1c0 tagged Tag2 'h1c0  >      1058
+Bimodal index in Updation Packet     'h150      1058
+Index of Tagged Tables in Updation Packet    <V 'h03d 'h01d 'h21d 'h21d  >      1058
+Updation Packet     UpdationPacket { bimodal_index: 'h150, tagTable_index: <V 'h03d 'h01d 'h21d 'h21d  >, tableTag: <V tagged Tag1 'h95 tagged Tag1 'h11 tagged Tag2 'h1c0 tagged Tag2 'h1c0  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000088140, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hade2, index_csr: <V 'h160 'h360 'h360  >, tag1_csr1: <V 'h41 'hc1  >, tag1_csr2: <V 'h42 'h40  >, tag2_csr1: <V 'h102 'h102  >, tag2_csr2: <V 'hc9 'hc9  > }      1058
+Updation Packet's PHR = 1010110111100010      1058
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000000      1058
+Found value =           0
+
+
+Structures after updation      1058
+Tags of T1, T2, T3, T4 in Updation Packet    <V tagged Tag1 'h95 tagged Tag1 'h11 tagged Tag2 'h1c0 tagged Tag2 'h1c0  >      1058
+Bimodal index in Updation Packet     'h150      1058
+Index of Tagged Tables in Updation Packet    <V 'h03d 'h01d 'h21d 'h21d  >      1058
+Updation Packet     UpdationPacket { bimodal_index: 'h150, tagTable_index: <V 'h03d 'h01d 'h21d 'h21d  >, tableTag: <V tagged Tag1 'h95 tagged Tag1 'h11 tagged Tag2 'h1c0 tagged Tag2 'h1c0  >, uCtr: <V 'h0 'h0 'h0 'h0  >, ctr: <V 'h1 'h0 'h0 'h0 'h0  >, pred: 'h0, ghr: 'h000000000000000000000000000088140, tableNo: 'h0, altpred: 'h0, mispred: 'h0, actualOutcome: 'h0, phr: 'hade2, index_csr: <V 'h160 'h360 'h360  >, tag1_csr1: <V 'h41 'hc1  >, tag1_csr2: <V 'h42 'h40  >, tag2_csr1: <V 'h102 'h102  >, tag2_csr2: <V 'hc9 'hc9  > }      1058
+Updation Packet's PHR = 1010110111100010      1058
+Updation Packet's GHR = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000101000000      1058
+Updation Over!
+Speculatively updated GHR:(reflects on internal GHR in next cycle) 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100000010100000000
+Speculatively updated PHR:(reflects on internal GHR in next cycle) 0101101111000101
