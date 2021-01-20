@@ -69,11 +69,11 @@ typedef struct {
     TableNo                                                 tableNo;
     AltPrediction                                           altpred;
     PathHistory                                             phr;
-    Vector#(TSub#(`NUMTAGTABLES,1), Bit#(`TABLE_LEN))       index_csr;          //10bit
-    Vector#(2,  Bit#(`TAG1_CSR1_SIZE))                      tag1_csr1;          //8 bit
-    Vector#(2,  Bit#(`TAG1_CSR2_SIZE))                      tag1_csr2;          //7 bit
-    Vector#(2,  Bit#(`TAG2_CSR1_SIZE))                      tag2_csr1;          //9 bit
-    Vector#(2,  Bit#(`TAG2_CSR2_SIZE))                      tag2_csr2;          //8 bit
+    Vector#(TSub#(`NUMTAGTABLES,1), CSR)       index_csr;          //10bit
+    Vector#(2,  CSR)                      tag1_csr1;          //8 bit
+    Vector#(2,  CSR)                      tag1_csr2;          //7 bit
+    Vector#(2,  CSR)                      tag2_csr1;          //9 bit
+    Vector#(2,  CSR)                      tag2_csr2;          //8 bit
 } PredictionPacket deriving(Bits, Eq, FShow);
 
 typedef struct {
@@ -89,11 +89,11 @@ typedef struct {
     Misprediction                                           mispred;
     ActualOutcome                                           actualOutcome;
     PathHistory                                             phr;
-    Vector#(TSub#(`NUMTAGTABLES,1), Bit#(`TABLE_LEN))       index_csr;          //10bit
-    Vector#(2,  Bit#(`TAG1_CSR1_SIZE))                      tag1_csr1;          //8 bit
-    Vector#(2,  Bit#(`TAG1_CSR2_SIZE))                      tag1_csr2;          //7 bit
-    Vector#(2,  Bit#(`TAG2_CSR1_SIZE))                      tag2_csr1;          //9 bit
-    Vector#(2,  Bit#(`TAG2_CSR2_SIZE))                      tag2_csr2;          //8 bit
+    Vector#(TSub#(`NUMTAGTABLES,1), CSR)    index_csr;          //10bit
+    Vector#(2,  CSR)                      tag1_csr1;          //8 bit
+    Vector#(2,  CSR)                      tag1_csr2;          //7 bit
+    Vector#(2,  CSR)                      tag2_csr1;          //9 bit
+    Vector#(2,  CSR)                      tag2_csr2;          //8 bit
 } UpdationPacket deriving(Bits,Eq, FShow);
 
 typedef struct {
@@ -101,18 +101,18 @@ typedef struct {
     Int#(32)                                      mispredictionCtr;
 } TableCounters deriving(Bits, Eq, FShow);
 
-function Bit#(64) compHistFn(GlobalHistory ghr, TargetLength targetlength, GeomLength geomlength);
+// function Bit#(64) compHistFn(GlobalHistory ghr, TargetLength targetlength, GeomLength geomlength);
   
-    Bit#(32) mask = (1 << targetlength) - 32'b1;
-    Bit#(32) mask1 = zeroExtend(ghr[geomlength]) << (geomlength % targetlength);
-    Bit#(32) mask2 = (1 << targetlength);
-    Bit#(32) compHist = 0;
-    compHist = (compHist << 1) + zeroExtend(ghr[0]);
-    compHist = compHist ^ ((compHist & mask2) >> targetlength);
-    compHist = compHist ^ mask1;
-    compHist = compHist & mask;
-    return zeroExtend(compHist);
-endfunction
+//     Bit#(32) mask = (1 << targetlength) - 32'b1;
+//     Bit#(32) mask1 = zeroExtend(ghr[geomlength]) << (geomlength % targetlength);
+//     Bit#(32) mask2 = (1 << targetlength);
+//     Bit#(32) compHist = 0;
+//     compHist = (compHist << 1) + zeroExtend(ghr[0]);
+//     compHist = compHist ^ ((compHist & mask2) >> targetlength);
+//     compHist = compHist ^ mask1;
+//     compHist = compHist & mask;
+//     return zeroExtend(compHist);
+// endfunction
 
 
 

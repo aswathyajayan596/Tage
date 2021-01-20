@@ -1,6 +1,6 @@
 //SIMULATIONS
 //change this when the trace file is changed 1792835 895842 4184792
-`define traceSize 30
+`define traceSize 895842
 
 //uncomment below line if you want to see simulation display
 `define TAGE_DISPLAY 1
@@ -18,9 +18,9 @@
 `define     TAG1_CSR2_SIZE      7
 `define     TAG2_CSR1_SIZE      9
 `define     TAG2_CSR2_SIZE      8
-`define     GHR1                9
-`define     GHR2                19
-`define     GHR3                39
+`define     GHR1                5
+`define     GHR2                15
+`define     GHR3                44
 `define     GHR4                130
 `define     BIMODAL_LEN         9              // 1024 entries
 `define     TABLE_LEN           10              // 1024 entries

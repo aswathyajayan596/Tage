@@ -165,7 +165,7 @@ package Testbench;
         endrule
 
         rule rl_display(ctr == 0 && display_enabled);      //fdisplay fh, rule for displaying the current cycle
-            predictor.displayInternal(True);
+            predictor.displayInternal(False);
             ctr <= ctr+1;
             display_enabled <= False;
 
