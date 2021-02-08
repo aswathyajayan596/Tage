@@ -5,7 +5,7 @@ import Vector :: *;
 import FShow :: *;
 
 export Type_TAGE :: *;
-`include "parameter.bsv"
+`include "parameter_tage.bsv"
 
 typedef Bit#(`PC_LEN)                               ProgramCounter;                           //64bits
 typedef Bit#(TAdd#(`GHR4,1))                        GlobalHistory;                          //131bits
@@ -24,6 +24,7 @@ typedef Bit#(`PRED)                                 Misprediction;              
 typedef Bit#(`GEOM_LEN)                             GeomLength;                    //geomlength of each table
 typedef Bit#(`TARGET_LEN)                           TargetLength;                 //targetlength
 typedef Bit#(`PHR_LEN)                              PathHistory;
+typedef Bit#(`PRED)                                 PC_bit;
 
 typedef union tagged {
     TableTag1 Tag1;
@@ -97,77 +98,23 @@ typedef struct {
 } UpdationPacket deriving(Bits,Eq, FShow);
 
 typedef struct {
+    Bit#(4)                                 ptr;
+    ActualOutcome                           actualOutcome;
+} OutcomePacket deriving (Bits, Eq, FShow);
+
+typedef struct {
     Int#(32)                                      predictionCtr;
     Int#(32)                                      mispredictionCtr;
 } TableCounters deriving(Bits, Eq, FShow);
 
-// function Bit#(64) compHistFn(GlobalHistory ghr, TargetLength targetlength, GeomLength geomlength);
-  
-//     Bit#(32) mask = (1 << targetlength) - 32'b1;
-//     Bit#(32) mask1 = zeroExtend(ghr[geomlength]) << (geomlength % targetlength);
-//     Bit#(32) mask2 = (1 << targetlength);
-//     Bit#(32) compHist = 0;
-//     compHist = (compHist << 1) + zeroExtend(ghr[0]);
-//     compHist = compHist ^ ((compHist & mask2) >> targetlength);
-//     compHist = compHist ^ mask1;
-//     compHist = compHist & mask;
-//     return zeroExtend(compHist);
-// endfunction
-
-
-
-//verilog code history function definition
-// function Bit#(64) compFoldIndex(ProgramCounter pc, GlobalHistory ghr, PathHistory phr, TableNo ti);
-//     Bit#(64) index = 0;
-//     if (ti == 3'b000) begin
-//       index = pc[`BIMODAL_LEN - 1:0];        //13bit pc
-//       return index;
-//     end
-//     else if (ti == 3'b001) begin
-//       index = pc ^ (pc >> `TABLE_LEN) ^ comp_hist ^ zeroExtend(phr) ^ (zeroExtend(phr) >> `TABLE_LEN); // indexTagPred[0] = PC ^ (PC >> TAGPREDLOG) ^ indexComp[0].compHist ^ PHR ^ (PHR >> TAGPREDLOG);
-//       return index;
-//     end
-//     else if (ti == 3'b010) begin
-//       index = pc ^ (pc >> (`TABLE_LEN - 1)) ^ comp_hist ^ zeroExtend(phr) ^ (zeroExtend(phr) >> `TABLE_LEN);
-//       return index;
-//     end
-//     else if (ti == 3'b011) begin
-//       index = pc ^ (pc >> (`TABLE_LEN - 2)) ^ comp_hist ^ zeroExtend(phr) ^ (zeroExtend(phr) >> `TABLE_LEN);
-//       return index;
-//     end
-//     else begin
-//       index = pc ^ (pc >> (`TABLE_LEN - 3)) ^ comp_hist ^ zeroExtend(phr) ^ (zeroExtend(phr) >> `TABLE_LEN);
-//       return index;
-//     end
-// endfunction
-
-// function Bit#(64) compFoldTag(ProgramCounter pc, GlobalHistory ghr, TableNo ti);
-//   Bit#(64) comp_tag_table = 0;
-//   if (ti == 3'b001) begin
-//     let comp_hist0 = compHistFn(ghr,`TAG2_SIZE, `GHR1);
-//     let comp_hist1 = compHistFn(ghr,`TAG1_SIZE, `GHR1);
-//     comp_tag_table = pc ^ comp_hist0 ^ (comp_hist1 << 1) ;
-    
-//     // tag[i] = PC ^ tagComp[0][i].compHist ^ (tagComp[1][i].compHist << 1);
-//   end
-//   else if (ti == 3'b010) begin
-//     let comp_hist0 = compHistFn(ghr,`TAG2_SIZE, `GHR2);
-//     let comp_hist1 = compHistFn(ghr,`TAG1_SIZE, `GHR2);
-//     comp_tag_table = pc ^ comp_hist0 ^ (comp_hist1 << 1) ;
-
-//   end
-//   else if (ti == 3'b011) begin
-//     let comp_hist0 = compHistFn(ghr,`TAG2_SIZE, `GHR3);
-//     let comp_hist1 = compHistFn(ghr,`TAG1_SIZE, `GHR3);
-//     comp_tag_table = pc ^ comp_hist0 ^ (comp_hist1 << 1) ;
-
-//   end
-//   else if (ti == 3'b100) begin
-//     let comp_hist0 = compHistFn(ghr,`TAG2_SIZE, `GHR4);
-//     let comp_hist1 = compHistFn(ghr,`TAG1_SIZE, `GHR4);
-//     comp_tag_table = pc ^ comp_hist0 ^ (comp_hist1 << 1) ;
-//   end
-//   return comp_tag_table;
-// endfunction
+typedef struct {
+    GlobalHistory                                   ghr;
+    PathHistory                                     phr;
+    Vector#(TSub#(`NUMTAGTABLES, 1), CSR)           index_csr;
+    Vector#(2, CSR)                                 tag1_csr1;
+    Vector#(2, CSR)                                 tag1_csr2;
+    Vector#(2, CSR)                                 tag2_csr1;
+    Vector#(2, CSR)                                 tag2_csr2;
+}  TAGE_Checkpoint_pkt deriving(Bits, Eq, FShow);
 
 endpackage
