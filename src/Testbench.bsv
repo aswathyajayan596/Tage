@@ -6,7 +6,7 @@ package Testbench;
     import RegFile          :: *;    //For trace files
     import Vector           :: *;    //for performance counters
 
-    `include "parameter.bsv"         // for traceSize that is parameterized.
+    `include "parameter_tage.bsv"         // for traceSize that is parameterized.
 
     //for generating updation packet after obtaining branch instruction outcome
     function UpdationPacket get_updation_pkt(PredictionPacket t_pred_pkt1, Bit#(1) t_actual_outcome);

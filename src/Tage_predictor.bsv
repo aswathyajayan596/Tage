@@ -5,7 +5,7 @@ package Tage_predictor;
   import RegFile :: *;
   import Vector :: *;
 
-  `include "parameter.bsv"
+  `include "parameter_tage.bsv"
 
   interface Tage_predictor_IFC;
       method Action computePrediction(ProgramCounter pc); //Indexing Table,Tag Computation, Comparison of Tag, Obtaining Prediction
@@ -22,9 +22,9 @@ package Tage_predictor;
       return t_ghr;
   endfunction
 
-  function PathHistory update_PHR(PathHistory t_phr, ProgramCounter t_pc);
+  function PathHistory update_PHR(PathHistory t_phr, PC_bit t_pc);
       t_phr = (t_phr << 1);   
-      t_phr[0] = t_pc[2];   
+      t_phr[0] = t_pc;   
       return t_phr;
   endfunction
 
@@ -79,7 +79,7 @@ package Tage_predictor;
     //Wires to take in values between methods and rules.
     Wire#(GlobalHistory) dw_ghr <- mkDWire(0);        //Wire for global history register
     Wire#(PathHistory) dw_phr <- mkDWire(0);          //Wire for path history register
-    Wire#(ProgramCounter) dw_pc <- mkDWire(0);        //Wire for program counter
+    Wire#(PC_bit) dw_pc_bit <- mkDWire(0);        //Wire for program counter
     Wire#(Prediction)  dw_pred <- mkDWire(0);         //wire for prediction
     Wire#(Misprediction) dw_mispred <- mkDWire(0); 
     Wire#(ActualOutcome) dw_outcome <- mkDWire(0);
@@ -147,7 +147,6 @@ package Tage_predictor;
 
     function initialise_CompHist ();
       action 
-        Int#(10) glen[4] = { `GHR1, `GHR2, `GHR3, `GHR4 };
         for (Integer i = 0; i < 3; i = i+1) begin
             reg_index_csr[i] <= tagged CSR_index 0;
             if( i < 2) begin
@@ -247,41 +246,41 @@ package Tage_predictor;
                   index = pc[`BIMODAL_LEN:0]; 
         3'b001 :  
                   index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^ 
-                          ghr[9:0]; //^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                          ghr[9:0] ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
         3'b010 : 
                   index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                          truncate(pack(reg_index_csr[0]));// ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]); 
+                          truncate(pack(reg_index_csr[0])) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]); 
         3'b011 : 
                   index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                          truncate(pack(reg_index_csr[1]));// ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                          truncate(pack(reg_index_csr[1])) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
         3'b100 : 
                   index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                          truncate(pack(reg_index_csr[2]));// ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                          truncate(pack(reg_index_csr[2])) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
       endcase
       return index;
     endfunction
 
-    function Bit#(10) compFoldTag(ProgramCounter pc, TableNo ti);
-      Bit#(10) comp_tag_table = 0;
+    function Bit#(`TAG2_CSR1_SIZE) compFoldTag(ProgramCounter pc, TableNo ti);
+      Bit#(`TAG2_CSR1_SIZE) comp_tag_table = 0;
       case (ti) 
         3'b001 :  begin
-                    Bit#(8) csr_1 = truncate(pack(reg_tag1_csr1[0]));
-                    Bit#(7) csr_2 = truncate(pack(reg_tag1_csr2[0]));
+                    Bit#(`TAG1_CSR1_SIZE) csr_1 = truncate(pack(reg_tag1_csr1[0]));
+                    Bit#(`TAG1_CSR2_SIZE) csr_2 = truncate(pack(reg_tag1_csr2[0]));
                     comp_tag_table = zeroExtend(pc[7:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;
                   end
         3'b010 :  begin
-                    Bit#(8) csr_1 = truncate(pack(reg_tag1_csr1[1]));
-                    Bit#(7) csr_2 = truncate(pack(reg_tag1_csr2[1]));
+                    Bit#(`TAG1_CSR1_SIZE) csr_1 = truncate(pack(reg_tag1_csr1[1]));
+                    Bit#(`TAG1_CSR2_SIZE) csr_2 = truncate(pack(reg_tag1_csr2[1]));
                     comp_tag_table = zeroExtend(pc[7:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;
                   end
         3'b011 :  begin 
-                    Bit#(9) csr_1 = truncate(pack(reg_tag2_csr1[0]));
-                    Bit#(8) csr_2 = truncate(pack(reg_tag2_csr2[0]));
+                    Bit#(`TAG2_CSR1_SIZE) csr_1 = truncate(pack(reg_tag2_csr1[0]));
+                    Bit#(`TAG2_CSR2_SIZE) csr_2 = truncate(pack(reg_tag2_csr2[0]));
                     comp_tag_table = zeroExtend(pc[8:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;  
                   end
         3'b100 :  begin
-                    Bit#(9) csr_1 = truncate(pack(reg_tag2_csr1[1]));
-                    Bit#(8) csr_2 = truncate(pack(reg_tag2_csr2[1]));
+                    Bit#(`TAG2_CSR1_SIZE) csr_1 = truncate(pack(reg_tag2_csr1[1]));
+                    Bit#(`TAG2_CSR2_SIZE) csr_2 = truncate(pack(reg_tag2_csr2[1]));
                     comp_tag_table = zeroExtend(pc[8:0] ^ csr_1 ^ (zeroExtend(csr_2) << 1)) ;
                   end
       endcase
@@ -333,12 +332,12 @@ package Tage_predictor;
             end
         `endif
 
-        Bit#(1) ghr_bits[5] = {t_ghr[`GHR1], t_ghr[`GHR2], t_ghr[`GHR3], t_ghr[`GHR4], t_ghr[0]};
+        Bit#(1) ghr_bits[5] = {t_ghr[`GHR1], t_ghr[`GHR2], t_ghr[`GHR3], dw_ghr[`GHR4-1], t_ghr[0]};  //130th bit of ghr before updation
         updateCSRs(ghr_bits, False);
       end
       else if(dw_pred_over) begin
         t_ghr = update_GHR(ghr, dw_pred);
-        t_phr = update_PHR(phr, dw_pc);
+        t_phr = update_PHR(phr, dw_pc_bit);
         `ifdef TAGE_DISPLAY
             if (display) begin
                 $fdisplay(fh, "Speculatively updated GHR:(reflects on internal GHR in next cycle) %b", t_ghr);
@@ -346,7 +345,7 @@ package Tage_predictor;
             end
         `endif
         
-        Bit#(1) ghr_bits[5] = {t_ghr[`GHR1], t_ghr[`GHR2], t_ghr[`GHR3], t_ghr[`GHR4], t_ghr[0]};
+        Bit#(1) ghr_bits[5] = {t_ghr[`GHR1], t_ghr[`GHR2], t_ghr[`GHR3], ghr[`GHR4-1], t_ghr[0]};
         updateCSRs(ghr_bits, True);
       end
       ghr <= t_ghr;
@@ -380,7 +379,7 @@ package Tage_predictor;
       PredictionPacket t_pred_pkt = unpack(0);
 
       //updating PHR in temporary prediction packet
-      t_pred_pkt.phr = update_PHR(phr, pc);
+      t_pred_pkt.phr = update_PHR(phr, pc[2]);
 
     
       for (Integer i = 0; i < 3; i=i+1) begin
@@ -448,7 +447,7 @@ package Tage_predictor;
       end
       
       dw_pred <= t_pred_pkt.pred;              //setting RWire for corresponding GHR updation in the rule
-      dw_pc<=pc;
+      dw_pc_bit<=pc[2];
 
       t_pred_pkt.ghr = ghr;
       

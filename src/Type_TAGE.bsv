@@ -5,7 +5,7 @@ import Vector :: *;
 import FShow :: *;
 
 export Type_TAGE :: *;
-`include "parameter.bsv"
+`include "parameter_tage.bsv"
 
 typedef Bit#(`PC_LEN)                               ProgramCounter;                           //64bits
 typedef Bit#(TAdd#(`GHR4,1))                        GlobalHistory;                          //131bits
@@ -24,6 +24,7 @@ typedef Bit#(`PRED)                                 Misprediction;              
 typedef Bit#(`GEOM_LEN)                             GeomLength;                    //geomlength of each table
 typedef Bit#(`TARGET_LEN)                           TargetLength;                 //targetlength
 typedef Bit#(`PHR_LEN)                              PathHistory;
+typedef Bit#(`PRED)                                 PC_bit;
 
 typedef union tagged {
     TableTag1 Tag1;
