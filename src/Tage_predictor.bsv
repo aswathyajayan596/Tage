@@ -151,19 +151,19 @@ package Tage_predictor;
     `endif
     
 
-    function initialise_CompHist ();
-      action 
-        for (Integer i = 0; i < 3; i = i+1) begin
-            reg_index_csr[i] <= tagged CSR_index 0;
-            if( i < 2) begin
-              reg_tag1_csr1[i] <= tagged CSR1_tag1 0;              
-              reg_tag1_csr2[i] <= tagged CSR2_tag1 0;
-              reg_tag2_csr1[i] <= tagged CSR1_tag2 0;
-              reg_tag2_csr2[i] <= tagged CSR2_tag2 0;
-            end
-        end
-      endaction
-    endfunction
+    // function initialise_CompHist ();
+    //   action 
+    //     for (Integer i = 0; i < 3; i = i+1) begin
+    //         reg_index_csr[i] <= tagged CSR_index 0;
+    //         if( i < 2) begin
+    //           reg_tag1_csr1[i] <= tagged CSR1_tag1 0;              
+    //           reg_tag1_csr2[i] <= tagged CSR2_tag1 0;
+    //           reg_tag2_csr1[i] <= tagged CSR1_tag2 0;
+    //           reg_tag2_csr2[i] <= tagged CSR2_tag2 0;
+    //         end
+    //     end
+    //   endaction
+    // endfunction
 
 
     function ActionValue#(Bit#(`TABLE_LEN)) update_individualCSRs(Bit#(1) geometric_max,Bit#(1) outcome, CSR fold_history, Int#(10) geomLength, Int#(10) targetLength);
@@ -245,23 +245,19 @@ package Tage_predictor;
       endaction
     endfunction
 
-    function Bit#(`TABLE_LEN) compFoldIndex(ProgramCounter pc, PathHistory v_phr, TableNo ti);
+    function Bit#(`TABLE_LEN) compFoldIndex(ProgramCounter pc, TableNo ti);
       Bit#(`TABLE_LEN) index = 0;
       case (ti)
         3'b000 :  
                   index = pc[`BIMODAL_LEN:0]; 
         3'b001 :  
-                  index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^ 
-                          ghr[9:0] ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                  index = pc[9:0] ^ pc[19:10] ^ ghr[9:0] ^ phr[9:0] ^ zeroExtend(phr[15:10]);
         3'b010 : 
-                  index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                          truncate(pack(reg_index_csr[0])) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]); 
+                  index = pc[9:0] ^ pc[18:9] ^ truncate(pack(reg_index_csr[0])) ^ phr[9:0] ^ zeroExtend(phr[15:10]);
         3'b011 : 
-                  index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                          truncate(pack(reg_index_csr[1])) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                  index = pc[9:0] ^ pc[17:8] ^ truncate(pack(reg_index_csr[1])) ^  phr[9:0] ^ zeroExtend(phr[15:10]);
         3'b100 : 
-                  index = pc[9:0] ^ pc[19:10] ^ pc[29:20] ^ pc[39:30] ^ pc[49:40] ^ pc[59:50] ^ zeroExtend(pc[63:60]) ^
-                          truncate(pack(reg_index_csr[2])) ^ v_phr[9:0] ^ zeroExtend(v_phr[15:10]);
+                  index = pc[9:0] ^ pc[16:7] ^ truncate(pack(reg_index_csr[2])) ^ zeroExtend(phr[2:0]);
       endcase
       return index;
     endfunction
@@ -296,22 +292,24 @@ package Tage_predictor;
     
 
     rule rl_reset(rg_resetting);
+      let initial_tag_entry1 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag1 0 } ;
+      let initial_tag_entry2 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag2 0 };
       if (rst_ctr_b <= bimodal_max) begin
         bimodal.upd(rst_ctr_b,unpack(2'b0)); 
         rst_ctr_b <= rst_ctr_b + 1;
       end
       if (rst_ctr_tagtable < table_max) begin
-        table_0.upd(rst_ctr_tagtable, unpack(15'b0));
-        table_1.upd(rst_ctr_tagtable, unpack(15'b0));
-        table_2.upd(rst_ctr_tagtable, unpack(15'b0));
-        table_3.upd(rst_ctr_tagtable, unpack(15'b0));
+        table_0.upd(rst_ctr_tagtable, initial_tag_entry1);
+        table_1.upd(rst_ctr_tagtable, initial_tag_entry1);
+        table_2.upd(rst_ctr_tagtable, initial_tag_entry2);
+        table_3.upd(rst_ctr_tagtable, initial_tag_entry2);
         rst_ctr_tagtable <= rst_ctr_tagtable + 1;
       end
       if (rst_ctr_b == bimodal_max-1) bimodal_rst_complete <= True;
       if (rst_ctr_tagtable == table_max-1) tagtable_rst_complete <= True;      
       if (bimodal_rst_complete && tagtable_rst_complete) begin
         rg_resetting <= False;
-        initialise_CompHist();
+        // initialise_CompHist();
 
         `ifdef TAGE_DISPLAY
             if (display) begin
@@ -333,8 +331,8 @@ package Tage_predictor;
 
         `ifdef TAGE_DISPLAY
             if (display) begin
-                $fdisplay(fh, "Speculatively updated GHR:(reflects on internal GHR in next cycle) %b", t_ghr);
-                $fdisplay(fh, "Speculatively updated PHR:(reflects on internal GHR in next cycle) %b", t_phr);
+                $fdisplay(fh, "updated GHR:(reflects on internal GHR in next cycle) %h", t_ghr);
+                $fdisplay(fh, "updated PHR:(reflects on internal GHR in next cycle) %h", t_phr);
             end
         `endif
 
@@ -361,8 +359,8 @@ package Tage_predictor;
         t_phr = update_PHR(phr, dw_pc_bit);
         `ifdef TAGE_DISPLAY
             if (display) begin
-                $fdisplay(fh, "Speculatively updated GHR:(reflects on internal GHR in next cycle) %b", t_ghr);
-                $fdisplay(fh, "Speculatively updated PHR:(reflects on internal GHR in next cycle) %b", t_phr);
+                $fdisplay(fh, "Speculatively updated GHR:(reflects on internal GHR in next cycle) %h", t_ghr);
+                $fdisplay(fh, "Speculatively updated PHR:(reflects on internal GHR in next cycle) %h", t_phr);
             end
         `endif
         
@@ -378,7 +376,7 @@ package Tage_predictor;
       `ifdef TAGE_DISPLAY
         if (display) begin
             $fdisplay(fh, "\n\nIn computePrediction method", cur_cycle);
-            $fdisplay(fh, "\nCurrent Program Counter Value: %b", pc, cur_cycle);
+            $fdisplay(fh, "\nCurrent Program Counter Value: %h", pc, cur_cycle);
         end
       `endif
       
@@ -400,7 +398,8 @@ package Tage_predictor;
       PredictionPacket t_pred_pkt = unpack(0);
 
       
-      t_pred_pkt.phr = phr;
+      //updating PHR in temporary prediction packet
+      t_pred_pkt.phr = update_PHR(phr, pc[2]);
 
     
       for (Integer i = 0; i < 3; i=i+1) begin
@@ -414,11 +413,11 @@ package Tage_predictor;
       end
 
       //calling index computation function for each table and calling tag computation function for each table
-      bimodal_index = compFoldIndex(pc,t_pred_pkt.phr,3'b000);
+      bimodal_index = compFoldIndex(pc,3'b000);
       t_pred_pkt.bimodal_index = bimodal_index;
       for (Integer i = 0; i < 4; i=i+1) begin
         TableNo tNo = fromInteger(i+1);
-        tagTable_indexes[i] = compFoldIndex(pc,t_pred_pkt.phr,tNo);
+        tagTable_indexes[i] = compFoldIndex(pc,tNo);
         t_pred_pkt.tagTable_index[i] = tagTable_indexes[i];
         if(i<2) begin
           computedTag[i] = tagged Tag1 truncate(compFoldTag(pc,tNo));
@@ -454,11 +453,11 @@ package Tage_predictor;
       Bool matched = False;
       Bool altMatched = False;
       for (Integer i = 3; i >= 0; i=i-1) begin
+        t_pred_pkt.ctr[i+1] = tagTables[i].sub(tagTable_indexes[i]).ctr;
+        t_pred_pkt.uCtr[i] = tagTables[i].sub(tagTable_indexes[i]).uCtr;
         if(tagTables[i].sub(tagTable_indexes[i]).tag == computedTag[i] && !matched) begin
-          t_pred_pkt.ctr[i+1] = tagTables[i].sub(tagTable_indexes[i]).ctr;
           t_pred_pkt.pred = tagTables[i].sub(tagTable_indexes[i]).ctr[2];
-          t_pred_pkt.tableNo = fromInteger(i+1); 
-          t_pred_pkt.uCtr[i] = tagTables[i].sub(tagTable_indexes[i]).uCtr;        
+          t_pred_pkt.tableNo = fromInteger(i+1);         
           matched = True;
         end
         else if(tagTables[i].sub(tagTable_indexes[i]).tag == computedTag[i] && matched && !altMatched) begin
@@ -570,12 +569,10 @@ package Tage_predictor;
 
         
         BimodalEntry bimodal_entry = unpack(0);
-        bimodal_entry.ctr = truncate(upd_pkt.ctr[0]);        //size of uctr field is 3 bits
+        bimodal_entry = bimodal.sub(upd_pkt.bimodal_index);        //size of uctr field is 3 bits
         Vector#(`NUMTAGTABLES,TagEntry) tagTable_entries = unpack(0);
         for (Integer i=0; i < `NUMTAGTABLES; i=i+1) begin
-            tagTable_entries[i].ctr = upd_pkt.ctr[i+1];
-            tagTable_entries[i].uCtr = upd_pkt.uCtr[i];
-            tagTable_entries[i].tag = upd_pkt.tableTag[i];
+             tagTable_entries[i] = tagTables[i].sub(upd_pkt.tagTable_index[i]);
         end
         
 
