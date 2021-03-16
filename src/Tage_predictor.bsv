@@ -609,7 +609,7 @@ package Tage_predictor;
         end
         else begin
             if(upd_pkt.tableNo == 3'b000)
-                bimodal_entry.ctr = (upd_pkt.ctr[0] < 3'b11)? truncate((upd_pkt.ctr[0] - 3'b1)) : 2'b00;
+                bimodal_entry.ctr = (upd_pkt.ctr[0] > 3'b000)? truncate((upd_pkt.ctr[0] - 3'b1)) : 2'b00;
             else
                 tagTable_entries[tagtableNo].ctr = (upd_pkt.ctr[tagtableNo+1] > 3'b000)?(upd_pkt.ctr[tagtableNo+1] - 3'b1): 3'b000;
         end
