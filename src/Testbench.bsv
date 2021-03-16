@@ -19,7 +19,8 @@ package Testbench;
                                         bimodal_index:   t_pred_pkt1.bimodal_index,
                                         tagTable_index:  t_pred_pkt1.tagTable_index,
                                         tableTag:       t_pred_pkt1.tableTag,
-                                        uCtr:           t_pred_pkt1.uCtr, 
+                                        uCtr:           t_pred_pkt1.uCtr,
+                                        bCtr:           t_pred_pkt1.bCtr, 
                                         ctr:            t_pred_pkt1.ctr,
                                         ghr:            t_pred_pkt1.ghr,
                                         phr:            t_pred_pkt1.phr,
@@ -57,7 +58,6 @@ package Testbench;
         Reg#(Int#(32)) incorrect                                   <-  mkReg(0);
         Vector#(5, Reg#(TableCounters)) table_ctr                  <-  replicateM(mkReg(unpack(0)));
 
-        let fh <- mkReg(InvalidFile) ;
 
         //performance monitoring counter updation
         function Action table_counters(TableNo tableno, Misprediction mispred);
@@ -69,77 +69,33 @@ package Testbench;
                     table_ctr[tno].mispredictionCtr <= table_ctr[tno].mispredictionCtr + 1;
             endaction
         endfunction
-        
+              
 
         //execute this at the start as well as there is misprediction (inorder to start over)
         rule rl_initial( ctr == 1   || upd_pkt.mispred == 1'b1  && !display_enabled);
-            `ifdef TAGE_DISPLAY
-                $fdisplay(fh, "\n=====================================================================================================================");
-                $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
-            `endif
 
-            `ifdef TAGE_DISPLAY
-                if (upd_pkt.mispred == 1'b1)
-                    $fdisplay(fh, "\nMisprediction happened in last iteration. Starting from current PC");
-            `endif
+            $display("\n\nIn rule initial...", cur_cycle);
 
             let pc = branches.sub(ctr-1);
-
-            `ifdef TAGE_DISPLAY
-                $fdisplay(fh, "\nCurrent Branch Address, PC =  %h", pc, cur_cycle); 
-            `endif
-
             predictor.computePrediction(pc);
-
-            `ifdef TAGE_DISPLAY
-                $fdisplay(fh, "Prediction started, Prediction for current branch address will be obtained in the next cycle");
-            `endif
-
             ctr <= ctr + 1;
             upd_pkt <= unpack(0);
-
         endrule
 
-        rule rl_comp_pred_upd (ctr < `traceSize+1 && ctr > 1 && upd_pkt.mispred == 1'b0);
-                        
-            `ifdef TAGE_DISPLAY
-                $fdisplay(fh, "\n=====================================================================================================================");
-                $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
-            `endif
+        rule rl_comp_pred_upd (ctr < `traceSize+1 && ctr > 1 && upd_pkt.mispred == 1'b0 );
+
+            $display("In rule compute prediction and updation...", cur_cycle);
 
             PredictionPacket t_pred_pkt = unpack(0);
             UpdationPacket t_u_pkt = unpack(0);
             let pc = branches.sub(ctr-1);
             t_pred_pkt = predictor.output_packet();
 
-            `ifdef TAGE_DISPLAY
-                $fdisplay(fh, "\n--------------------------------------------  Prediction Packet -------------------------------------- \n",fshow(t_pred_pkt), cur_cycle);
-                $fdisplay(fh, "--------------------------------------------------------------------------------------------------------");
-            `endif
-
-            `ifdef TAGE_DISPLAY
-                $fdisplay(fh, "\nProgram Counter of Last Branch =  %h", branches.sub(ctr-2));
-                $fdisplay(fh, "Prediction of Last Branch = %b", t_pred_pkt.pred);
-            `endif
-
-            // $fdisplay(fh, "Prediction of Last Branch = %b", t_pred_pkt.pred);
-            // $fdisplay(fh, "Alternate Prediction of Last Branch = %b", t_pred_pkt.altpred);
-            // $fdisplay(fh, "Prediction from Table: %d", t_pred_pkt.tableNo);
-
             t_u_pkt = get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-2)));
-
-
-            `ifdef TAGE_DISPLAY  
-                $fdisplay(fh, "Outcome of Last branch assigned to Updation_Packet = %b", t_u_pkt.actualOutcome, cur_cycle);
-            `endif
 
             upd_pkt <= get_updation_pkt(t_pred_pkt, actualOutcome.sub((ctr-2)));
             predictor.updateTablePred(t_u_pkt);
 
-             `ifdef TAGE_DISPLAY 
-                $fdisplay(fh, "\n\n\n------------------------------------------  Updation Packet --------------------------------------------- \n",fshow(t_u_pkt), cur_cycle);
-                $fdisplay(fh, "-------------------------------------------------------------------------------------------------------------");
-            `endif
             //updating the performance monitoring counters based on the misprediction result obtained in the current cycle
             table_counters(t_u_pkt.tableNo, t_u_pkt.mispred);
             if(t_u_pkt.mispred == 1'b1) begin
@@ -149,54 +105,34 @@ package Testbench;
                 incorrect <= incorrect + 1; //increment performance counter based on this
                 end
             else begin
-
-                predictor.computePrediction(pc); //compute prediction for the current PC if there is no misprediction
-                
-                `ifdef TAGE_DISPLAY
-                    $fdisplay(fh, "\nCurrent Branch Address, PC =  %h", pc, cur_cycle);  
-                    $fdisplay(fh, "Prediction started, Prediction for current branch address will be obtained in the next cycle");
-                `endif
-                
+                predictor.computePrediction(pc); //compute prediction for the current PC if there is no misprediction                
                 ctr <= ctr + 1; /* update ctr to the next ctr so that the prediction
                 can be done from the next cycle since there is no misprediction */
-
                 correct <= correct + 1;  //increment performance counter based on this
             end
         endrule
 
         rule rl_display(ctr == 0 && display_enabled);      //fdisplay fh, rule for displaying the current cycle
-            predictor.displayInternal(False);
+
+            $display("In rule display...", cur_cycle);
+            predictor.displayInternal(True);
             ctr <= ctr+1;
             display_enabled <= False;
-
-            // $fdisplay(fh, "\n=====================================================================================================================");
-            // $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
-
-            // `ifdef TAGE_DISPLAY
-            //     $fdisplay(fh, "\n=====================================================================================================================");
-            //     $fdisplay(fh, "\nCycle %d   Ctr %d",cur_cycle, ctr);
-            // `endif
         endrule
     
         
 
         rule end_simulation(ctr == `traceSize+1);
-            $display("Result:%d,%d", correct, incorrect);
-            $fdisplay(fh, "Result:%d,%d", correct, incorrect);
-            `ifdef
-                $fdisplay(fh,"Result:%d,%d", correct, incorrect);      
-            // $fdisplay(fh, "Result: Correct = %d, Incorrect = %d", correct, incorrect);
-            `endif
-           
 
-        `ifdef TAGE_DISPLAY
-            // $fdisplay(fh, "Incorrect = %d      Correct = %d",incorrect,correct);
-            $fdisplay(fh, "\nBimodal Table \n", fshow(table_ctr[0]));
-            $fdisplay(fh, "\nTable 1\n", fshow(table_ctr[1]));
-            $fdisplay(fh, "\nTable 2 \n", fshow(table_ctr[2]));
-            $fdisplay(fh, "\nTable 3 \n", fshow(table_ctr[3]));
-            $fdisplay(fh, "\nTable 4 \n", fshow(table_ctr[4]));
-        `endif
+            $display("In rule end_simulation.. ", cur_cycle);
+
+            // $display("Result:%d,%d", correct, incorrect);           
+
+            // $display("\nBimodal Table \n", fshow(table_ctr[0]));
+            // $display("\nTable 1\n", fshow(table_ctr[1]));
+            // $display("\nTable 2 \n", fshow(table_ctr[2]));
+            // $display("\nTable 3 \n", fshow(table_ctr[3]));
+            // $display("\nTable 4 \n", fshow(table_ctr[4]));
 
         $finish(0);
 
