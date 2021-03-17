@@ -10,8 +10,8 @@ package Tage_predictor;
 
   interface Tage_predictor_IFC;
       method Action computePrediction(ProgramCounter pc); //Indexing Table,Tag Computation, Comparison of Tag, Obtaining Prediction
-      method Action updateTablePred(UpdationPacket upd_pkt);  //Updation of Usefulness Counter and Prediction Counter, Allocation of new entries in case of misprediction
-      method PredictionPacket output_packet();    // Method to Output the prediction packet.
+      method Action updateTablePred(UpdationPacket upd_pkt); //Updation of Usefulness Counter and Prediction Counter, Allocation of new entries in case of misprediction
+      method PredictionPacket output_packet(); // Method to Output the prediction packet.
       method Action displayInternal(Bool start_display);
   endinterface
 
@@ -35,18 +35,18 @@ package Tage_predictor;
   module mkTage_predictor(Tage_predictor_IFC); 
     
 
-    let bimodal_max = fromInteger(`BIMODALSIZE-1);   //maximum sixe for Regfile of Bimodal Predictor Table
-    let table_max = fromInteger(`TABLESIZE-1);       //maximum size for RegFile of Predictor tables
+    let b_max = fromInteger(`BIMODALSIZE-1);   //maximum size for Regfile of Bimodal Predictor Table
+    let t_max = fromInteger(`TABLESIZE-1);       //maximum size for RegFile of Predictor tables
 
     Reg#(GlobalHistory) ghr <- mkReg(0);            //internal register to store GHR
     Reg#(PathHistory) phr <- mkReg(0);              //internal register to store PHR
 
     //RegFiles of Table Predictors in TAGE, one bimodal table predictor and four Tagged table predictors
-    RegFile#(BimodalIndex, BimodalEntry) bimodal <- mkRegFile(0, bimodal_max);   //bimodal table
-    RegFile#(TagTableIndex, TagEntry) table_0 <- mkRegFile(0, table_max);        //tagged table 0
-    RegFile#(TagTableIndex, TagEntry) table_1 <- mkRegFile(0, table_max);        //tagged table 1
-    RegFile#(TagTableIndex, TagEntry) table_2 <- mkRegFile(0, table_max);        //tagged table 2
-    RegFile#(TagTableIndex, TagEntry) table_3 <- mkRegFile(0, table_max);        //tagged table 3
+    RegFile#(BimodalIndex, BimodalEntry) bimodal <- mkRegFile(0, b_max);   //bimodal table
+    RegFile#(TagTableIndex, TagEntry) table_0 <- mkRegFile(0, t_max);        //tagged table 0
+    RegFile#(TagTableIndex, TagEntry) table_1 <- mkRegFile(0, t_max);        //tagged table 1
+    RegFile#(TagTableIndex, TagEntry) table_2 <- mkRegFile(0, t_max);        //tagged table 2
+    RegFile#(TagTableIndex, TagEntry) table_3 <- mkRegFile(0, t_max);        //tagged table 3
 
     Vector#(TSub#(`NUMTAGTABLES,1), Reg#(CSR)) reg_index_csr  <-  replicateM(mkReg(unpack(0)));
 
@@ -70,11 +70,11 @@ package Tage_predictor;
     Wire#(Bool) dw_pred_over <- mkDWire(False);           //Wire to indicate prediction is over
     Wire#(Bool) dw_update_over <- mkDWire(False);         //Wire to indicate updation is over
 
-    Reg#(Bool)     rg_resetting <- mkReg (True);
-    Reg#(BimodalIndex)   rst_ctr_b <- mkReg(0);
-    Reg#(TagTableIndex)   rst_ctr_tagtable <- mkReg(0);
-    Reg#(Bool) bimodal_rst_complete <- mkReg(False);
-    Reg#(Bool) tagtable_rst_complete <- mkReg(False);
+    Reg#(Bool)     rf_resetting <- mkReg (False);
+    Reg#(BimodalIndex)   b_indx <- mkReg(0);
+    Reg#(TagTableIndex)   t_indx <- mkReg(0);
+    Reg#(Bool) b_rst_cmplt <- mkReg(False);
+    Reg#(Bool) t_rst_cmplt <- mkReg(False);
 
     //D Wires for Compressed Histories
     Wire#(Vector#(TSub#(`NUMTAGTABLES,1), CSR)) dw_index_csr <- mkDWire(unpack(0));
@@ -288,35 +288,43 @@ package Tage_predictor;
     /*
     * Rule:  rl_reset
     * --------------------
-    * resets the 
-    *    pi/6 = 1/2 + (1/2 x 3/4) 1/5 (1/2)^3  + (1/2 x 3/4 x 5/6) 1/7 (1/2)^5 +
+    * initialises the entries in all tables (bimodal and tagged tables) with zero. 
     *
+    * RegFiles resetting.
+    *
+    * b_indx, t_indx : index of bimodal and tag tables respectively.   
+    * 
     *  n: number of terms in the series to sum
     *
     *  returns: the approximate value of pi obtained by suming the first n terms
     *           in the above series
     *           returns zero on error (if n is non-positive)
     */
-    rule rl_reset(rg_resetting);
+    rule rl_reset(!rf_resetting);
+    
       $display("In rule reset in TAGE...", cur_cycle);
+      
+      // reset value corresponding to Tag1
       let init1 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag1 0 };
-      let init2 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag2 0 } ;
-      if (rst_ctr_b <= bimodal_max) begin
-        bimodal.upd(rst_ctr_b,unpack(2'b00)); 
-        rst_ctr_b <= rst_ctr_b + 1;
+      
+      // reset value corresponding to Tag2
+      let init2 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag2 0 };
+      
+      if (b_indx <= b_max) begin
+        bimodal.upd(b_indx, unpack(2'b00)); 
+        b_indx <= b_indx + 1;
       end
-      if (rst_ctr_tagtable < table_max) begin
-        
-        table_0.upd(rst_ctr_tagtable, init1);
-        table_1.upd(rst_ctr_tagtable, init1);
-        table_2.upd(rst_ctr_tagtable, init2);
-        table_3.upd(rst_ctr_tagtable, init2);
-        rst_ctr_tagtable <= rst_ctr_tagtable + 1;
+      if (t_indx <= t_max) begin
+        table_0.upd(t_indx, init1);
+        table_1.upd(t_indx, init1);
+        table_2.upd(t_indx, init2);
+        table_3.upd(t_indx, init2);
+        t_indx <= t_indx + 1;
       end
-      if (rst_ctr_b == bimodal_max-1) bimodal_rst_complete <= True;
-      if (rst_ctr_tagtable == table_max-1) tagtable_rst_complete <= True;      
-      if (bimodal_rst_complete && tagtable_rst_complete) begin
-        rg_resetting <= False;
+      if (b_indx == b_max-1) b_rst_cmplt <= True;
+      if (t_indx == t_max-1) t_rst_cmplt <= True;      
+      if (b_rst_cmplt && t_rst_cmplt) begin
+        rf_resetting <= True;
 
         `ifdef TAGE_DISPLAY
             if (display) begin
@@ -327,7 +335,7 @@ package Tage_predictor;
     endrule
 
     //rule to update the GHR and PHR when actualoutcome is obtained.
-    rule rl_update_GHR_PHR (!rg_resetting);
+    rule rl_update_GHR_PHR (rf_resetting);
 
 
       $display("In rule update GHR and PHR in TAGE", cur_cycle);
@@ -354,7 +362,7 @@ package Tage_predictor;
     endrule
 
     
-    method Action computePrediction(ProgramCounter pc) if (!rg_resetting);
+    method Action computePrediction(ProgramCounter pc) if (rf_resetting);
 
       $display("In compute Prediction method...", cur_cycle);
 
@@ -486,7 +494,7 @@ package Tage_predictor;
     endmethod
 
 
-    method Action updateTablePred(UpdationPacket upd_pkt) if (!rg_resetting);  
+    method Action updateTablePred(UpdationPacket upd_pkt) if (rf_resetting);  
 
       $display("In update table Predictors...", cur_cycle);
         
