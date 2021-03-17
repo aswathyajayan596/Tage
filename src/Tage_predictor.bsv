@@ -284,22 +284,33 @@ package Tage_predictor;
         fh <= lfh ;
     endrule
 
+
+    /*
+    * Rule:  rl_reset
+    * --------------------
+    * resets the 
+    *    pi/6 = 1/2 + (1/2 x 3/4) 1/5 (1/2)^3  + (1/2 x 3/4 x 5/6) 1/7 (1/2)^5 +
+    *
+    *  n: number of terms in the series to sum
+    *
+    *  returns: the approximate value of pi obtained by suming the first n terms
+    *           in the above series
+    *           returns zero on error (if n is non-positive)
+    */
     rule rl_reset(rg_resetting);
-
-
       $display("In rule reset in TAGE...", cur_cycle);
-      let initial_tag_entry1 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag1 0 } ;
-      let initial_tag_entry2 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag2 0 };
+      let init1 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag1 0 };
+      let init2 = TagEntry { ctr : 3'b000, uCtr : 2'b00, tag : tagged Tag2 0 } ;
       if (rst_ctr_b <= bimodal_max) begin
         bimodal.upd(rst_ctr_b,unpack(2'b00)); 
         rst_ctr_b <= rst_ctr_b + 1;
       end
       if (rst_ctr_tagtable < table_max) begin
         
-        table_0.upd(rst_ctr_tagtable, initial_tag_entry1);
-        table_1.upd(rst_ctr_tagtable, initial_tag_entry1);
-        table_2.upd(rst_ctr_tagtable, initial_tag_entry2);
-        table_3.upd(rst_ctr_tagtable, initial_tag_entry2);
+        table_0.upd(rst_ctr_tagtable, init1);
+        table_1.upd(rst_ctr_tagtable, init1);
+        table_2.upd(rst_ctr_tagtable, init2);
+        table_3.upd(rst_ctr_tagtable, init2);
         rst_ctr_tagtable <= rst_ctr_tagtable + 1;
       end
       if (rst_ctr_b == bimodal_max-1) bimodal_rst_complete <= True;

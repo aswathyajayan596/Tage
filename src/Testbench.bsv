@@ -69,7 +69,13 @@ package Testbench;
                     table_ctr[tno].mispredictionCtr <= table_ctr[tno].mispredictionCtr + 1;
             endaction
         endfunction
-              
+
+        rule rl_display(ctr == 0 && display_enabled);      //fdisplay fh, rule for displaying the current cycle
+            $display("In rule display...", cur_cycle);
+            predictor.displayInternal(True);
+            ctr <= ctr+1;
+            display_enabled <= False;
+        endrule    
 
         //execute this at the start as well as there is misprediction (inorder to start over)
         rule rl_initial( ctr == 1   || upd_pkt.mispred == 1'b1  && !display_enabled);
@@ -112,13 +118,7 @@ package Testbench;
             end
         endrule
 
-        rule rl_display(ctr == 0 && display_enabled);      //fdisplay fh, rule for displaying the current cycle
-
-            $display("In rule display...", cur_cycle);
-            predictor.displayInternal(True);
-            ctr <= ctr+1;
-            display_enabled <= False;
-        endrule
+        
     
         
 
