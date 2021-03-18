@@ -18,17 +18,18 @@ package Tage_predictor;
  
 
   function GlobalHistory update_GHR(GlobalHistory t_ghr, Bit#(1) pred_or_outcome);
-      t_ghr = (t_ghr << 1);
-      t_ghr[0] = pred_or_outcome;
-      return t_ghr;
+    t_ghr = (t_ghr << 1);
+    t_ghr[0] = pred_or_outcome;
+    return t_ghr;
   endfunction
 
   function PathHistory update_PHR(PathHistory t_phr, PC_bit t_pc);
-      t_phr = (t_phr << 1);   
-      t_phr[0] = t_pc;   
-      return t_phr;
+    t_phr = (t_phr << 1);   
+    t_phr[0] = t_pc;   
+    return t_phr;
   endfunction
-
+  
+  
   
   
   (*synthesize*)
@@ -85,6 +86,31 @@ package Tage_predictor;
 
     //display Register
     Reg#(Bool) display_en <- mkReg(False);
+    
+    function debug_display();
+      BimodalEntry b_entry = unpack(0);
+      TagEntry t_entry = unpack(0);
+      
+      for (Integer i = 0; i < 6; i=i+1) begin
+        let index1 = 10 + i;
+        let index2 = 1025 + i;
+        b_entry = bimodal.sub(index1);
+        $display("%b", b_entry);
+        $display("%b", bimodal.sub(index2));
+        $display("%b", table_0.sub(index1));
+        $display("%b", table_0.sub(index2));
+        $display("%b", table_1.sub(index1));
+        $display("%b", table_1.sub(index2));
+        $display("%b", table_2.sub(index1));
+        $display("%b", table_2.sub(index2));
+        $display("%b", table_3.sub(index1));
+        $display("%b", table_3.sub(index2));
+        $display("%b", table_4.sub(index1));
+        $display("%b\n", table_4.sub(index2));
+      end
+        $display("%b", table_0.sub(1023));
+  
+    endfunction
     
 
     function ActionValue#(Vector#(`NUMTAGTABLES, TagEntry)) allocate_entry(Vector#(`NUMTAGTABLES, TagEntry) entries, Integer tno, Vector#(`NUMTAGTABLES,Tag) tags, ActualOutcome outcome);
@@ -294,11 +320,10 @@ package Tage_predictor;
     *
     * b_indx, t_indx : index of bimodal and tag tables respectively.   
     * 
-    *  n: number of terms in the series to sum
-    *
-    *  returns: the approximate value of pi obtained by suming the first n terms
-    *           in the above series
-    *           returns zero on error (if n is non-positive)
+    * b_rst_cmplt, t_rst_cmplt : True, indicates reset of 
+    *                            respective tables are complete
+    * rf_resetting : when both tables resets are complete, regfiles resetting gets True.
+    * 
     */
     rule rl_reset(!rf_resetting);
     
@@ -321,8 +346,10 @@ package Tage_predictor;
         table_3.upd(t_indx, init2);
         t_indx <= t_indx + 1;
       end
-      if (b_indx == b_max-1) b_rst_cmplt <= True;
-      if (t_indx == t_max-1) t_rst_cmplt <= True;      
+      if (b_indx == b_max-1) // b_rst_cmplt get true in the last index. 
+        b_rst_cmplt <= True;
+      if (t_indx == t_max-1) // t_rst_cmplt get true in the last index. 
+        t_rst_cmplt <= True;      
       if (b_rst_cmplt && t_rst_cmplt) begin
         rf_resetting <= True;
 
