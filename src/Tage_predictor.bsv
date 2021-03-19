@@ -87,29 +87,14 @@ package Tage_predictor;
     //display Register
     Reg#(Bool) display_en <- mkReg(False);
     
-    function debug_display();
-      BimodalEntry b_entry = unpack(0);
-      TagEntry t_entry = unpack(0);
-      
-      for (Integer i = 0; i < 6; i=i+1) begin
-        let index1 = 10 + i;
-        let index2 = 1025 + i;
-        b_entry = bimodal.sub(index1);
-        $display("%b", b_entry);
-        $display("%b", bimodal.sub(index2));
-        $display("%b", table_0.sub(index1));
-        $display("%b", table_0.sub(index2));
-        $display("%b", table_1.sub(index1));
-        $display("%b", table_1.sub(index2));
-        $display("%b", table_2.sub(index1));
-        $display("%b", table_2.sub(index2));
-        $display("%b", table_3.sub(index1));
-        $display("%b", table_3.sub(index2));
-        $display("%b", table_4.sub(index1));
-        $display("%b\n", table_4.sub(index2));
-      end
-        $display("%b", table_0.sub(1023));
-  
+    function Action debug_display();
+      action
+        $display(fshow(table_0.sub(1023)));
+        $display(fshow(table_1.sub(10)));
+        $display(fshow(table_2.sub(11)));
+        $display(fshow(table_3.sub(104)));
+        $display(fshow(bimodal.sub(102)));
+      endaction
     endfunction
     
 
@@ -313,16 +298,16 @@ package Tage_predictor;
 
     /*
     * Rule:  rl_reset
+    * Fires: regfiles resetting is false. (resetting operation is not over)
     * --------------------
     * initialises the entries in all tables (bimodal and tagged tables) with zero. 
-    *
-    * RegFiles resetting.
+    * RegFiles get resetted.
     *
     * b_indx, t_indx : index of bimodal and tag tables respectively.   
-    * 
     * b_rst_cmplt, t_rst_cmplt : True, indicates reset of 
     *                            respective tables are complete
-    * rf_resetting : when both tables resets are complete, regfiles resetting gets True.
+    * rf_resetting             : when both tables resets are complete, 
+    *                            regfiles resetting gets True.
     * 
     */
     rule rl_reset(!rf_resetting);
@@ -346,11 +331,14 @@ package Tage_predictor;
         table_3.upd(t_indx, init2);
         t_indx <= t_indx + 1;
       end
-      if (b_indx == b_max-1) // b_rst_cmplt get true in the last index. 
+      if (b_indx == b_max-1) // b_rst_cmplt get true in the last index of 
+                             // bimodaltable. 
         b_rst_cmplt <= True;
-      if (t_indx == t_max-1) // t_rst_cmplt get true in the last index. 
+      if (t_indx == t_max-1) // t_rst_cmplt get true in the last index of 
+                             // tag table. 
         t_rst_cmplt <= True;      
-      if (b_rst_cmplt && t_rst_cmplt) begin
+      if (b_rst_cmplt && t_rst_cmplt) begin  
+      //extra cycle for checking individualreset is complete due to regdelay 
         rf_resetting <= True;
 
         `ifdef TAGE_DISPLAY
@@ -391,7 +379,10 @@ package Tage_predictor;
     
     method Action computePrediction(ProgramCounter pc) if (rf_resetting);
 
-      $display("In compute Prediction method...", cur_cycle);
+      // debug_display();
+
+      $display("In compute Prediction method... ", cur_cycle);
+      $display("PC = %h", pc, cur_cycle);
 
       `ifdef SCRIPT 
         if(display) begin

@@ -1,6 +1,6 @@
 //SIMULATIONS
 //change this when the trace file is changed 1792835 895842 4184792(present)
-`define traceSize 300
+`define traceSize 30
 
 //uncomment below line if you want to see simulation display
 // `define TAGE_DISPLAY 1
@@ -8,7 +8,7 @@
 // `define DEBUG_1 1
 // `define SCRIPT 1
 
-`define ORDER 1
+// `define ORDER 1
 
 
 //ANALYSIS
